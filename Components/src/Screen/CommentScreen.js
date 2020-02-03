@@ -1,91 +1,69 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
-import { Icon, Container, Content, Header, Left, Right, Body } from 'native-base';
-
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, AsyncStorage, Alert } from "react-native";
+import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'native-base';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 export default class CommentScreen extends Component {
-    state = {
-        id: "",
-        newTitle: "",
-        newAuthor: "",
-        newPost: ""
-    };
-
-    componentDidMount() {
-        let data = this.props.navigation.getParam("data", null);
-        let addData = this.props.navigation.getParam("addData", null);
-        this.setState({
-            id: data.id,
-            newTitle: data.title,
-            newAuthor: data.author,
-            newPost: data.post,
-        });
+    constructor(props) {
+        super(props);
+        // this._checkEdit = this._checkEdit.bind(this);
+        // this._Edit = this._Edit.bind(this);
+        // this._checkDelete = this._checkDelete.bind(this);
     }
+
+    // componentDidMount() {
+    //     let data = this.props.navigation.getParam("data", null);
+    //     this.setState({
+    //         id: data.id,
+    //         oriTitle: data.title,
+    //         oriAuthor: data.author,
+    //         oriPost: data.post,
+    //     });
+    // }
 
     render() {
-        let editData = this.props.navigation.getParam("editData", null);
-
+        let addData = this.props.navigation.getParam("addData", null);
         return (
-            <View style={styles.container}>
-                <Header>
-                    <Left>
-                        <TouchableOpacity 
-                            onPress={()=>this.props.navigation.goBack()}>
-                            <Icon name='ios-close' style={{ paddingLeft:10 }}/>
-                        </TouchableOpacity>
-                    </Left>
-                    <Body><Text>댓글</Text></Body>
-                    <Right>
-                        <TouchableOpacity
-                            onPress={() => {
-                                const newData = {
-                                    id: this.state.id,
-                                    title: this.state.newTitle,
-                                    author: this.state.newAuthor,
-                                    post: this.state.newPost
-                                };
-
-                                editData(newData);
-                                //this.props.navigation.navigate("NoticeScreen");
-                                this.props.navigation.goBack();
-                            }}
-                        >
-                        <Icon name='ios-checkmark-circle-outline' style={{ paddingRight:10 }}/>
-                        </TouchableOpacity>    
-                    </Right>
-                </Header>
-                <View style={styles.contain}>
-                <View style={styles.header}>
-                    <TextInput
-                        style={styles.titleBox}
-                        value={this.state.newTitle}
-                        placeholder="title"
-                        autoCorrect={false}
-                        onChangeText={title => this.setState({ newTitle: title })}
-                    />
-                    <TextInput
-                        style={styles.authorBox}
-                        value={this.state.newAuthor}
-                        placeholder="author"
-                        autoCorrect={false}
-                        onChangeText={author => this.setState({ newAuthor: author })}
-                    />
-                </View>
-                <View style={styles.body}>
-                    <View style={styles.postBox}>
-                        <TextInput
-                            value={this.state.newPost}
-                            placeholder="post"
-                            autoCorrect={false}
-                            multiline={true}
-                            onChangeText={post => this.setState({ newPost: post })}
-                        />
-                    </View>
-                </View>
-                </View>
+            <ScrollView>
+            <View style={styles.container}> 
+                {this.props.post.map(data => {
+                    return (
+                        <Card>
+                            <CardItem>
+                                <Left>
+                                    <Icon name='ios-person'/>
+                                    <Body>
+                                        <Text style={{ fontWeight:'800'}}>{data.author}</Text>
+                                        <Text note>Date</Text>
+                                    </Body>
+                                </Left>
+                                    
+                                    <Icon name='ios-create' style={{ color: "black" }}/>
+                                    <Icon name='ios-close-circle-outline' style={{ color: "black" }}/>
+                            </CardItem>
+                            <CardItem style={{ height:40 }}>
+                                <Text style={{ fontWeight:'800', fontSize:18}}>{data.title}</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text>{data.post}</Text>
+                            </CardItem>
+                            <CardItem style={{ height:50 }}>
+                            <Left>   
+                                <Button transparent>
+                                    <Icon name='ios-star-outline' style={{ color:"black"}}/>
+                                </Button>
+                                <Button transparent>
+                                        <Icon name='ios-chatbubbles' style={{ color:"black"}}/>
+                                </Button>
+                            </Left>
+                            </CardItem>
+                        </Card>                         
+                    );
+                })}
             </View>
-        );
-    }
+    </ScrollView>
+);
+}
 }
 
 const styles = StyleSheet.create({

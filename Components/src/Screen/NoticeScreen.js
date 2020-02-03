@@ -5,6 +5,7 @@ import { Icon, Container, Content, Header, Left, Right, Body } from 'native-base
 const {height,width}=Dimensions.get("window");
 
 import PostCardScreen from "./../PostCard/PostCardScreen";
+import CommentScreen from "./../Screen/CommentScreen";
 
 
 export default class NoticeScreen extends Component {
@@ -92,7 +93,8 @@ export default class NoticeScreen extends Component {
                     </Right>
                 </Header>
                 <Content>
-                    <PostCardScreen post={this.state.post} navigation={this.props.navigation} removeData={this.removeData} editData={this.editData}/>                    
+                    <PostCardScreen post={this.state.post} navigation={this.props.navigation} removeData={this.removeData} editData={this.editData}/> 
+                    <CommentScreen post={this.state.post} navigation={this.props.navigation} addData={this.addData}/>                    
                 </Content>
             </Container>
         );
