@@ -8,7 +8,6 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import LoginScreen from './src/Screen/LoginScreen';
 import SignupScreen from '././src/Screen/SignupScreen';
-import SearchScreen from '././src/Screen/SearchScreen';
 import CommentScreen from "./src/Screen/CommentScreen";
 import NoticeScreen from "./src/Screen/NoticeScreen";
 import FreeScreen from "./src/Screen/FreeScreen";
@@ -46,7 +45,6 @@ const NoticeStack = createStackNavigator(
       WriteScreen,
       PostCardScreen,
       UpdateScreen,
-      SearchScreen,
   },
   {
       defaultNavigationOptions: ({navigation}) => ({

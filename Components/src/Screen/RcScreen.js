@@ -33,11 +33,6 @@ export default class RcScreen extends Component {
     render() {
         return (
             <Container style={styles.container}>
-                <Header>
-                    <Left><Icon name='ios-add' style={{ paddingLeft:10 }}/></Left>
-                    <Body><Text>RC게시판</Text></Body>
-                    <Right><Icon name='ios-search' style={{ paddingRight:10 }}/></Right>
-                </Header>
                 <View style={styles.body}>
                     <View style={styles.left}>
                         <TouchableOpacity
@@ -87,7 +82,8 @@ export default class RcScreen extends Component {
   const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight,
     },
     body: {
       flex: 1,

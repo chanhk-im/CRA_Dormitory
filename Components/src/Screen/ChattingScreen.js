@@ -27,6 +27,7 @@ export default class ChattingScreen extends Component {
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight,
     }
 });

@@ -35,7 +35,7 @@ export default class SettingScreen extends Component {
 
     render() {
         return (
-            <Container style={{ flex:1, backgroundColor: 'white'}}>
+            <Container style={ style.container }>
                 <Header>
                     <Left><Icon name="md-person-add" style={{ paddingRight:10, fontSize: 32 }} /></Left>
                     <Body><Text>설정</Text></Body>
@@ -85,6 +85,7 @@ export default class SettingScreen extends Component {
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight,
     }
 });

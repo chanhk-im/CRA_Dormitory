@@ -83,7 +83,7 @@ export default class NoticeScreen extends Component {
                     <Left>
                         <TouchableOpacity
                             onPress={this._navigate1.bind(this)}>
-                             <Icon name='ios-add' style={{ paddingLeft:10 }}/>
+                            <Icon name='ios-add' style={{ paddingLeft:10 }}/>
                         </TouchableOpacity>
                         </Left>
                     <Body><Text>공지게시판</Text></Body>
@@ -103,7 +103,8 @@ export default class NoticeScreen extends Component {
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight,
     },
     Header:{
         backgroundColor: "#3ED0C8"
