@@ -47,6 +47,7 @@ const NoticeStack = createStackNavigator(
       PostCardScreen,
       UpdateScreen,
       SearchScreen,
+      CommentScreen,
   },
   {
       defaultNavigationOptions: ({navigation}) => ({
@@ -63,6 +64,8 @@ const FreeStack = createStackNavigator(
       WriteScreen,
       PostCardScreen,
       UpdateScreen,
+      SearchScreen,
+      CommentScreen,
   },
   {
       defaultNavigationOptions: ({navigation}) => ({
@@ -85,6 +88,8 @@ const RcStack = createStackNavigator(
       WriteScreen,
       PostCardScreen,
       UpdateScreen,
+      SearchScreen,
+      CommentScreen,
   },
   {
       defaultNavigationOptions: ({navigation}) => ({
