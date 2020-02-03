@@ -44,7 +44,13 @@ export default class PostCardScreen extends Component {
         )
     }
 
-    
+    _doComment(data){
+        this.props.navigation.navigate('CommentScreen', {
+            addData: this.addData,
+            data: data,
+        });
+    }
+
 
     render() { 
         return (

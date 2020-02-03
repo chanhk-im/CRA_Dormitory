@@ -4,12 +4,12 @@ import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'nati
 import { StackActions, NavigationActions } from 'react-navigation';
 
 export default class CommentScreen extends Component {
-    constructor(props) {
-        super(props);
-        // this._checkEdit = this._checkEdit.bind(this);
-        // this._Edit = this._Edit.bind(this);
-        // this._checkDelete = this._checkDelete.bind(this);
-    }
+    // constructor(props) {
+    //     super(props);
+    //     // this._checkEdit = this._checkEdit.bind(this);
+    //     // this._Edit = this._Edit.bind(this);
+    //     // this._checkDelete = this._checkDelete.bind(this);
+    // }
 
     // componentDidMount() {
     //     let data = this.props.navigation.getParam("data", null);
@@ -23,10 +23,11 @@ export default class CommentScreen extends Component {
 
     render() {
         let addData = this.props.navigation.getParam("addData", null);
+        let data = this.props.navigation.getParam("data", null);
         return (
             <ScrollView>
             <View style={styles.container}> 
-                {this.props.post.map(data => {
+                {this.props.data.map(data => {
                     return (
                         <Card>
                             <CardItem>
