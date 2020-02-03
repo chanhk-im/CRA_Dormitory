@@ -44,6 +44,13 @@ export default class PostCardScreen extends Component {
         )
     }
 
+    _doComment(data){
+        this.props.navigation.navigate('CommentScreen', {
+            addData: this.addData,
+            data: data,
+        });
+    }
+
 
     render() { 
         return (
@@ -82,7 +89,10 @@ export default class PostCardScreen extends Component {
                                             <Icon name='ios-star-outline' style={{ color:"black"}}/>
                                         </Button>
                                         <Button transparent>
-                                            <Icon name='ios-chatbubbles' style={{ color:"black"}}/>
+                                            <TouchableOpacity
+                                                onPress={() => this._doComment(data)}>
+                                                <Icon name='ios-chatbubbles' style={{ color:"black"}}/>
+                                            </TouchableOpacity>
                                         </Button>
                                     </Left>
                                     </CardItem>
