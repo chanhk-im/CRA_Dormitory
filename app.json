@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Dorm",
-    "slug": "CRA_Dormitory",
+    "name": "HguRcApp",
+    "slug": "HguRcApp",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [

@@ -1,0 +1,90 @@
+import React, { Component } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, Alert, Dimensions, Image } from "react-native";
+import { Card, CardItem,Icon, Container, Content, Header, Left, Right, Body, Button } from 'native-base';
+import { StackActions, NavigationActions } from 'react-navigation';
+const {height,width}=Dimensions.get("window");
+
+export default class SettingScreen extends Component {
+    static navigationOptions = {
+        title: '설정',
+        tabBarIcon: ({ tintColor }) => (
+            <Icon name='ios-settings' style={{ color: tintColor }} />
+        )
+    }
+
+    _checkLogout(){
+        Alert.alert(
+            "Logout",
+            "로그아웃 하시겠습니까?",
+            [
+                {text: 'cancel', onPress: () => null},
+                {text: 'ok', onPress: this._logout.bind(this)},
+            ],
+            //{ cancelable: true }
+        )
+    }
+
+    _logout(){
+        const resetAction = StackActions.reset({
+            index: 0,
+            key: undefined,
+            actions: [NavigationActions.navigate({ routeName: 'LoginScreen' })],
+        });
+        this.props.navigation.dispatch(resetAction);
+    }
+
+    render() {
+        return (
+            <Container style={{ flex:1, backgroundColor: 'white'}}>
+                <Header>
+                    <Left><Icon name="md-person-add" style={{ paddingRight:10, fontSize: 32 }} /></Left>
+                    <Body><Text>설정</Text></Body>
+                    <Right><Icon name="ios-menu" style={{ paddingRight:10, fontSize: 32 }} /></Right>
+                </Header>
+                <Content>
+                    <View style={{flexDirection:'row', paddingTop:10}}>
+                        <View style={{flex:1, alignItems:'center'}}>
+                        <Image source={require('./../../../img/cute.png')} style={{width:75, height:75, borderRadius:37.5}}/>            
+                        </View>
+                        <View style={{flex:3}}>
+                            <View style={{flexDirection:'row'}}>
+                                <View style={{paddingHorizontal:10, paddingVertical:15}}>
+                                    <Text style={{fontWeight:'bold'}}>Nickname</Text>
+                                    <Text>이름 | 아이디 </Text>
+                                    <Text>한동대학교 21800607 | 비전관 510호</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                    <Card>
+                    <CardItem style={{height:50 }}>
+                    <Text style={{ fontWeight:'800', fontSize:18}}></Text>
+                    </CardItem>
+                    <CardItem style={{height:50 }}>
+                        <TouchableOpacity
+                            onPress={this._checkLogout.bind(this)}>
+                            <Text style={{ fontWeight:'800', fontSize:18}}>📌     로그아웃</Text>
+                        </TouchableOpacity>
+                    </CardItem>
+                    <CardItem style={{height:50 }}>
+                    <Text style={{ fontWeight:'800', fontSize:18}}>📌     RC 변경</Text>
+                    </CardItem>
+                    <CardItem style={{height:50 }}>
+                    <Text style={{ fontWeight:'800', fontSize:18}}>📌     도움말</Text>
+                    </CardItem>
+                </Card>  
+                </Content>        
+            </Container>
+        );
+    }
+}
+
+
+                
+
+const style = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'white'
+    }
+});

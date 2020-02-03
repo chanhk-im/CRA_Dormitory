@@ -1,19 +1,33 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { AppRegistry, View, Text } from 'react-native';
+import MainScreen from './Components/MainScreen';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+
+// class RcScreen extends Component{
+//   render() {
+//     return (
+//       <View>
+//         <Text>HI</Text>
+//       </View>
+//     );
+//   }
+// }
+
+export default class App extends Component {
+  render() {
+    return <MainScreen/>;
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+// //Create a Component
+// const App = () => (
+//   <MainScreen />
+// );
+
+// //Export App - This line solved my issue
+// export default App;
+
+// //Render it to the device
+// //AppRegistry.registerComponent('HguRcApp_s+t', () => App);
+// //albums is project name that we use while creating RN App
