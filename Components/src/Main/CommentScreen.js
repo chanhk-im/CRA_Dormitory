@@ -1,72 +1,64 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, AsyncStorage, Alert } from "react-native";
-import { Card, CardItem, Body, Left, Button, Icon } from 'native-base';
+import { StyleSheet, Text, TouchableOpacity, AsyncStorage, Platform } from "react-native";
+import { Icon, Container, Content, Header, Left, Right, Body, Card, CardItem, Button  } from 'native-base';
 
 export default class CommentScreen extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     // this._checkEdit = this._checkEdit.bind(this);
-    //     // this._Edit = this._Edit.bind(this);
-    //     // this._checkDelete = this._checkDelete.bind(this);
-    // }
-
-    // componentDidMount() {
-    //     let data = this.props.navigation.getParam("data", null);
-    //     this.setState({
-    //         id: data.id,
-    //         oriTitle: data.title,
-    //         oriAuthor: data.author,
-    //         oriPost: data.post,
-    //     });
-    // }
 
     render() {
-        let addData = this.props.navigation.getParam("addData", null);
         let data = this.props.navigation.getParam("data", null);
+
         return (
-            <ScrollView>
-            <View style={styles.container}> 
-                {this.props.data.map(data => {
-                    return (
-                        <Card>
-                            <CardItem>
-                                <Left>
-                                    <Icon name='ios-person'/>
-                                    <Body>
-                                        <Text style={{ fontWeight:'800'}}>{data.author}</Text>
-                                        <Text note>Date</Text>
-                                    </Body>
-                                </Left>
-                                    
-                                    <Icon name='ios-create' style={{ color: "black" }}/>
-                                    <Icon name='ios-close-circle-outline' style={{ color: "black" }}/>
-                            </CardItem>
-                            <CardItem style={{ height:40 }}>
-                                <Text style={{ fontWeight:'800', fontSize:18}}>{data.title}</Text>
-                            </CardItem>
-                            <CardItem>
-                                <Text>{data.post}</Text>
-                            </CardItem>
-                            <CardItem style={{ height:50 }}>
-                            <Left>   
-                                <Button transparent>
-                                    <Icon name='ios-star-outline' style={{ color:"black"}}/>
-                                </Button>
-                                <Button transparent>
-                                        <Icon name='ios-chatbubbles' style={{ color:"black"}}/>
-                                </Button>
-                            </Left>
-                            </CardItem>
-                        </Card>                         
-                    );
-                })}
-            </View>
-    </ScrollView>
-);
+            <Container style={style.container}>
+            <Header>
+                <Left>
+                    <TouchableOpacity
+                        onPress={()=>this.props.navigation.goBack()}>
+                        <Icon name='ios-arrow-back' style={{ paddingLeft:10 }}/>
+                    </TouchableOpacity>
+                    </Left>
+                <Body><Text>댓글</Text></Body>
+                <Right>
+                    <Icon name='ios-add' style={{ paddingRight:10 }}/>
+                </Right>
+            </Header>
+            <Content>
+                <Card>
+                    <CardItem>
+                        <Left>
+                            <Icon name='ios-person'/>
+                            <Body>
+                                <Text style={{ fontWeight:'800'}}>{data.author}</Text>
+                                <Text note>Date</Text>
+                            </Body>
+                        </Left>
+                            <Icon name='ios-create' style={{ color: "black" }}/>
+                            <Icon name='ios-close-circle-outline' style={{ color: "black" }}/>
+                    </CardItem>
+                    <CardItem style={{ height:40 }}>
+                        <Text style={{ fontWeight:'800', fontSize:18}}>{data.title}</Text>
+                    </CardItem>
+                    <CardItem>
+                        <Text>{data.post}</Text>
+                    </CardItem>
+                    <CardItem style={{ height:50 }}>
+                    <Left>   
+                        <Button transparent>
+                            <Icon name='ios-star-outline' style={{ color:"black"}}/>
+                        </Button>
+                        <Button transparent>
+                                <Icon name='ios-chatbubbles' style={{ color:"black"}}/>
+                        </Button>
+                    </Left>
+                    </CardItem>
+                </Card>  
+            </Content>
+        </Container>
+    );
 }
 }
 
-const styles = StyleSheet.create({
+
+const style = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",

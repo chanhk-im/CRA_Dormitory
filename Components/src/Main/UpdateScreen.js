@@ -12,7 +12,6 @@ export default class UpdateScreen extends Component {
 
     componentDidMount() {
         let data = this.props.navigation.getParam("data", null);
-        console.log(data);
         this.setState({
             id: data.id,
             newTitle: data.title,
@@ -57,14 +56,14 @@ export default class UpdateScreen extends Component {
                     <TextInput
                         style={styles.titleBox}
                         value={this.state.newTitle}
-                        placeholder="title"
+                        placeholder="  title"
                         autoCorrect={false}
                         onChangeText={title => this.setState({ newTitle: title })}
                     />
                     <TextInput
                         style={styles.authorBox}
                         value={this.state.newAuthor}
-                        placeholder="author"
+                        placeholder="  author"
                         autoCorrect={false}
                         onChangeText={author => this.setState({ newAuthor: author })}
                     />
@@ -73,7 +72,7 @@ export default class UpdateScreen extends Component {
                     <View style={styles.postBox}>
                         <TextInput
                             value={this.state.newPost}
-                            placeholder="post"
+                            placeholder="  post"
                             autoCorrect={false}
                             multiline={true}
                             onChangeText={post => this.setState({ newPost: post })}
