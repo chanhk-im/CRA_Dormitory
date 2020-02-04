@@ -26,7 +26,7 @@ module.exports = function(app) {
 
     // Get post by post type
     app.get("/api/posts/type/:type", function (req, res) {
-        Post.findOne({ type: req.params.type })
+        Post.find({ type: req.params.type })
             .sort({ published_date: -1 })
             .exec(function (err, posts) {
                 if (err) return res.status(500).send({ error: "database failure" });
@@ -36,7 +36,7 @@ module.exports = function(app) {
 
     // Get post by author
     app.get("/api/posts/author/:author", function(req, res) {
-        Post.findOne({ author: req.params.author }, function(err, posts) {
+        Post.find({ author: req.params.author }, function(err, posts) {
             if (err) return res.status(500).send({ error: err });
             if (posts.length === 0) return res.status(404).send({ error: "post not found" });
 

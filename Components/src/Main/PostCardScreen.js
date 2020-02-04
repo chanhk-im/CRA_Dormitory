@@ -11,7 +11,7 @@ export default class PostCardScreen extends Component {
     }
 
 
-     _checkEdit(data){
+    _checkEdit(data){
         Alert.alert(
             "Edit",
             "수정하시겠습니까?",

@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // [Configure Server port]
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 51234;
 
 // [Configure Router]
 var router = require("./routes")(app);

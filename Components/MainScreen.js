@@ -109,7 +109,6 @@ const ChattingStack = createStackNavigator(
 const SettingStack = createStackNavigator(
     {
         SettingScreen,
-        LoginScreen
     },
     {
         headerMode: "none",

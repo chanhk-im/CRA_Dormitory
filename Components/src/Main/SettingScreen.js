@@ -23,12 +23,7 @@ export default class SettingScreen extends Component {
     }
 
     _logout(){
-        const resetAction = StackActions.reset({
-            index: 0,
-            key: undefined,
-            actions: [NavigationActions.navigate({ routeName: 'LoginScreen' })],
-        });
-        this.props.navigation.dispatch(resetAction);
+        this.props.navigation.navigate("Login")
     }
 
     render() {

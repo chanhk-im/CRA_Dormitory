@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity, Alert } from "react-native";
 import PickerBox from "react-native-picker-box";
 
+import { ip, port } from "../../../Secret";
+
 export default class SignupScreen extends Component {
     state = {
         data: [
