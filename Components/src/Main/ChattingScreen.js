@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, Platform, Dimensions } from "react-native";
 import { Icon, Container, Content, Header, Left, Right, Body } from 'native-base';
-const {height,width}=Dimensions.get("window");
-
 
 export default class ChattingScreen extends Component {
     static navigationOptions = {

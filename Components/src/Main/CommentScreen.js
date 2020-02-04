@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, AsyncStorage, Alert } from "react-native";
-import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'native-base';
-import { StackActions, NavigationActions } from 'react-navigation';
+import { Card, CardItem, Body, Left, Button, Icon } from 'native-base';
 
 export default class CommentScreen extends Component {
     // constructor(props) {
@@ -125,7 +124,6 @@ const styles = StyleSheet.create({
         
     },
     postBox: {
-        //flex: 1,
         marginTop: 60,
         width: 380,
         height:500,

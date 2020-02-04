@@ -1,29 +1,17 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
-import { Icon, Container, Content, Header, Left, Right, Body } from 'native-base';
+import { Icon, Header, Left, Right, Body } from 'native-base';
 
-
-export default class UpdateScreen extends Component {
+export default class WriteScreen extends Component {
     state = {
-        id: "",
         newTitle: "",
         newAuthor: "",
         newPost: ""
     };
 
-    componentDidMount() {
-        let data = this.props.navigation.getParam("data", null);
-        console.log(data);
-        this.setState({
-            id: data.id,
-            newTitle: data.title,
-            newAuthor: data.author,
-            newPost: data.post,
-        });
-    }
-
     render() {
-        let editData = this.props.navigation.getParam("editData", null);
+        let addData = this.props.navigation.getParam("addData", null);
+        let newType = this.props.navigation.getParam("type", null);
 
         return (
             <View style={styles.container}>
@@ -34,19 +22,18 @@ export default class UpdateScreen extends Component {
                             <Icon name='ios-close' style={{ paddingLeft:10 }}/>
                         </TouchableOpacity>
                     </Left>
-                    <Body><Text>수정</Text></Body>
+                    <Body><Text>글 쓰기</Text></Body>
                     <Right>
                         <TouchableOpacity
                             onPress={() => {
                                 const newData = {
-                                    id: this.state.id,
+                                    type: newType,
                                     title: this.state.newTitle,
                                     author: this.state.newAuthor,
-                                    post: this.state.newPost
+                                    post: this.state.newPost,
+                                    date: Date.now(),
                                 };
-
-                                editData(newData);
-                                //this.props.navigation.navigate("NoticeScreen");
+                                addData(newData);
                                 this.props.navigation.goBack();
                             }}
                         >
@@ -81,7 +68,7 @@ export default class UpdateScreen extends Component {
                             onChangeText={post => this.setState({ newPost: post })}
                         />
                     </View>
-                </View>
+                    </View>
                 </View>
             </View>
         );

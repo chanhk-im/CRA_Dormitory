@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, AsyncStorage, Alert } from "react-native";
-import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'native-base';
-import { StackActions, NavigationActions } from 'react-navigation';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert } from "react-native";
+import { Card, CardItem, Body, Left, Button, Icon } from 'native-base';
 
 export default class PostCardScreen extends Component {
     constructor(props) {
@@ -57,8 +56,9 @@ export default class PostCardScreen extends Component {
             <ScrollView>
                     <View style={styles.container}> 
                         {this.props.post.map(data => {
+                            console.log(data.id);
                             return (
-                                <Card>
+                                <Card key={data.id}>
                                     <CardItem>
                                         <Left>
                                             <Icon name='ios-person'/>
@@ -68,7 +68,6 @@ export default class PostCardScreen extends Component {
                                             </Body>
                                         </Left>
                                         <TouchableOpacity
-                                            key={data.id}
                                             onPress={() => this._checkEdit(data)}>
                                             <Icon name='ios-create' style={{ color: "black" }}/>
                                         </TouchableOpacity>

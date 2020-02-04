@@ -4,12 +4,11 @@ import { StackActions, NavigationActions } from 'react-navigation';
 import { Icon, Container, Content, Header, Left, Right, Body } from 'native-base';
 const {height,width}=Dimensions.get("window");
 
-import PostCardScreen from "./../PostCard/PostCardScreen";
+import PostCardScreen from "./PostCardScreen";
 
-
-export default class RcPhiScreen extends Component {
+export default class RcKuyScreen extends Component {
     _navigate(){
-        this.props.navigation.navigate('WriteScreen',  { addData: this.addData, type: "RcPhi"  });
+        this.props.navigation.navigate('WriteScreen',  { addData: this.addData, type: "RcKuy"  });
     }
 
     static navigationOptions = {
@@ -83,7 +82,7 @@ export default class RcPhiScreen extends Component {
                              <Icon name='ios-add' style={{ paddingLeft:10 }}/>
                         </TouchableOpacity>
                         </Left>
-                    <Body><Text>열송 RC게시판</Text></Body>
+                    <Body><Text>카이퍼 RC게시판</Text></Body>
                     <Right><Icon name='ios-search' style={{ paddingRight:10 }}/></Right>
                 </Header>
                 <Content>

@@ -18,7 +18,6 @@ export default class SignupScreen extends Component {
             "회원가입이 완료되었습니다",
             [
                 {text: 'ok', onPress: () => this.props.navigation.goBack()},
-                //{text: 'ok', onPress: () => this._Edit(data)},
             ],
         )
     }

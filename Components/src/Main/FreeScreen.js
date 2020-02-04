@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage, TextInput, StatusBar, Platform, Dimensions } from "react-native";
-import { StackActions, NavigationActions } from 'react-navigation';
+import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage, Platform } from "react-native";
 import { Icon, Container, Content, Header, Left, Right, Body } from 'native-base';
-const {height,width}=Dimensions.get("window");
 
-import PostCardScreen from "./../PostCard/PostCardScreen";
+import PostCardScreen from "./PostCardScreen";
 
-
-export default class RcKuyScreen extends Component {
+export default class FreeScreen extends Component {
     _navigate(){
-        this.props.navigation.navigate('WriteScreen',  { addData: this.addData, type: "RcKuy"  });
+        this.props.navigation.navigate('WriteScreen',  { addData: this.addData, type: "Free"  });
     }
 
     static navigationOptions = {
@@ -83,7 +80,7 @@ export default class RcKuyScreen extends Component {
                              <Icon name='ios-add' style={{ paddingLeft:10 }}/>
                         </TouchableOpacity>
                         </Left>
-                    <Body><Text>카이퍼 RC게시판</Text></Body>
+                    <Body><Text>자유게시판</Text></Body>
                     <Right><Icon name='ios-search' style={{ paddingRight:10 }}/></Right>
                 </Header>
                 <Content>

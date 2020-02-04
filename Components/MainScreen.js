@@ -4,31 +4,29 @@ import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
-import LoginScreen from "./src/Screen/LoginScreen";
-import SignupScreen from "././src/Screen/SignupScreen";
-//import SearchScreen from '././src/Screen/SearchScreen';
-import CommentScreen from "./src/Screen/CommentScreen";
-import NoticeScreen from "./src/Screen/NoticeScreen";
-import FreeScreen from "./src/Screen/FreeScreen";
-import RcScreen from "./src/Screen/RcScreen";
-import ChattingScreen from "./src/Screen/ChattingScreen";
-import SettingScreen from "./src/Screen/SettingScreen";
-import WriteScreen from "./src/Write/WriteScreen";
-import PostCardScreen from "./src/PostCard/PostCardScreen";
-import UpdateScreen from "./src/Update/UpdateScreen";
-import RcTorScreen from "./src/Screen/RcTorScreen";
-import RcKuyScreen from "./src/Screen/RcKuyScreen";
-import RcSonScreen from "./src/Screen/RcSonScreen";
-import RcPhiScreen from "./src/Screen/RcPhiScreen";
-import RcCarScreen from "./src/Screen/RcCarScreen";
-import RcJanScreen from "./src/Screen/RcJanScreen";
+import LoginScreen from "./src/Login/LoginScreen";
+import SignupScreen from "./src/Login/SignupScreen";
+import NoticeScreen from "./src/Main/NoticeScreen";
+import FreeScreen from "./src/Main/FreeScreen";
+import RcScreen from "./src/Main/RcScreen";
+import ChattingScreen from "./src/Main/ChattingScreen";
+import SettingScreen from "./src/Main/SettingScreen";
+import WriteScreen from "./src/Main/WriteScreen";
+import PostCardScreen from "./src/Main/PostCardScreen";
+import UpdateScreen from "./src/Main/UpdateScreen";
+import CommentScreen from "./src/Main/CommentScreen";
+import RcTorScreen from "./src/Main/RcTorScreen";
+import RcKuyScreen from "./src/Main/RcKuyScreen";
+import RcSonScreen from "./src/Main/RcSonScreen";
+import RcPhiScreen from "./src/Main/RcPhiScreen";
+import RcCarScreen from "./src/Main/RcCarScreen";
+import RcJanScreen from "./src/Main/RcJanScreen";
 
 const LoginStack = createStackNavigator(
     {
         LoginScreen,
         NoticeScreen,
         SignupScreen
-        //TabNavigator,
     },
     {
         defaultNavigationOptions: ({ navigation }) => ({
@@ -44,7 +42,6 @@ const NoticeStack = createStackNavigator(
         WriteScreen,
         PostCardScreen,
         UpdateScreen,
-        //SearchScreen,
         CommentScreen
     },
     {
@@ -62,7 +59,6 @@ const FreeStack = createStackNavigator(
         WriteScreen,
         PostCardScreen,
         UpdateScreen,
-        //SearchScreen,
         CommentScreen
     },
     {
@@ -86,7 +82,6 @@ const RcStack = createStackNavigator(
         WriteScreen,
         PostCardScreen,
         UpdateScreen,
-        //SearchScreen,
         CommentScreen
     },
     {

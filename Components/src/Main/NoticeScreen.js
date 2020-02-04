@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage, TextInput, StatusBar, Platform, Dimensions } from "react-native";
-import { StackActions, NavigationActions } from 'react-navigation';
+import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage, Platform, Dimensions } from "react-native";
 import { Icon, Container, Content, Header, Left, Right, Body } from 'native-base';
-const {height,width}=Dimensions.get("window");
 
-import PostCardScreen from "./../PostCard/PostCardScreen";
+import PostCardScreen from "./PostCardScreen";
 
-export default class FreeScreen extends Component {
-    _navigate(){
-        this.props.navigation.navigate('WriteScreen',  { addData: this.addData, type: "Free"  });
+export default class NoticeScreen extends Component {
+    _navigate1(){
+        this.props.navigation.navigate('WriteScreen',  { addData: this.addData, type: "Notice" });
     }
 
     static navigationOptions = {
@@ -78,15 +76,17 @@ export default class FreeScreen extends Component {
                 <Header>
                     <Left>
                         <TouchableOpacity
-                            onPress={this._navigate.bind(this)}>
-                             <Icon name='ios-add' style={{ paddingLeft:10 }}/>
+                            onPress={this._navigate1.bind(this)}>
+                            <Icon name='ios-add' style={{ paddingLeft:10 }}/>
                         </TouchableOpacity>
                         </Left>
-                    <Body><Text>자유게시판</Text></Body>
-                    <Right><Icon name='ios-search' style={{ paddingRight:10 }}/></Right>
+                    <Body><Text>공지게시판</Text></Body>
+                    <Right>
+                        <Icon name='ios-search' style={{ paddingRight:10 }}/>
+                    </Right>
                 </Header>
                 <Content>
-                <PostCardScreen post={this.state.post} navigation={this.props.navigation} removeData={this.removeData} editData={this.editData}/>                    
+                    <PostCardScreen post={this.state.post} navigation={this.props.navigation} removeData={this.removeData} editData={this.editData}/> 
                 </Content>
             </Container>
         );

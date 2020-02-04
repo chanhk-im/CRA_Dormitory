@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, Alert, Dimensions, Image } from "react-native";
-import { Card, CardItem,Icon, Container, Content, Header, Left, Right, Body, Button } from 'native-base';
+import { StyleSheet, Text, View, TouchableOpacity, Alert, Image } from "react-native";
+import { Card, CardItem,Icon, Container, Content, Header, Left, Right, Body } from 'native-base';
 import { StackActions, NavigationActions } from 'react-navigation';
-const {height,width}=Dimensions.get("window");
 
 export default class SettingScreen extends Component {
     static navigationOptions = {
@@ -20,7 +19,6 @@ export default class SettingScreen extends Component {
                 {text: 'cancel', onPress: () => null},
                 {text: 'ok', onPress: this._logout.bind(this)},
             ],
-            //{ cancelable: true }
         )
     }
 

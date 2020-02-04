@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, Platform, Dimensions, Image } from "react-native";
-import { Icon, Container, Content, Header, Left, Right, Body } from 'native-base';
-import { StackActions, NavigationActions } from 'react-navigation';
-const {height,width}=Dimensions.get("window");
+import { StyleSheet, View, TouchableOpacity, Platform, Image } from "react-native";
+import { Icon, Container } from 'native-base';
 
 export default class RcScreen extends Component {
     _navigate1(){

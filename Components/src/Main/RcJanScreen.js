@@ -4,8 +4,7 @@ import { StackActions, NavigationActions } from 'react-navigation';
 import { Icon, Container, Content, Header, Left, Right, Body } from 'native-base';
 const {height,width}=Dimensions.get("window");
 
-import PostCardScreen from "./../PostCard/PostCardScreen";
-
+import PostCardScreen from "./PostCardScreen";
 
 export default class RcJanScreen extends Component {
     _navigate(){

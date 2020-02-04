@@ -1,17 +1,28 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
-import { Icon, Container, Content, Header, Left, Right, Body } from 'native-base';
+import { Icon, Header, Left, Right, Body } from 'native-base';
 
-export default class WriteScreen extends Component {
+export default class UpdateScreen extends Component {
     state = {
+        id: "",
         newTitle: "",
         newAuthor: "",
         newPost: ""
     };
 
+    componentDidMount() {
+        let data = this.props.navigation.getParam("data", null);
+        console.log(data);
+        this.setState({
+            id: data.id,
+            newTitle: data.title,
+            newAuthor: data.author,
+            newPost: data.post,
+        });
+    }
+
     render() {
-        let addData = this.props.navigation.getParam("addData", null);
-        let newType = this.props.navigation.getParam("type", null);
+        let editData = this.props.navigation.getParam("editData", null);
 
         return (
             <View style={styles.container}>
@@ -22,18 +33,18 @@ export default class WriteScreen extends Component {
                             <Icon name='ios-close' style={{ paddingLeft:10 }}/>
                         </TouchableOpacity>
                     </Left>
-                    <Body><Text>글 쓰기</Text></Body>
+                    <Body><Text>수정</Text></Body>
                     <Right>
                         <TouchableOpacity
                             onPress={() => {
                                 const newData = {
-                                    type: newType,
+                                    id: this.state.id,
                                     title: this.state.newTitle,
                                     author: this.state.newAuthor,
-                                    post: this.state.newPost,
-                                    date: Date.now(),
+                                    post: this.state.newPost
                                 };
-                                addData(newData);
+
+                                editData(newData);
                                 this.props.navigation.goBack();
                             }}
                         >
@@ -68,7 +79,7 @@ export default class WriteScreen extends Component {
                             onChangeText={post => this.setState({ newPost: post })}
                         />
                     </View>
-                    </View>
+                </View>
                 </View>
             </View>
         );
@@ -133,7 +144,6 @@ const styles = StyleSheet.create({
         
     },
     postBox: {
-        //flex: 1,
         marginTop: 60,
         width: 380,
         height:500,
