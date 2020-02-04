@@ -29,9 +29,9 @@ const LoginStack = createStackNavigator(
         SignupScreen
     },
     {
+        headerMode: 'none',
         defaultNavigationOptions: ({ navigation }) => ({
             title: "Login",
-            header: null
         }),
         initialRouteName: "LoginScreen"
     }
@@ -45,9 +45,9 @@ const NoticeStack = createStackNavigator(
         CommentScreen
     },
     {
+        headerMode: "none",
         defaultNavigationOptions: ({ navigation }) => ({
-            title: "Notice",
-            header: null
+            title: "Notice"
         }),
         initialRouteName: "NoticeScreen"
     }
@@ -62,9 +62,9 @@ const FreeStack = createStackNavigator(
         CommentScreen
     },
     {
+        headerMode: 'none',
         defaultNavigationOptions: ({ navigation }) => ({
             title: "Free",
-            header: null
         }),
         initialRouteName: "FreeScreen"
     }
@@ -85,9 +85,9 @@ const RcStack = createStackNavigator(
         CommentScreen
     },
     {
+        headerMode: "none",
         defaultNavigationOptions: ({ navigation }) => ({
-            title: "Rc",
-            header: null
+            title: "Rc"
         }),
         initialRouteName: "RcScreen"
     }
@@ -98,9 +98,9 @@ const ChattingStack = createStackNavigator(
         ChattingScreen
     },
     {
+        headerMode: "none",
         defaultNavigationOptions: ({ navigation }) => ({
-            title: "Chatting",
-            header: null
+            title: "Chatting"
         }),
         initialRouteName: "ChattingScreen"
     }
@@ -112,9 +112,9 @@ const SettingStack = createStackNavigator(
         LoginScreen
     },
     {
+        headerMode: "none",
         defaultNavigationOptions: ({ navigation }) => ({
-            title: "Setting",
-            header: null
+            title: "Setting"
         }),
         initialRouteName: "SettingScreen"
     }
@@ -163,17 +163,11 @@ const AppStack = createSwitchNavigator({
     Login: {
         screen: LoginStack,
         //screen : LoginScreen,
-        navigationOptions: {
-            header: () => {
-                false;
-            }
-        }
+        headerMode: "none"
     },
     TabNavigator: {
         screen: TabNavigator,
-        navigationOptions: ({ navigation }) => ({
-            headerShown: false
-        })
+        headerMode: "none"
     }
 });
 
