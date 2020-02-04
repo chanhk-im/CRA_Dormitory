@@ -3,18 +3,6 @@ import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity, Alert } fro
 import PickerBox from "react-native-picker-box";
 
 export default class SignupScreen extends Component {
-    _doLogin() {
-        this.props.navigation.replace("LoginScreen");
-    }
-
-    _doSignup() {
-        this.props.navigation.navigate("SignupScreen");
-    }
-
-    _completeSignup() {
-        Alert.alert("완료", "회원가입이 완료되었습니다", [{ text: "ok", onPress: () => this.props.navigation.goBack() }]);
-    }
-
     state = {
         data: [
             { label: "토레이 RC", value: "RcTor" },
@@ -33,6 +21,52 @@ export default class SignupScreen extends Component {
         newRc: ""
     };
 
+    _doLogin() {
+        this.props.navigation.replace("LoginScreen");
+    }
+
+    _doSignup() {
+        this.props.navigation.navigate("SignupScreen");
+    }
+
+    _settingRc() {
+        const selected = this.state.selectedValue;
+        const rc = this.state.data.filter(function(l) {
+            return l.label === selected;
+        });
+        this.setState({
+            newRc: rc.value
+        });
+    }
+
+    _completeSignup() {
+        this._settingRc();
+        fetch(`http://${ip}:${port}/api/users/signup`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: this.state.newId,
+                password: this.state.newPassword,
+                email: this.state.newEmail,
+                name: this.state.newName,
+                rc: this.state.newRc,
+            })
+        })
+            .then(res => res.json())
+            .then(resJson => {
+                if (resJson.result === "id is exist") {
+                    console.log("id is exist");
+                    return;
+                }
+
+                console.log("success");
+                Alert.alert("완료", "회원가입이 완료되었습니다", [{ text: "ok", onPress: () => this.props.navigation.goBack() }]);
+            });
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -40,12 +74,38 @@ export default class SignupScreen extends Component {
                     <Image style={{ width: 150, height: 150 }} source={require("./../../../img/hguhouse.jpeg")} />
                 </View>
                 <View>
-                    <TextInput style={styles.textForm} placeholder={"이름"} />
-                    <TextInput style={styles.textForm} placeholder={"ID"} />
-                    <TextInput style={styles.textForm} placeholder={"Password"} secureTextEntry={true} />
-                    <TextInput style={styles.textForm} placeholder={"이메일 주소"} />
+                    <TextInput
+                        style={styles.textForm}
+                        placeholder={"이름"}
+                        value={this.state.newName}
+                        autoCorrect={false}
+                        onChangeText={t => this.setState({ newName: t })}
+                    />
+                    <TextInput
+                        style={styles.textForm}
+                        placeholder={"ID"}
+                        value={this.state.newId}
+                        autoCorrect={false}
+                        onChangeText={t => this.setState({ newId: t })}
+                    />
+                    <TextInput
+                        style={styles.textForm}
+                        placeholder={"Password"}
+                        secureTextEntry={true}
+                        value={this.state.newPassword}
+                        autoCorrect={false}
+                        secureTextEntry={true}
+                        onChangeText={t => this.setState({ newPassword: t })}
+                    />
+                    <TextInput
+                        style={styles.textForm}
+                        placeholder={"이메일 주소"}
+                        value={this.state.newEmail}
+                        autoCorrect={false}
+                        onChangeText={t => this.setState({ newEmail: t })}
+                    />
                     <View style={styles.pickBox}>
-                        <Text style={ styles.selectv } onPress={() => this.myref.openPicker()}>
+                        <Text style={styles.selectv} onPress={() => this.myref.openPicker()}>
                             {this.state.selectedValue}
                         </Text>
                     </View>
@@ -153,7 +213,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         margin: 10,
         borderRadius: 10,
-        fontSize: 16,
+        fontSize: 16
     },
     signupTextCont: {
         flexGrow: 1,
