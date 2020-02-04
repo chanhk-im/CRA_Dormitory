@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert, Image } from "react-native";
 import { Card, CardItem, Body, Left, Button, Icon } from 'native-base';
 
 export default class PostCardScreen extends Component {
@@ -8,6 +8,15 @@ export default class PostCardScreen extends Component {
         this._checkEdit = this._checkEdit.bind(this);
         this._Edit = this._Edit.bind(this);
         this._checkDelete = this._checkDelete.bind(this);
+        this.state = {
+            activeIndex: 0
+        };
+    }
+
+    segmentClicked=(index)=>{
+        this.setState({
+            activeIndex: index
+        })
     }
 
 
@@ -59,20 +68,24 @@ export default class PostCardScreen extends Component {
                                 <Card key={data.id}>
                                     <CardItem>
                                         <Left>
-                                            <Icon name='ios-person'/>
+                                            <Image source={require('./../../../img/cute.png')} style={{width:40, height:40, borderRadius:37.5}}/>
                                             <Body>
                                                 <Text style={{ fontWeight:'800'}}>{data.author}</Text>
                                                 <Text note>Date</Text>
                                             </Body>
                                         </Left>
+                                        <Button transparent>
                                         <TouchableOpacity
                                             onPress={() => this._checkEdit(data)}>
-                                            <Icon name='ios-create' style={{ color: "black" }}/>
+                                            <Icon name='ios-create' style={{ color: "grey" }}/>
                                         </TouchableOpacity>
+                                        </Button>
+                                        <Button transparent>
                                         <TouchableOpacity
                                             onPress={() => this._checkDelete(data)}>
-                                            <Icon name='ios-close-circle-outline' style={{ color: "black" }}/>
+                                            <Icon name='ios-close-circle-outline' style={{ color: "grey" }}/>
                                         </TouchableOpacity>
+                                        </Button>
                                     </CardItem>
                                     <CardItem style={{ height:40 }}>
                                         <Text style={{ fontWeight:'800', fontSize:18}}>{data.title}</Text>
@@ -81,16 +94,19 @@ export default class PostCardScreen extends Component {
                                         <Text>{data.post}</Text>
                                     </CardItem>
                                     <CardItem style={{ height:50 }}>
-                                    <Left>   
-                                        <Button transparent>
-                                            <Icon name='ios-star-outline' style={{ color:"black"}}/>
-                                        </Button>
-                                        <Button transparent>
+                                        <Left>
+                                    <Button transparent>
+                                            <TouchableOpacity
+                                                onPress={()=>this.segmentClicked(0)} active={this.state.activeIndex == 0}>
+                                                <Icon name='ios-star-outline' style={[this.state.activeIndex == 0 ? {color:'grey'} : {color:'black'}]}/>
+                                            </TouchableOpacity>
+                                    </Button>
+                                    <Button transparent>
                                             <TouchableOpacity
                                                 onPress={() => this._doComment(data)}>
-                                                <Icon name='ios-chatbubbles' style={{ color:"black"}}/>
+                                                <Icon name='ios-chatbubbles' style={{ color:"grey"}}/>
                                             </TouchableOpacity>
-                                        </Button>
+                                    </Button>
                                     </Left>
                                     </CardItem>
                                 </Card>                         
