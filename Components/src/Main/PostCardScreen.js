@@ -45,7 +45,6 @@ export default class PostCardScreen extends Component {
 
     _doComment(data){
         this.props.navigation.navigate('CommentScreen', {
-            addData: this.addData,
             data: data,
         });
     }
@@ -56,7 +55,6 @@ export default class PostCardScreen extends Component {
             <ScrollView>
                     <View style={styles.container}> 
                         {this.props.post.map(data => {
-                            console.log(data.id);
                             return (
                                 <Card key={data.id}>
                                     <CardItem>

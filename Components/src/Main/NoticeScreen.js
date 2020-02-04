@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage, Platform, Dimensions } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, AsyncStorage, Platform } from "react-native";
 import { Icon, Container, Content, Header, Left, Right, Body } from 'native-base';
 
 import PostCardScreen from "./PostCardScreen";
