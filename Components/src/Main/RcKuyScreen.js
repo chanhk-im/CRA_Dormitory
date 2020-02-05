@@ -119,7 +119,7 @@ export default class RcKuyScreen extends Component {
                             </TouchableOpacity>
                         </Left>
                         <Body>
-                            <Text>카이퍼 RC게시팑</Text>
+                            <Text>카이퍼 RC게시판</Text>
                         </Body>
                         <Right>
                             <Icon name="ios-search" style={{ paddingRight: 10 }} />

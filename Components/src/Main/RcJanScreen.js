@@ -9,7 +9,7 @@ import PostCardScreen from "./PostCardScreen";
 import { ip, port } from "../../../Secret";
 
 export default class RcJanScreen extends Component {
-    _navigate1() {
+    _navigate() {
         this.props.navigation.navigate("WriteScreen", { addData: this.addData, type: "RcJan", user: this.state.user });
     }
 
@@ -119,7 +119,7 @@ export default class RcJanScreen extends Component {
                             </TouchableOpacity>
                         </Left>
                         <Body>
-                            <Text>장기려 RC게시팑</Text>
+                            <Text>장기려 RC게시판</Text>
                         </Body>
                         <Right>
                             <Icon name="ios-search" style={{ paddingRight: 10 }} />

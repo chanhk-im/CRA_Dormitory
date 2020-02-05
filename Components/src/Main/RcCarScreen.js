@@ -9,7 +9,7 @@ import PostCardScreen from "./PostCardScreen";
 import { ip, port } from "../../../Secret";
 
 export default class RcCarScreen extends Component {
-    _navigate1() {
+    _navigate() {
         this.props.navigation.navigate("WriteScreen", { addData: this.addData, type: "RcCar", user: this.state.user });
     }
 

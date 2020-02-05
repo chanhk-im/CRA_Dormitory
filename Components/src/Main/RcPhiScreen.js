@@ -119,7 +119,7 @@ export default class RcPhiScreen extends Component {
                             </TouchableOpacity>
                         </Left>
                         <Body>
-                            <Text>열송 RC게시팑</Text>
+                            <Text>열송 RC게시판</Text>
                         </Body>
                         <Right>
                             <Icon name="ios-search" style={{ paddingRight: 10 }} />

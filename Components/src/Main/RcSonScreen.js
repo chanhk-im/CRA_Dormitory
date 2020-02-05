@@ -119,7 +119,7 @@ export default class RcSonScreen extends Component {
                             </TouchableOpacity>
                         </Left>
                         <Body>
-                            <Text>손양원 RC게시팑</Text>
+                            <Text>손양원 RC게시판</Text>
                         </Body>
                         <Right>
                             <Icon name="ios-search" style={{ paddingRight: 10 }} />

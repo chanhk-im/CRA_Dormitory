@@ -7,7 +7,7 @@ import PostCardScreen from "./PostCardScreen";
 import { ip, port } from "../../../Secret";
 
 export default class NoticeScreen extends Component {
-    _navigate1() {
+    _navigate() {
         this.props.navigation.navigate("WriteScreen", { addData: this.addData, type: "Notice", user: this.state.user });
     }
 
@@ -112,7 +112,7 @@ export default class NoticeScreen extends Component {
                 <Container style={styles.container}>
                     <Header>
                         <Left>
-                            <TouchableOpacity onPress={this._navigate1.bind(this)}>
+                            <TouchableOpacity onPress={this._navigate.bind(this)}>
                                 <Icon name="ios-add" style={{ paddingLeft: 10 }} />
                             </TouchableOpacity>
                         </Left>
