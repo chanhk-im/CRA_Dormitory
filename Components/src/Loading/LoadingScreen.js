@@ -15,15 +15,16 @@ export default class LoadingScreen extends Component {
   componentDidMount(){
     Animated.timing(this.state.loadingProgress, {
       toValue: 100,
-      duration: 3000,
+      duration: 1000,
       useNativeDriver: true,
       
     }).start(()=> {
       this. setState({animationDone : true})
     });
-    // setTimeout(()=>{
-    //   this.props.navigation.navigate('LoginScreen');
-    // },1000);
+
+    setTimeout(()=>{
+      this.props.navigation.navigate('LoginScreen');
+    },1000);
   }
 
   render() {

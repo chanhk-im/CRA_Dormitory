@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, TouchableOpacity, AsyncStorage, Platform, Image } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, AsyncStorage, Platform, Image, TextInput } from "react-native";
 import { Icon, Container, Content, Header, Left, Right, Body, Card, CardItem, Button  } from 'native-base';
 
 export default class CommentScreen extends Component {
@@ -63,6 +63,14 @@ export default class CommentScreen extends Component {
                     </CardItem>
                 </Card>  
             </Content>
+            {/* <View style={styles.header}> */}
+                    <TextInput
+                        style={style.titleBox}
+                        value={this.state.newTitle}
+                        placeholder="title"
+                        autoCorrect={false}
+                        onChangeText={title => this.setState({ newTitle: title })}
+                     />
         </Container>
     );
 }
@@ -99,7 +107,7 @@ const style = StyleSheet.create({
     },
     titleBox: {
         backgroundColor:"white",
-        marginTop:70,
+        marginBottom:30,
         height: 50,
         width: 250,
         alignItems: "center",
