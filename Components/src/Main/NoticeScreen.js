@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, TouchableOpacity, AsyncStorage, Platform } from "react-native";
-import { Icon, Container, Content, Header, Left, Right, Body } from "native-base";
+import { Icon, Container, Content, Header, Left, Right, Body, View } from "native-base";
 
 import PostCardScreen from "./PostCardScreen";
 
-import { ip, port } from "../../../Secret"
+import { ip, port } from "../../../Secret";
 
 export default class NoticeScreen extends Component {
     _navigate1() {
-        this.props.navigation.navigate("WriteScreen", { addData: this.addData, type: "Notice" });
+        this.props.navigation.navigate("WriteScreen", { addData: this.addData, type: "Notice", user: this.state.user });
     }
 
     static navigationOptions = {
@@ -37,7 +37,6 @@ export default class NoticeScreen extends Component {
         await fetch(`http://${ip}:${port}/api/posts/type/Notice`)
             .then(res => res.json())
             .then(resJson => {
-                console.log(resJson);
                 if (resJson !== null) {
                     this.setState({
                         post: resJson
@@ -69,6 +68,7 @@ export default class NoticeScreen extends Component {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
+                    type: data.type,
                     title: data.title,
                     author: data.author,
                     post: data.post,
@@ -107,32 +107,40 @@ export default class NoticeScreen extends Component {
     }
 
     render() {
-        return (
-            <Container style={styles.container}>
-                <Header>
-                    <Left>
-                        <TouchableOpacity onPress={this._navigate1.bind(this)}>
-                            <Icon name="ios-add" style={{ paddingLeft: 10 }} />
-                        </TouchableOpacity>
-                    </Left>
-                    <Body>
-                        <Text>공지게시판</Text>
-                    </Body>
-                    <Right>
-                        <Icon name="ios-search" style={{ paddingRight: 10 }} />
-                    </Right>
-                </Header>
-                <Content>
-                    <PostCardScreen
-                        post={this.state.post}
-                        navigation={this.props.navigation}
-                        removeData={this.removeData}
-                        editData={this.editData}
-                        user={this.state.user}
-                    />
-                </Content>
-            </Container>
-        );
+        if (this.state.isLoaded) {
+            return (
+                <Container style={styles.container}>
+                    <Header>
+                        <Left>
+                            <TouchableOpacity onPress={this._navigate1.bind(this)}>
+                                <Icon name="ios-add" style={{ paddingLeft: 10 }} />
+                            </TouchableOpacity>
+                        </Left>
+                        <Body>
+                            <Text>공지게시판</Text>
+                        </Body>
+                        <Right>
+                            <Icon name="ios-search" style={{ paddingRight: 10 }} />
+                        </Right>
+                    </Header>
+                    <Content>
+                        <PostCardScreen
+                            post={this.state.post}
+                            navigation={this.props.navigation}
+                            removeData={this.removeData}
+                            editData={this.editData}
+                            user={this.state.user}
+                        />
+                    </Content>
+                </Container>
+            );
+        } else {
+            return (
+                <View style={styles.container}>
+                    <Text>Loading...</Text>
+                </View>
+            );
+        }
     }
 }
 

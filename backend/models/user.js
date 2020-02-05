@@ -7,8 +7,8 @@ var userSchema = new Schema({
     password: { type: String, required: true },
     email: { type: String, required: true },
     name: { type: String, required: true },
-    rc: { type: String, default: "n/a" },
-    isAdmin: { type: Boolean, default: false },
+    rc: { type: Object, required: true },
+    isAdmin: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model("user", userSchema);

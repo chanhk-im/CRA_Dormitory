@@ -39,7 +39,7 @@ export default class LoginScreen extends Component {
     async _signinAsync(data) {
         const saveData = JSON.stringify(data);
         await AsyncStorage.setItem("userData", saveData);
-        this.props.navigation.navigate("TabNavigator");
+        this.props.navigation.navigate("Main");
     }
 
     render() {

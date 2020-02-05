@@ -21,6 +21,16 @@ import RcSonScreen from "./src/Main/RcSonScreen";
 import RcPhiScreen from "./src/Main/RcPhiScreen";
 import RcCarScreen from "./src/Main/RcCarScreen";
 import RcJanScreen from "./src/Main/RcJanScreen";
+import LoadingScreen from "./src/Loading/LoadingScreen";
+
+const LoadingStack = createStackNavigator (
+    {
+        LoadingScreen,
+    },
+    {
+        headerMode: "none"
+    }
+)
 
 const LoginStack = createStackNavigator(
     {
@@ -158,16 +168,25 @@ const TabNavigator = createBottomTabNavigator(
     }
 );
 
-const AppStack = createSwitchNavigator({
-    Login: {
-        screen: LoginStack,
-        //screen : LoginScreen,
-        headerMode: "none"
+const AppStack = createSwitchNavigator(
+    {
+        Login: {
+            screen: LoginStack,
+            //screen : LoginScreen,
+            headerMode: "none"
+        },
+        Main: {
+            screen: TabNavigator,
+            headerMode: "none"
+        },
+        Loading: {
+            screen: LoadingStack,
+            headerMode: "none"
+        }
     },
-    TabNavigator: {
-        screen: TabNavigator,
-        headerMode: "none"
-    }
-});
+    {
+        initialRouteName: "Loading",
+    },
+);
 
 export default createAppContainer(AppStack);

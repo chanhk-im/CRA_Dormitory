@@ -8,7 +8,7 @@ import PostCardScreen from "./PostCardScreen";
 
 export default class RcCarScreen extends Component {
     _navigate1() {
-        this.props.navigation.navigate("WriteScreen", { addData: this.addData, type: "RcCar" });
+        this.props.navigation.navigate("WriteScreen", { addData: this.addData, type: "RcCar", user: this.state.user });
     }
 
     static navigationOptions = {
@@ -37,9 +37,11 @@ export default class RcCarScreen extends Component {
         await fetch(`http://${ip}:${port}/api/posts/type/RcCar`)
             .then(res => res.json())
             .then(resJson => {
-                this.setState({
-                    post: resJson
-                });
+                if (resJson !== null) {
+                    this.setState({
+                        post: resJson
+                    });
+                }
             });
 
         AsyncStorage.getItem("userData").then(data => {
@@ -66,12 +68,15 @@ export default class RcCarScreen extends Component {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
+                    type: data.type,
                     title: data.title,
                     author: data.author,
                     post: data.post,
                     published_date: Date.now()
                 })
-            }).then(() => this.loadDataFromDB());
+            }).then(() => {
+                this.loadDataFromDB();
+            });
         }
     }
 
@@ -102,36 +107,44 @@ export default class RcCarScreen extends Component {
     }
 
     render() {
-        return (
-            <Container style={style.container}>
-                <Header>
-                    <Left>
-                        <TouchableOpacity onPress={this._navigate.bind(this)}>
-                            <Icon name="ios-add" style={{ paddingLeft: 10 }} />
-                        </TouchableOpacity>
-                    </Left>
-                    <Body>
-                        <Text>카마이클 RC게시판</Text>
-                    </Body>
-                    <Right>
-                        <Icon name="ios-search" style={{ paddingRight: 10 }} />
-                    </Right>
-                </Header>
-                <Content>
-                    <PostCardScreen
-                        post={this.state.post}
-                        navigation={this.props.navigation}
-                        removeData={this.removeData}
-                        editData={this.editData}
-                        user={this.state.user}
-                    />
-                </Content>
-            </Container>
-        );
+        if (this.state.isLoaded) {
+            return (
+                <Container style={styles.container}>
+                    <Header>
+                        <Left>
+                            <TouchableOpacity onPress={this._navigate1.bind(this)}>
+                                <Icon name="ios-add" style={{ paddingLeft: 10 }} />
+                            </TouchableOpacity>
+                        </Left>
+                        <Body>
+                            <Text>카마이클 RC게시판</Text>
+                        </Body>
+                        <Right>
+                            <Icon name="ios-search" style={{ paddingRight: 10 }} />
+                        </Right>
+                    </Header>
+                    <Content>
+                        <PostCardScreen
+                            post={this.state.post}
+                            navigation={this.props.navigation}
+                            removeData={this.removeData}
+                            editData={this.editData}
+                            user={this.state.user}
+                        />
+                    </Content>
+                </Container>
+            );
+        } else {
+            return (
+                <View style={styles.container}>
+                    <Text>Loading...</Text>
+                </View>
+            );
+        }
     }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",

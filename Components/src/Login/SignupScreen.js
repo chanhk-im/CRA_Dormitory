@@ -37,13 +37,19 @@ export default class SignupScreen extends Component {
             return l.label === selected;
         });
         this.setState({
-            newRc: rc.value
+            newRc: rc[0]
         });
+        
+        console.log(this.state.newRc);
     }
 
-    _completeSignup() {
-        this._settingRc();
-        fetch(`http://${ip}:${port}/api/users/signup`, {
+    async _completeSignup() {
+        const selected = this.state.selectedValue;
+        const rc = this.state.data.filter(function(l) {
+            return l.label === selected;
+        });
+        
+        await fetch(`http://${ip}:${port}/api/users/signup`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -54,7 +60,7 @@ export default class SignupScreen extends Component {
                 password: this.state.newPassword,
                 email: this.state.newEmail,
                 name: this.state.newName,
-                rc: this.state.newRc,
+                rc: rc[0],
             })
         })
             .then(res => res.json())
@@ -65,8 +71,11 @@ export default class SignupScreen extends Component {
                 }
 
                 console.log("success");
-                Alert.alert("완료", "회원가입이 완료되었습니다", [{ text: "ok", onPress: () => this.props.navigation.goBack() }]);
-            });
+
+            })
+            .then(
+                Alert.alert("완료", "회원가입이 완료되었습니다", [{ text: "ok", onPress: () => this.props.navigation.goBack() }])
+            );
     }
 
     render() {
@@ -116,7 +125,7 @@ export default class SignupScreen extends Component {
                         ref={ref => (this.myref = ref)}
                         data={this.state.data}
                         onValueChange={value => {
-                            this.setState({ selectedValue: value });
+                            this.setState({ selectedValue: value })
                         }}
                         selectedValue={this.state.selectedValue}
                     />

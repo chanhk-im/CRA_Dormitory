@@ -56,7 +56,7 @@ export default class PostCardScreen extends Component {
                     <View style={styles.container}> 
                         {this.props.post.map(data => {
                             return (
-                                <Card key={data.id}>
+                                <Card key={data._id}>
                                     <CardItem>
                                         <Left>
                                             <Icon name='ios-person'/>
