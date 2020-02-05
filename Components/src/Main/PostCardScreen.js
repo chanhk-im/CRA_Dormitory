@@ -20,7 +20,7 @@ export default class PostCardScreen extends Component {
     }
 
 
-     _checkEdit(data){
+    _checkEdit(data){
         Alert.alert(
             "Edit",
             "수정하시겠습니까?",
@@ -65,7 +65,7 @@ export default class PostCardScreen extends Component {
                     <View style={styles.container}> 
                         {this.props.post.map(data => {
                             return (
-                                <Card key={data.id}>
+                                <Card key={data._id}>
                                     <CardItem>
                                         <Left>
                                             <Image source={require('./../../../img/cute.png')} style={{width:40, height:40, borderRadius:37.5}}/>

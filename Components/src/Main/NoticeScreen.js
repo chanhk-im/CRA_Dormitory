@@ -1,106 +1,156 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, TouchableOpacity, AsyncStorage, Platform } from "react-native";
-import { Icon, Container, Content, Header, Left, Right, Body } from 'native-base';
+import { Icon, Container, Content, Header, Left, Right, Body, View } from "native-base";
 
 import PostCardScreen from "./PostCardScreen";
 
+import { ip, port } from "../../../Secret";
+
 export default class NoticeScreen extends Component {
-    _navigate1(){
-        this.props.navigation.navigate('WriteScreen',  { addData: this.addData, type: "Notice" });
+    _navigate1() {
+        this.props.navigation.navigate("WriteScreen", { addData: this.addData, type: "Notice", user: this.state.user });
     }
 
     static navigationOptions = {
-        tabBarIcon: ({ tintColor }) => (
-            <Icon name='ios-paper' style={{ color: tintColor }} />
-        ),
-    }
-
-    state={
-        post:[]
+        tabBarIcon: ({ tintColor }) => <Icon name="ios-paper" style={{ color: tintColor }} />
     };
 
-    constructor(props){
+    state = {
+        post: [],
+        isLoaded: false,
+        user: {}
+    };
+
+    constructor(props) {
         super(props);
         this.addData = this.addData.bind(this);
         this.removeData = this.removeData.bind(this);
         this.editData = this.editData.bind(this);
+        this.loadDataFromDB = this.loadDataFromDB.bind(this);
+    }
+
+    async loadDataFromDB() {
+        this.setState({
+            isLoaded: false
+        });
+
+        await fetch(`http://${ip}:${port}/api/posts/type/Notice`)
+            .then(res => res.json())
+            .then(resJson => {
+                if (resJson !== null) {
+                    this.setState({
+                        post: resJson
+                    });
+                }
+            });
+
+        AsyncStorage.getItem("userData").then(data => {
+            const user = JSON.parse(data || "[]");
+            this.setState({ user });
+        });
+
+        this.setState({
+            isLoaded: true
+        });
     }
 
     componentDidMount() {
-        AsyncStorage.getItem("Posts").then(data => {
-            const post = JSON.parse(data || '[]');
-            this.setState({ post });
-        })
+        this.loadDataFromDB();
     }
 
+    // [Add a Data]
     addData(data) {
-        this.setState(prevState => {
-            const post = [
-                data,
-                ...prevState.post
-            ]
-            AsyncStorage.setItem("Posts", JSON.stringify(post));
-            return ({ post })
+        if (data.title && data.author && data.post) {
+            fetch(`http://${ip}:${port}/api/posts`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    type: data.type,
+                    title: data.title,
+                    author: data.author,
+                    post: data.post,
+                    published_date: Date.now()
+                })
+            }).then(() => {
+                this.loadDataFromDB();
+            });
+        }
+    }
+
+    // [Remove a Data]
+    removeData(id) {
+        fetch(`http://${ip}:${port}/api/posts/${id}`, {
+            method: "DELETE"
         });
 
+        this.loadDataFromDB();
     }
 
-    removeData(id) {
-        let post = this.state.post;
-        const index = post.findIndex(e => e.id === id);
-
-        post.splice(index, 1);
-
-        this.setState({
-            post: post
-        })
-        AsyncStorage.setItem("Posts", JSON.stringify(post));
-    }
-
+    // [Update a Data]
     editData(data) {
-        let post = this.state.post;
-        const index = post.findIndex(e => e.id === data.id);
-
-        this.state.post[index] = data;
-
-        this.setState({
-            post: post
-        })
-        AsyncStorage.setItem("Posts", JSON.stringify(post));
+        fetch(`http://${ip}:${port}/api/posts/${data._id}`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title: data.title,
+                author: data.author,
+                post: data.post,
+                published_date: data.published_date
+            })
+        }).then(() => this.loadDataFromDB());
     }
-
 
     render() {
-        return (
-            <Container style={style.container}>
-                <Header>
-                    <Left>
-                        <TouchableOpacity
-                            onPress={this._navigate1.bind(this)}>
-                            <Icon name='ios-add' style={{ paddingLeft:10 }}/>
-                        </TouchableOpacity>
+        if (this.state.isLoaded) {
+            return (
+                <Container style={styles.container}>
+                    <Header>
+                        <Left>
+                            <TouchableOpacity onPress={this._navigate1.bind(this)}>
+                                <Icon name="ios-add" style={{ paddingLeft: 10 }} />
+                            </TouchableOpacity>
                         </Left>
-                    <Body><Text>공지게시판</Text></Body>
-                    <Right>
-                        <Icon name='ios-search' style={{ paddingRight:10 }}/>
-                    </Right>
-                </Header>
-                <Content>
-                    <PostCardScreen post={this.state.post} navigation={this.props.navigation} removeData={this.removeData} editData={this.editData}/> 
-                </Content>
-            </Container>
-        );
+                        <Body>
+                            <Text>공지게시판</Text>
+                        </Body>
+                        <Right>
+                            <Icon name="ios-search" style={{ paddingRight: 10 }} />
+                        </Right>
+                    </Header>
+                    <Content>
+                        <PostCardScreen
+                            post={this.state.post}
+                            navigation={this.props.navigation}
+                            removeData={this.removeData}
+                            editData={this.editData}
+                            user={this.state.user}
+                        />
+                    </Content>
+                </Container>
+            );
+        } else {
+            return (
+                <View style={styles.container}>
+                    <Text>Loading...</Text>
+                </View>
+            );
+        }
     }
 }
 
-
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
-        paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight,
+        backgroundColor: "white",
+        paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight
     },
-    Header:{
+    Header: {
         backgroundColor: "#3ED0C8"
     }
 });

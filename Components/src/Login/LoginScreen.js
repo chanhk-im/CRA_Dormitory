@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, AsyncStorage } from "react-native";
 
 import { ip, port } from "../../../Secret";
 
@@ -26,7 +26,7 @@ export default class LoginScreen extends Component {
                 if (resJson.error) {
                     console.log(resJson.error);
                 } else {
-                    console.log("success");
+                    console.log(resJson);
                     this._signinAsync(resJson);
                 }
             });
@@ -39,7 +39,7 @@ export default class LoginScreen extends Component {
     async _signinAsync(data) {
         const saveData = JSON.stringify(data);
         await AsyncStorage.setItem("userData", saveData);
-        this.props.navigation.navigate("TabNavigator");
+        this.props.navigation.navigate("Main");
     }
 
     render() {

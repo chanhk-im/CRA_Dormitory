@@ -81,8 +81,7 @@ export default class RcScreen extends Component {
     container: {
         flex: 1,
         backgroundColor: 'white',
-        paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight,
-        marginTop : 90
+        paddingTop: 50
     },
     body: {
       flex: 1,

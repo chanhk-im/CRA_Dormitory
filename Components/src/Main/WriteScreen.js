@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
 import { Icon, Header, Left, Right, Body } from 'native-base';
 
 export default class WriteScreen extends Component {
@@ -11,7 +11,8 @@ export default class WriteScreen extends Component {
 
     render() {
         let addData = this.props.navigation.getParam("addData", null);
-        let newType = this.props.navigation.getParam("type", null);
+        let type = this.props.navigation.getParam("type", null);
+        let user = this.props.navigation.getParam("user", null);
 
         return (
             <View style={styles.container}>
@@ -27,11 +28,10 @@ export default class WriteScreen extends Component {
                         <TouchableOpacity
                             onPress={() => {
                                 const newData = {
-                                    type: newType,
+                                    type: type,
                                     title: this.state.newTitle,
-                                    author: this.state.newAuthor,
+                                    author: user.id,
                                     post: this.state.newPost,
-                                    date: Date.now(),
                                 };
                                 addData(newData);
                                 this.props.navigation.goBack();
@@ -50,13 +50,9 @@ export default class WriteScreen extends Component {
                         autoCorrect={false}
                         onChangeText={title => this.setState({ newTitle: title })}
                     />
-                    <TextInput
-                        style={styles.authorBox}
-                        value={this.state.newAuthor}
-                        placeholder="author"
-                        autoCorrect={false}
-                        onChangeText={author => this.setState({ newAuthor: author })}
-                    />
+                    <View style={ styles.authorBox }>
+                        <Text>{user.id}</Text>
+                    </View>
                 </View>
                 <View style={styles.body}>
                     <View style={styles.postBox}>
@@ -79,6 +75,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
+        paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight
     },
     contain: {
         flex: 1,
@@ -104,43 +101,42 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     titleBox: {
-        backgroundColor:"white",
-        marginTop:70,
+        backgroundColor: "white",
+        marginTop: 70,
         height: 50,
         width: 250,
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 0.5,
-        borderTopLeftRadius:10,
-        borderBottomLeftRadius:10,
-        borderBottomRightRadius:10,
-        borderTopRightRadius:10,
-        marginHorizontal: 5,
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        borderTopRightRadius: 10,
+        marginHorizontal: 5
     },
     authorBox: {
-        backgroundColor:"white",
-        marginTop:70,
+        backgroundColor: "white",
+        marginTop: 70,
         height: 50,
         width: 120,
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 0.5,
         marginHorizontal: 5,
-        borderTopLeftRadius:10,
-        borderBottomLeftRadius:10,
-        borderBottomRightRadius:10,
-        borderTopRightRadius:10,
-        
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        borderTopRightRadius: 10
     },
     postBox: {
         //flex: 1,
         marginTop: 60,
         width: 380,
-        height:500,
+        height: 500,
         borderWidth: 0.5,
-        borderTopLeftRadius:10,
-        borderBottomLeftRadius:10,
-        borderBottomRightRadius:10,
-        borderTopRightRadius:10,
-    },
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        borderTopRightRadius: 10
+    }
 });
