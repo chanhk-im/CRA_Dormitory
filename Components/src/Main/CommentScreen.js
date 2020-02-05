@@ -1,9 +1,19 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, TouchableOpacity, AsyncStorage, Platform } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, AsyncStorage, Platform, Image, TextInput } from "react-native";
 import { Icon, Container, Content, Header, Left, Right, Body, Card, CardItem, Button  } from 'native-base';
 
 export default class CommentScreen extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeIndex: 0
+        };
+    }
+    segmentClicked=(index)=>{
+        this.setState({
+            activeIndex: index
+        })
+    }
     render() {
         let data = this.props.navigation.getParam("data", null);
 
@@ -25,14 +35,12 @@ export default class CommentScreen extends Component {
                 <Card>
                     <CardItem>
                         <Left>
-                            <Icon name='ios-person'/>
+                            <Image source={require('./../../../img/cute.png')} style={{width:40, height:40, borderRadius:37.5}}/>
                             <Body>
                                 <Text style={{ fontWeight:'800'}}>{data.author}</Text>
                                 <Text note>Date</Text>
                             </Body>
                         </Left>
-                            <Icon name='ios-create' style={{ color: "black" }}/>
-                            <Icon name='ios-close-circle-outline' style={{ color: "black" }}/>
                     </CardItem>
                     <CardItem style={{ height:40 }}>
                         <Text style={{ fontWeight:'800', fontSize:18}}>{data.title}</Text>
@@ -41,17 +49,28 @@ export default class CommentScreen extends Component {
                         <Text>{data.post}</Text>
                     </CardItem>
                     <CardItem style={{ height:50 }}>
-                    <Left>   
-                        <Button transparent>
-                            <Icon name='ios-star-outline' style={{ color:"black"}}/>
-                        </Button>
-                        <Button transparent>
-                                <Icon name='ios-chatbubbles' style={{ color:"black"}}/>
-                        </Button>
-                    </Left>
+                    <Left>
+                    <Button transparent>
+                    <TouchableOpacity
+                        onPress={()=>this.segmentClicked(0)} active={this.state.activeIndex == 0}>
+                        <Icon name='ios-star-outline' style={[this.state.activeIndex == 0 ? {color:'grey'} : {color:'black'}]}/>
+                    </TouchableOpacity>
+                    </Button>
+                    <Button transparent>
+                    <Icon name='ios-chatbubbles' style={{ color:"grey"}}/>
+                    </Button>  
+                    </Left> 
                     </CardItem>
                 </Card>  
             </Content>
+            {/* <View style={styles.header}> */}
+                    <TextInput
+                        style={style.titleBox}
+                        value={this.state.newTitle}
+                        placeholder="title"
+                        autoCorrect={false}
+                        onChangeText={title => this.setState({ newTitle: title })}
+                     />
         </Container>
     );
 }
@@ -88,7 +107,7 @@ const style = StyleSheet.create({
     },
     titleBox: {
         backgroundColor:"white",
-        marginTop:70,
+        marginBottom:30,
         height: 50,
         width: 250,
         alignItems: "center",
