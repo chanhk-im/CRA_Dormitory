@@ -6,6 +6,8 @@ const { height, width } = Dimensions.get("window");
 
 import PostCardScreen from "./PostCardScreen";
 
+import { ip, port } from "../../../Secret";
+
 export default class RcKuyScreen extends Component {
     _navigate() {
         this.props.navigation.navigate("WriteScreen", { addData: this.addData, type: "RcKuy", user: this.state.user });
@@ -112,7 +114,7 @@ export default class RcKuyScreen extends Component {
                 <Container style={styles.container}>
                     <Header>
                         <Left>
-                            <TouchableOpacity onPress={this._navigate1.bind(this)}>
+                            <TouchableOpacity onPress={this._navigate.bind(this)}>
                                 <Icon name="ios-add" style={{ paddingLeft: 10 }} />
                             </TouchableOpacity>
                         </Left>
