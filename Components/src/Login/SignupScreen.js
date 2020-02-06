@@ -15,9 +15,10 @@ export default class SignupScreen extends Component {
             { label: "Carmichael RC", value: "RcCar" },
             { label: "해당없음", value: "n/a" }
         ],
-        selectedValue: "RC를 선택해 주세요.                                     ▼",
+        selectedValue: "RC를 선택해 주세요.                                          ▼",
         newId: "",
         newPassword: "",
+        newPasswordCheck: "",
         newEmail: "",
         newName: "",
         newRc: ""
@@ -58,6 +59,7 @@ export default class SignupScreen extends Component {
             body: JSON.stringify({
                 id: this.state.newId,
                 password: this.state.newPassword,
+                passwordchcek: this.state.newPasswordCheck,
                 email: this.state.newEmail,
                 name: this.state.newName,
                 rc: rc[0]
@@ -69,7 +71,7 @@ export default class SignupScreen extends Component {
                     console.log("id is exist");
                     return;
                 }
-
+                
                 console.log("success");
             })
             .then(Alert.alert("완료", "회원가입이 완료되었습니다", [{ text: "ok", onPress: () => this.props.navigation.goBack() }]));
@@ -77,9 +79,10 @@ export default class SignupScreen extends Component {
 
     render() {
         return (
+            
             <View style={styles.container}>
                 <View style={styles.titleArea}>
-                    <Image style={{ width: 150, height: 150 }} source={require("./../../../img/hguhouse.jpeg")} />
+                    <Image style={{ width: 100, height: 100 }} source={require("./../../../img/hguhouse.jpeg")} />
                 </View>
                 <KeyboardAvoidingView
                     style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
@@ -113,6 +116,15 @@ export default class SignupScreen extends Component {
                                 onChangeText={t => this.setState({ newPassword: t })}
                             />
                             <TextInput
+                        style={styles.textForm}
+                        placeholder={"Password Check"}
+                        secureTextEntry={true}
+                        value={this.state.newPasswordCheck}
+                        autoCorrect={false}
+                        secureTextEntry={true}
+                        onChangeText={t => this.setState({ newPasswordCheck: t })}
+                    />
+                            <TextInput
                                 style={styles.textForm}
                                 placeholder={"이메일 주소"}
                                 value={this.state.newEmail}
@@ -124,7 +136,6 @@ export default class SignupScreen extends Component {
                                     {this.state.selectedValue}
                                 </Text>
                             </View>
-
                             <PickerBox
                                 ref={ref => (this.myref = ref)}
                                 data={this.state.data}
@@ -136,7 +147,6 @@ export default class SignupScreen extends Component {
                         </View>
                     </ScrollView>
                 </KeyboardAvoidingView>
-
                 <TouchableOpacity style={styles.button} onPress={this._completeSignup.bind(this)}>
                     <Text style={styles.buttonTitle}>회원가입</Text>
                 </TouchableOpacity>
