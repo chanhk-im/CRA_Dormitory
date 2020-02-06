@@ -49,6 +49,15 @@ export default class SignupScreen extends Component {
         const rc = this.state.data.filter(function(l) {
             return l.label === selected;
         });
+        if (!this.state.newId || this.state.newId.includes(" ")) {
+            Alert.alert("Error", "유효하지 않은 ID입니다.", [{ text: "확인" }])
+        } else if (!this.state.newPassword || this.state.newPassword.length < 8 || this.state.newPassword.length > 12) {
+            Alert.alert("Error", "유효하지 않은 비밀번호입니다.", [{ text: "확인" }]);
+        } else if (this.state.newPassword !== this.state.newPasswordCheck) {
+            Alert.alert("Error", "비밀번호가 일치하지 않습니다.", [{ text: "확인" }]);
+        } else if (/handong.edu$/.exec(this.state.newEmail) == null) {
+            Alert.alert("Error", "한동대 이메일이 아닙니다.", [{ text: "확인" }])
+        }
 
         await fetch(`http://${ip}:${port}/api/users/signup`, {
             method: "POST",
@@ -74,7 +83,7 @@ export default class SignupScreen extends Component {
                 
                 console.log("success");
             })
-            .then(Alert.alert("완료", "회원가입이 완료되었습니다", [{ text: "ok", onPress: () => this.props.navigation.goBack() }]));
+            .then(Alert.alert("완료", "회원가입이 완료되었습니다", [{ text: "확인", onPress: () => this.props.navigation.goBack() }]));
     }
 
     render() {
@@ -108,7 +117,7 @@ export default class SignupScreen extends Component {
                             />
                             <TextInput
                                 style={styles.textForm}
-                                placeholder={"Password"}
+                                placeholder={"Password (8 ~ 12글자)"}
                                 secureTextEntry={true}
                                 value={this.state.newPassword}
                                 autoCorrect={false}
@@ -126,7 +135,7 @@ export default class SignupScreen extends Component {
                     />
                             <TextInput
                                 style={styles.textForm}
-                                placeholder={"이메일 주소"}
+                                placeholder={"한동 이메일 주소"}
                                 value={this.state.newEmail}
                                 autoCorrect={false}
                                 onChangeText={t => this.setState({ newEmail: t })}

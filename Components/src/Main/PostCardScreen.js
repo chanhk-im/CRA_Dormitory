@@ -23,15 +23,21 @@ export default class PostCardScreen extends Component {
 
         const postTime = new Date(data.published_date);
 
-        
-
-        const post = postTime.getMonth() + 1 + "월 " + postTime.getDate() + "일 " + postTime.getHours() + ":" + postTime.getMinutes();
+        const post =
+            postTime.getMonth() +
+            1 +
+            "월 " +
+            postTime.getDate() +
+            "일 " +
+            (postTime.getHours() < 10 ? "0"+ postTime.getHours() : postTime.getHours()) +
+            ":" +
+            (postTime.getMinutes() < 10 ? "0" + postTime.getMinutes() : postTime.getMinutes());
         
         return post;
     }
 
     segmentClicked=(index)=>{
-        this.setState({
+        this.setState({       
             activeIndex: index
         })
     }
