@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, MaskedViewIOS, Animated, ImageBackground, AsyncStorage } from "react-native";
+import { StyleSheet, View, MaskedViewIOS, Animated, ImageBackground, AsyncStorage } from "react-native";
 
 export default class LoadingScreen extends Component {
     state = {

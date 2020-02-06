@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity, Alert} from "react-native";
 import PickerBox from "react-native-picker-box";
 
 import { ip, port } from "../../../Secret";
@@ -15,7 +15,7 @@ export default class SignupScreen extends Component {
             { label: "Carmichael RC", value: "RcCar" },
             { label: "해당없음", value: "n/a" }
         ],
-        selectedValue: "RC를 선택해 주세요.",
+        selectedValue: "RC를 선택해 주세요.                                          ▼",
         newId: "",
         newPassword: "",
         newEmail: "",
@@ -58,6 +58,7 @@ export default class SignupScreen extends Component {
             body: JSON.stringify({
                 id: this.state.newId,
                 password: this.state.newPassword,
+                passwordchcek: this.state.newPasswordCheck,
                 email: this.state.newEmail,
                 name: this.state.newName,
                 rc: rc[0],
@@ -69,7 +70,7 @@ export default class SignupScreen extends Component {
                     console.log("id is exist");
                     return;
                 }
-
+                
                 console.log("success");
 
             })
@@ -80,11 +81,13 @@ export default class SignupScreen extends Component {
 
     render() {
         return (
+            
             <View style={styles.container}>
                 <View style={styles.titleArea}>
-                    <Image style={{ width: 150, height: 150 }} source={require("./../../../img/hguhouse.jpeg")} />
+                    <Image style={{ width: 100, height: 100 }} source={require("./../../../img/hguhouse.jpeg")} />
                 </View>
                 <View>
+                
                     <TextInput
                         style={styles.textForm}
                         placeholder={"이름"}
@@ -107,6 +110,15 @@ export default class SignupScreen extends Component {
                         autoCorrect={false}
                         secureTextEntry={true}
                         onChangeText={t => this.setState({ newPassword: t })}
+                    />
+                    <TextInput
+                        style={styles.textForm}
+                        placeholder={"Password Check"}
+                        secureTextEntry={true}
+                        value={this.state.newPasswordCheck}
+                        autoCorrect={false}
+                        secureTextEntry={true}
+                        onChangeText={t => this.setState({ newPasswordCheck: t })}
                     />
                     <TextInput
                         style={styles.textForm}
@@ -138,7 +150,9 @@ export default class SignupScreen extends Component {
                 <TouchableOpacity onPress={this._doLogin.bind(this)}>
                     <Text style={styles.signupButton}> 로그인하기</Text>
                 </TouchableOpacity>
+                
             </View>
+          
         );
     }
 }
@@ -240,6 +254,7 @@ const styles = StyleSheet.create({
     signupButton: {
         color: "rgba(255,0,0,0.4)",
         fontSize: 17,
-        fontWeight: "500"
+        fontWeight: "500"     
+    
     }
 });
