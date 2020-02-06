@@ -74,7 +74,7 @@ export default class RcCarScreen extends Component {
                     title: data.title,
                     author: data.author,
                     post: data.post,
-                    published_date: Date.now()
+                    published_date: new Date()
                 })
             }).then(() => {
                 this.loadDataFromDB();

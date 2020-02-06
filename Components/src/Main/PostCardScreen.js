@@ -9,8 +9,25 @@ export default class PostCardScreen extends Component {
         this._Edit = this._Edit.bind(this);
         this._checkDelete = this._checkDelete.bind(this);
         this.state = {
-            activeIndex: 0
+            activeIndex: 0,
         };
+    }
+
+    _setPostTime(data) {
+        const date = new Date().getDate();
+        const month = new Date().getMonth() + 1;
+        const year = new Date().getFullYear();
+        const hours = new Date().getHours();
+        const min = new Date().getMinutes();
+        const sec = new Date().getSeconds();
+
+        const postTime = new Date(data.published_date);
+
+        
+
+        const post = postTime.getMonth() + 1 + "월 " + postTime.getDate() + "일 " + postTime.getHours() + ":" + postTime.getMinutes();
+        
+        return post;
     }
 
     segmentClicked=(index)=>{
@@ -58,12 +75,17 @@ export default class PostCardScreen extends Component {
         });
     }
 
+    componentDidMount() {
+        
+    }
 
-    render() { 
+    render() {
+
         return (
             <ScrollView>
                     <View style={styles.container}> 
                         {this.props.post.map(data => {
+                            const date = this._setPostTime(data);
                             return (
                                 <Card key={data._id}>
                                     <CardItem>
@@ -71,7 +93,7 @@ export default class PostCardScreen extends Component {
                                             <Image source={require('./../../../img/cute.png')} style={{width:40, height:40, borderRadius:37.5}}/>
                                             <Body>
                                                 <Text style={{ fontWeight:'800'}}>{data.author}</Text>
-                                                <Text note>Date</Text>
+                                                <Text note>{date}</Text>
                                             </Body>
                                         </Left>
                                         <Button transparent>

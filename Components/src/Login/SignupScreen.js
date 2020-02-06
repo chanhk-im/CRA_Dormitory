@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity, Alert, ScrollView, KeyboardAvoidingView } from "react-native";
 import PickerBox from "react-native-picker-box";
 
 import { ip, port } from "../../../Secret";
@@ -15,7 +15,7 @@ export default class SignupScreen extends Component {
             { label: "Carmichael RC", value: "RcCar" },
             { label: "해당없음", value: "n/a" }
         ],
-        selectedValue: "RC를 선택해 주세요.",
+        selectedValue: "RC를 선택해 주세요.                                     ▼",
         newId: "",
         newPassword: "",
         newEmail: "",
@@ -39,7 +39,7 @@ export default class SignupScreen extends Component {
         this.setState({
             newRc: rc[0]
         });
-        
+
         console.log(this.state.newRc);
     }
 
@@ -48,7 +48,7 @@ export default class SignupScreen extends Component {
         const rc = this.state.data.filter(function(l) {
             return l.label === selected;
         });
-        
+
         await fetch(`http://${ip}:${port}/api/users/signup`, {
             method: "POST",
             headers: {
@@ -60,7 +60,7 @@ export default class SignupScreen extends Component {
                 password: this.state.newPassword,
                 email: this.state.newEmail,
                 name: this.state.newName,
-                rc: rc[0],
+                rc: rc[0]
             })
         })
             .then(res => res.json())
@@ -71,11 +71,8 @@ export default class SignupScreen extends Component {
                 }
 
                 console.log("success");
-
             })
-            .then(
-                Alert.alert("완료", "회원가입이 완료되었습니다", [{ text: "ok", onPress: () => this.props.navigation.goBack() }])
-            );
+            .then(Alert.alert("완료", "회원가입이 완료되었습니다", [{ text: "ok", onPress: () => this.props.navigation.goBack() }]));
     }
 
     render() {
@@ -84,52 +81,61 @@ export default class SignupScreen extends Component {
                 <View style={styles.titleArea}>
                     <Image style={{ width: 150, height: 150 }} source={require("./../../../img/hguhouse.jpeg")} />
                 </View>
-                <View>
-                    <TextInput
-                        style={styles.textForm}
-                        placeholder={"이름"}
-                        value={this.state.newName}
-                        autoCorrect={false}
-                        onChangeText={t => this.setState({ newName: t })}
-                    />
-                    <TextInput
-                        style={styles.textForm}
-                        placeholder={"ID"}
-                        value={this.state.newId}
-                        autoCorrect={false}
-                        onChangeText={t => this.setState({ newId: t })}
-                    />
-                    <TextInput
-                        style={styles.textForm}
-                        placeholder={"Password"}
-                        secureTextEntry={true}
-                        value={this.state.newPassword}
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        onChangeText={t => this.setState({ newPassword: t })}
-                    />
-                    <TextInput
-                        style={styles.textForm}
-                        placeholder={"이메일 주소"}
-                        value={this.state.newEmail}
-                        autoCorrect={false}
-                        onChangeText={t => this.setState({ newEmail: t })}
-                    />
-                    <View style={styles.pickBox}>
-                        <Text style={styles.selectv} onPress={() => this.myref.openPicker()}>
-                            {this.state.selectedValue}
-                        </Text>
-                    </View>
+                <KeyboardAvoidingView
+                    style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
+                    behavior="padding"
+                    enabled
+                    keyboardVerticalOffset={20}
+                >
+                    <ScrollView>
+                        <View style={{ flex: 1, flexDirection: "column" }}>
+                            <TextInput
+                                style={styles.textForm}
+                                placeholder={"이름"}
+                                value={this.state.newName}
+                                autoCorrect={false}
+                                onChangeText={t => this.setState({ newName: t })}
+                            />
+                            <TextInput
+                                style={styles.textForm}
+                                placeholder={"ID"}
+                                value={this.state.newId}
+                                autoCorrect={false}
+                                onChangeText={t => this.setState({ newId: t })}
+                            />
+                            <TextInput
+                                style={styles.textForm}
+                                placeholder={"Password"}
+                                secureTextEntry={true}
+                                value={this.state.newPassword}
+                                autoCorrect={false}
+                                secureTextEntry={true}
+                                onChangeText={t => this.setState({ newPassword: t })}
+                            />
+                            <TextInput
+                                style={styles.textForm}
+                                placeholder={"이메일 주소"}
+                                value={this.state.newEmail}
+                                autoCorrect={false}
+                                onChangeText={t => this.setState({ newEmail: t })}
+                            />
+                            <View style={styles.pickBox}>
+                                <Text style={styles.selectv} onPress={() => this.myref.openPicker()}>
+                                    {this.state.selectedValue}
+                                </Text>
+                            </View>
 
-                    <PickerBox
-                        ref={ref => (this.myref = ref)}
-                        data={this.state.data}
-                        onValueChange={value => {
-                            this.setState({ selectedValue: value })
-                        }}
-                        selectedValue={this.state.selectedValue}
-                    />
-                </View>
+                            <PickerBox
+                                ref={ref => (this.myref = ref)}
+                                data={this.state.data}
+                                onValueChange={value => {
+                                    this.setState({ selectedValue: value });
+                                }}
+                                selectedValue={this.state.selectedValue}
+                            />
+                        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
 
                 <TouchableOpacity style={styles.button} onPress={this._completeSignup.bind(this)}>
                     <Text style={styles.buttonTitle}>회원가입</Text>
@@ -148,7 +154,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "white",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight
     },
     titleArea: {
         width: "100%",
@@ -235,11 +242,14 @@ const styles = StyleSheet.create({
     },
     signupText: {
         color: "gray",
-        fontSize: 16
+        fontSize: 16,
+        marginTop: 60
     },
     signupButton: {
         color: "rgba(255,0,0,0.4)",
         fontSize: 17,
-        fontWeight: "500"
+        fontWeight: "500",
+        marginTop: 5,
+        marginBottom: 40
     }
 });
