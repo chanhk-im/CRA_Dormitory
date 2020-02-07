@@ -18,7 +18,7 @@ export default class PostCard extends Component {
             isAddedStar: !this.state.isAddedStar
         });
 
-        if (ata.stars.filter(star => star.user_id === this.props.user.id).length >= 1) {
+        if (this._checkStar(data)) {
             fetch(`http://${ip}:${port}/api/posts/destar/${data._id}`, {
                 method: "PUT",
                 headers: {
@@ -43,15 +43,6 @@ export default class PostCard extends Component {
         }
 
         
-    }
-
-    componentDidMount() {
-        if (this.props.data.stars.filter(star => star.user_id === this.props.user.id).length >= 1) {
-            console.log(1);
-            this.setState({
-                isAddedStar: true,
-            })
-        }
     }
 
     render() {

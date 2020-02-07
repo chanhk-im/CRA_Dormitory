@@ -86,32 +86,6 @@ module.exports = function(app) {
     });
 
     // Add a star
-    app.put("/api/posts/stars/:post_id/", function(req, res) {
-        Post.find({ stars: { $elemMatch: req.body } })
-            .exec()
-            .then(post => {
-                if (post.length >= 1) {
-                    Post.updateOne({ _id: req.params.post_id }, { $pull: { stars: req.body } }, function (err, output) {
-                        if (err) return res.status(500).json({ error: "database failure" });
-                        console.log(output);
-
-                        if (!output.n) return res.status(404).json({ error: "post not found" });
-
-                        res.json({ result: "deleted a star" });
-                    });
-                } else {
-                    Post.updateOne({ _id: req.params.post_id }, { $push: { stars: req.body } }, function(err, output) {
-                        if (err) return res.status(500).json({ error: "database failure" });
-                        console.log(output);
-
-                        if (!output.n) return res.status(404).json({ error: "post not found" });
-
-                        res.json({ result: "added a star" });
-                    });
-                }
-            });
-    });
-
     app.put("/api/posts/star/:id", function(req, res) {
         Post.updateOne({ _id: req.params.id }, { $push: { stars: req.body } }, function (err, output) {
             if (err) return res.status(500).json({ error: "database failure" });
@@ -123,8 +97,9 @@ module.exports = function(app) {
         });
     })
 
+    // Delete a star
     app.put("/api/posts/destar/:id", function (req, res) {
-        Post.updateOne({ _id: req.params.id }, { $push: { stars: req.body } }, function (err, output) {
+        Post.updateOne({ _id: req.params.id }, { $pull: { stars: req.body } }, function (err, output) {
             if (err) return res.status(500).json({ error: "database failure" });
             console.log(output);
 
