@@ -87,11 +87,11 @@ module.exports = function(app) {
 
     // Add a star
     app.put("/api/posts/star/:post_id/", function(req, res) {
-        Post.find({ stars: { $elemMatch: { user_id: req.body.user_id } } })
+        Post.find({ stars: { $elemMatch: req.body } })
             .exec()
             .then(post => {
                 if (post.length >= 1) {
-                    Post.update({ _id: req.params.post_id }, { $pull: { stars: { user_id: req.body.user_id } } }, function (err, output) {
+                    Post.update({ _id: req.params.post_id }, { $pull: { stars: req.body } }, { safe: true, upsert: true }, function (err, output) {
                         if (err) return res.status(500).json({ error: "database failure" });
                         console.log(output);
 
