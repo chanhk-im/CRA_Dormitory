@@ -10,12 +10,7 @@ export default class PostCard extends Component {
     }
 
     _checkStar(data) {
-        if (data.stars.filter(star => star.user_id === this.props.user.id).length >= 1) {
-            console.log(1);
-            this.setState({
-                isAddedStar: true,
-            })
-        }
+        return (this.state.isAddedStar || data.stars.filter(star => star.user_id === this.props.user.id).length >= 1) && !(this.state.isAddedStar && data.stars.filter(star => star.user_id === this.props.user.id).length >= 1)
     }
 
     _onPressStar(data) {
@@ -35,8 +30,13 @@ export default class PostCard extends Component {
         })
     }
 
-    async componentDidMount() {
-        await this._checkStar(this.props.data);
+    componentDidMount() {
+        if (this.props.data.stars.filter(star => star.user_id === this.props.user.id).length >= 1) {
+            console.log(1);
+            this.setState({
+                isAddedStar: true,
+            })
+        }
     }
 
     render() {
@@ -71,7 +71,7 @@ export default class PostCard extends Component {
                     <Left>
                         <Button transparent>
                             <TouchableOpacity onPress={() => this._onPressStar(this.props.data)}>
-                                {this.state.isAddedStar ? (
+                                {this._checkStar(this.props.data) ? (
                                     <Icon name="ios-star" style={{ color: "#ebc034" }} />
                                 ) : (
                                     <Icon name="ios-star-outline" style={{ color: "gray" }} />
