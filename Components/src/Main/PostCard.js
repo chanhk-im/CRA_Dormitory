@@ -23,8 +23,15 @@ export default class PostCard extends Component {
             isAddedStar: !this.state.isAddedStar
         });
 
-        fetch(`http://${ip}:${port}/api/posts/star/${data._id}/${user.id}`, {
+        fetch(`http://${ip}:${port}/api/posts/star/${data._id}`, {
             method: "PUT",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                user_id: this.props.user.id
+            })
         })
     }
 
