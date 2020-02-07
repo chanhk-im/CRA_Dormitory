@@ -4,7 +4,7 @@ import { Icon, Header, Left, Right, Body } from 'native-base';
 
 export default class UpdateScreen extends Component {
     state = {
-        id: "",
+        _id: "",
         newTitle: "",
         newAuthor: "",
         newPost: ""
@@ -12,12 +12,14 @@ export default class UpdateScreen extends Component {
 
     componentDidMount() {
         let data = this.props.navigation.getParam("data", null);
+        console.log(data);
         this.setState({
-            id: data.id,
+            _id: data._id,
             newTitle: data.title,
             newAuthor: data.author,
             newPost: data.post,
         });
+
     }
 
     render() {
@@ -25,7 +27,7 @@ export default class UpdateScreen extends Component {
 
         return (
             <View style={styles.container}>
-                <Header>
+                <Header style={styles.headerBar}>
                     <Left>
                         <TouchableOpacity 
                             onPress={()=>this.props.navigation.goBack()}>
@@ -37,7 +39,7 @@ export default class UpdateScreen extends Component {
                         <TouchableOpacity
                             onPress={() => {
                                 const newData = {
-                                    id: this.state.id,
+                                    _id: this.state._id,
                                     title: this.state.newTitle,
                                     author: this.state.newAuthor,
                                     post: this.state.newPost
@@ -89,12 +91,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
+        paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight
     },
     contain: {
         flex: 1,
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center"
+    },
+    headerBar: {
+        backgroundColor: "#1E90FF"
     },
     header: {
         height: 60,
@@ -114,42 +120,41 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     titleBox: {
-        backgroundColor:"white",
-        marginTop:70,
+        backgroundColor: "white",
+        marginTop: 70,
         height: 50,
         width: 250,
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 0.5,
-        borderTopLeftRadius:10,
-        borderBottomLeftRadius:10,
-        borderBottomRightRadius:10,
-        borderTopRightRadius:10,
-        marginHorizontal: 5,
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        borderTopRightRadius: 10,
+        marginHorizontal: 5
     },
     authorBox: {
-        backgroundColor:"white",
-        marginTop:70,
+        backgroundColor: "white",
+        marginTop: 70,
         height: 50,
         width: 120,
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 0.5,
         marginHorizontal: 5,
-        borderTopLeftRadius:10,
-        borderBottomLeftRadius:10,
-        borderBottomRightRadius:10,
-        borderTopRightRadius:10,
-        
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        borderTopRightRadius: 10
     },
     postBox: {
         marginTop: 60,
         width: 380,
-        height:500,
+        height: 500,
         borderWidth: 0.5,
-        borderTopLeftRadius:10,
-        borderBottomLeftRadius:10,
-        borderBottomRightRadius:10,
-        borderTopRightRadius:10,
-    },
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        borderTopRightRadius: 10
+    }
 });

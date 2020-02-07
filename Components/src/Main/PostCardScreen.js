@@ -68,7 +68,7 @@ export default class PostCardScreen extends Component {
             [
                 {text: 'cancel', onPress: () => null},
                 {text: 'ok', onPress: () => {
-                    this.props.removeData(data.id);
+                    this.props.removeData(data._id);
                     this.props.navigation.goBack();
                 }},
             ],
@@ -79,10 +79,6 @@ export default class PostCardScreen extends Component {
         this.props.navigation.navigate('CommentScreen', {
             data: data,
         });
-    }
-
-    componentDidMount() {
-        
     }
 
     render() {

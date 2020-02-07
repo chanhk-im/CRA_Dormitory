@@ -6,7 +6,7 @@ export default class Loading extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.indicator}>
-                    <ActivityIndicator size="large" color="#d6336c" />
+                    <ActivityIndicator size="large" color="#407ddb" />
                 </View>
                 <View style={styles.textbox}>
                     <Text style={styles.text}>Loading...</Text>
@@ -21,6 +21,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center"
     },
+    header: {
+        backgroundColor: "#407ddb",
+    },
     indicator: {
         justifyContent: "center",
         alignItems: "center"
@@ -28,9 +31,9 @@ const styles = StyleSheet.create({
     textbox: {
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 10,
+        marginTop: 10
     },
     text: {
-        fontSize: 15,
+        fontSize: 15
     }
 });

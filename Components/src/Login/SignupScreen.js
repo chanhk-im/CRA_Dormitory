@@ -49,46 +49,49 @@ export default class SignupScreen extends Component {
         const rc = this.state.data.filter(function(l) {
             return l.label === selected;
         });
-        if (!this.state.newId || this.state.newId.includes(" ")) {
-            Alert.alert("Error", "유효하지 않은 ID입니다.", [{ text: "확인" }])
+        if (!this.state.newName) {
+            Alert.alert("Error", "이름을 작성해 주세요.", [{ text: "확인" }]);
+        } else if (!this.state.newId || this.state.newId.includes(" ")) {
+            Alert.alert("Error", "유효하지 않은 ID입니다.", [{ text: "확인" }]);
         } else if (!this.state.newPassword || this.state.newPassword.length < 8 || this.state.newPassword.length > 12) {
             Alert.alert("Error", "유효하지 않은 비밀번호입니다.", [{ text: "확인" }]);
         } else if (this.state.newPassword !== this.state.newPasswordCheck) {
             Alert.alert("Error", "비밀번호가 일치하지 않습니다.", [{ text: "확인" }]);
+        } else if (!this.state.newEmail) {
+            Alert.alert("Error", "이메일을 작성해 주세요.", [{ text: "확인" }]);
         } else if (/handong.edu$/.exec(this.state.newEmail) == null) {
-            Alert.alert("Error", "한동대 이메일이 아닙니다.", [{ text: "확인" }])
-        }
+            Alert.alert("Error", "한동대 이메일이 아닙니다.", [{ text: "확인" }]);
+        } else {
+            await fetch(`http://${ip}:${port}/api/users/signup`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id: this.state.newId,
+                    password: this.state.newPassword,
+                    passwordchcek: this.state.newPasswordCheck,
+                    email: this.state.newEmail,
+                    name: this.state.newName,
+                    rc: rc[0]
+                })
+            })
+                .then(res => res.json())
+                .then(resJson => {
+                    if (resJson.result === "id is exist") {
+                        console.log("id is exist");
+                        return;
+                    }
 
-        await fetch(`http://${ip}:${port}/api/users/signup`, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id: this.state.newId,
-                password: this.state.newPassword,
-                passwordchcek: this.state.newPasswordCheck,
-                email: this.state.newEmail,
-                name: this.state.newName,
-                rc: rc[0]
-            })
-        })
-            .then(res => res.json())
-            .then(resJson => {
-                if (resJson.result === "id is exist") {
-                    console.log("id is exist");
-                    return;
-                }
-                
-                console.log("success");
-            })
-            .then(Alert.alert("완료", "회원가입이 완료되었습니다", [{ text: "확인", onPress: () => this.props.navigation.goBack() }]));
+                    console.log("success");
+                })
+                .then(Alert.alert("완료", "회원가입이 완료되었습니다", [{ text: "확인", onPress: () => this.props.navigation.goBack() }]));
+        }
     }
 
     render() {
         return (
-            
             <View style={styles.container}>
                 <View style={styles.titleArea}>
                     <Image style={{ width: 100, height: 100 }} source={require("./../../../img/hguhouse.jpeg")} />
@@ -125,14 +128,14 @@ export default class SignupScreen extends Component {
                                 onChangeText={t => this.setState({ newPassword: t })}
                             />
                             <TextInput
-                        style={styles.textForm}
-                        placeholder={"Password Check"}
-                        secureTextEntry={true}
-                        value={this.state.newPasswordCheck}
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        onChangeText={t => this.setState({ newPasswordCheck: t })}
-                    />
+                                style={styles.textForm}
+                                placeholder={"Password Check"}
+                                secureTextEntry={true}
+                                value={this.state.newPasswordCheck}
+                                autoCorrect={false}
+                                secureTextEntry={true}
+                                onChangeText={t => this.setState({ newPasswordCheck: t })}
+                            />
                             <TextInput
                                 style={styles.textForm}
                                 placeholder={"한동 이메일 주소"}

@@ -16,7 +16,7 @@ export default class WriteScreen extends Component {
 
         return (
             <View style={styles.container}>
-                <Header>
+                <Header style={styles.headerBar}>
                     <Left>
                         <TouchableOpacity 
                             onPress={()=>this.props.navigation.goBack()}>
@@ -82,6 +82,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center"
+    },
+    headerBar: {
+        backgroundColor: "#1E90FF"
     },
     header: {
         height: 60,

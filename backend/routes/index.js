@@ -85,6 +85,19 @@ module.exports = function(app) {
         })
     })
 
+    // Add a star
+    app.put("/api/posts/star/:user_id", function(req, res) {
+        Post.stars.push({ user_id: req.params.user_id }, function(err, output) {
+            if (err) return res.status(500).json({ error: "database failure" });
+            console.log(output);
+
+            if (!output.n) return res.status(404).json({ error: "post not found" });
+
+            res.json({ message: "add a star" });
+        })
+    })
+
+    // Sign up
 	app.post("/api/users/signup", function(req, res) {
 		User.find({ id: req.body.id })
 			.exec()
@@ -112,6 +125,7 @@ module.exports = function(app) {
 			});
 	});
 
+    // Login
 	app.post("/api/users/login", function(req, res) {
 		User.findOne({ id: req.body.id }, function(err, user) {
 			if (err) return res.status(500).json({ error: "database failure" });

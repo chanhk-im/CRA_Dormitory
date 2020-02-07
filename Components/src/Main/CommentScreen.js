@@ -18,8 +18,8 @@ export default class CommentScreen extends Component {
         let data = this.props.navigation.getParam("data", null);
 
         return (
-            <Container style={style.container}>
-                <Header>
+            <Container style={styles.container}>
+                <Header style={styles.header}>
                     <Left>
                         <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                             <Icon name="ios-arrow-back" style={{ paddingLeft: 10 }} />
@@ -68,7 +68,7 @@ export default class CommentScreen extends Component {
                 </Content>
                 {/* <View style={styles.header}> */}
                 <TextInput
-                    style={style.titleBox}
+                    style={styles.titleBox}
                     value={this.state.newTitle}
                     placeholder="title"
                     autoCorrect={false}
@@ -79,7 +79,7 @@ export default class CommentScreen extends Component {
     }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
@@ -92,10 +92,7 @@ const style = StyleSheet.create({
         justifyContent: "center"
     },
     header: {
-        height: 60,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between"
+        backgroundColor: "#1E90FF"
     },
     body: {
         flex: 1,

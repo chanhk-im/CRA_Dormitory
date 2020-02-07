@@ -138,7 +138,7 @@ export default class PostScreen extends Component {
         } else {
             return (
                 <Container style={styles.container}>
-                    <Header>
+                    <Header style={styles.header}>
                         <Left>
                             <TouchableOpacity onPress={this._navigate.bind(this)}>
                                 <Icon name="ios-add" style={{ paddingLeft: 10 }} />
@@ -165,6 +165,6 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight
     },
     header: {
-        backgroundColor: "#3ED0C8"
+        backgroundColor: "#1E90FF"
     }
 });
