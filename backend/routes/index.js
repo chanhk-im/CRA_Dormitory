@@ -86,9 +86,9 @@ module.exports = function(app) {
     })
 
     // Add a star
-    app.put("/api/posts/star/:user_id", function(req, res) {
-        Post.update({ $push: { stars: req.params.user_id } }, function(err, output) {
-            if (err) return res.status(500).json({ error: "database failure" });
+    app.put("/api/posts/star/:post_id/:user_id", function(req, res) {
+        Post.update({ _id: req.params.post_id  }, { $push: { stars: { user_id: req.params.user_id } } }, function(err, output) {
+			if (err) return res.status(500).json({ error: "database failure" });
             console.log(output);
 
             if (!output.n) return res.status(404).json({ error: "post not found" });
