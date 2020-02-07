@@ -18,16 +18,31 @@ export default class PostCard extends Component {
             isAddedStar: !this.state.isAddedStar
         });
 
-        fetch(`http://${ip}:${port}/api/posts/star/${data._id}`, {
-            method: "PUT",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                user_id: this.props.user.id
+        if (ata.stars.filter(star => star.user_id === this.props.user.id).length >= 1) {
+            fetch(`http://${ip}:${port}/api/posts/destar/${data._id}`, {
+                method: "PUT",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: this.props.user.id
+                })
             })
-        })
+        } else {
+            fetch(`http://${ip}:${port}/api/posts/star/${data._id}`, {
+                method: "PUT",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: this.props.user.id
+                })
+            })
+        }
+
+        
     }
 
     componentDidMount() {
