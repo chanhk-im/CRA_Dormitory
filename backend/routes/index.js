@@ -91,7 +91,7 @@ module.exports = function(app) {
             .exec()
             .then(post => {
                 if (post.length >= 1) {
-                    Post.findByIdAndUpdate(req.params.post_id, { $pull: { stars: req.body } }, { safe: true, upsert: true }, function (err, output) {
+                    Post.update({ _id: req.params.post_id }, { $pull: { stars: req.body } }, { safe: true, upsert: true }, function (err, output) {
                         if (err) return res.status(500).json({ error: "database failure" });
                         console.log(output);
 
@@ -100,7 +100,7 @@ module.exports = function(app) {
                         res.json({ result: "deleted a star" });
                     });
                 } else {
-                    Post.findByIdAndUpdate(req.params.post_id, { $push: { stars: { user_id: req.body.user_id } } }, function(err, output) {
+                    Post.update({ _id: req.params.post_id }, { $push: { stars: req.body } }, function(err, output) {
                         if (err) return res.status(500).json({ error: "database failure" });
                         console.log(output);
 
