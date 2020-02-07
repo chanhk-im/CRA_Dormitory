@@ -91,7 +91,14 @@ module.exports = function(app) {
             .exec()
             .then(post => {
                 if (post.length >= 1) {
-                    res.json({ result: "this id already added a star" });
+                    Post.update({ _id: req.params.post_id }, { $pull: { stars: { user_id: req.params.user_id } } }, function (err, output) {
+                        if (err) return res.status(500).json({ error: "database failure" });
+                        console.log(output);
+
+                        if (!output.n) return res.status(404).json({ error: "post not found" });
+
+                        res.json({ result: "deleted a star" });
+                    });
                 } else {
                     Post.update({ _id: req.params.post_id }, { $push: { stars: { user_id: req.params.user_id } } }, function(err, output) {
                         if (err) return res.status(500).json({ error: "database failure" });
@@ -99,7 +106,7 @@ module.exports = function(app) {
 
                         if (!output.n) return res.status(404).json({ error: "post not found" });
 
-                        res.json({ result: "add a star" });
+                        res.json({ result: "added a star" });
                     });
                 }
             });
