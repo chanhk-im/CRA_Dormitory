@@ -21,7 +21,8 @@ export default class SignupScreen extends Component {
         newPasswordCheck: "",
         newEmail: "",
         newName: "",
-        newRc: ""
+        newRc: "",
+        newRoom: ""
     };
 
     _doLogin() {
@@ -57,8 +58,9 @@ export default class SignupScreen extends Component {
             Alert.alert("Error", "비밀번호가 일치하지 않습니다.", [{ text: "확인" }]);
         } else if (/handong.edu$/.exec(this.state.newEmail) == null) {
             Alert.alert("Error", "한동대 이메일이 아닙니다.", [{ text: "확인" }])
+        } else if (!this.state.newRoom || this.state.newRoom.length < 3 || this.state.newId.includes(".")) {
+            Alert.alert("Error", "유효하지 않은 방 호수입니다.", [{ text: "확인" }]);
         }
-
         await fetch(`http://${ip}:${port}/api/users/signup`, {
             method: "POST",
             headers: {
@@ -125,14 +127,14 @@ export default class SignupScreen extends Component {
                                 onChangeText={t => this.setState({ newPassword: t })}
                             />
                             <TextInput
-                        style={styles.textForm}
-                        placeholder={"Password Check"}
-                        secureTextEntry={true}
-                        value={this.state.newPasswordCheck}
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        onChangeText={t => this.setState({ newPasswordCheck: t })}
-                    />
+                                style={styles.textForm}
+                                placeholder={"Password Check"}
+                                secureTextEntry={true}
+                                value={this.state.newPasswordCheck}
+                                autoCorrect={false}
+                                secureTextEntry={true}
+                                onChangeText={t => this.setState({ newPasswordCheck: t })}
+                            />
                             <TextInput
                                 style={styles.textForm}
                                 placeholder={"한동 이메일 주소"}
@@ -152,6 +154,14 @@ export default class SignupScreen extends Component {
                                     this.setState({ selectedValue: value });
                                 }}
                                 selectedValue={this.state.selectedValue}
+                            />
+                            <TextInput
+                                style={styles.textForm}
+                                placeholder={"방 호수(외부거주:000)"}
+                                keyboardType={'numeric'}
+                                value={this.state.newRoom}
+                                autoCorrect={false}
+                                onChangeText={t => this.setState({ newRoom: t })}
                             />
                         </View>
                     </ScrollView>

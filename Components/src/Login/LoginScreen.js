@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     textForm: {
         borderWidth: 0.5,
         borderColor: "#888",
-        width: 300,
+        width: "75%",
         height: 45,
         marginHorizontal: 50,
         justifyContent: "center",
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: "#1E3269",
-        width: 150,
+        width: "45%",
         height: 40,
         justifyContent: "center",
         alignItems: "center",
