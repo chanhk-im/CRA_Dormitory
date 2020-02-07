@@ -11,8 +11,8 @@ export default class ChattingScreen extends Component {
     }
     render() {
         return (
-            <Container style={style.container}>
-                <Header>
+            <Container style={styles.container}>
+                <Header style={ styles.header }>
                     <Left><Icon name='ios-add' style={{ paddingLeft:10 }}/></Left>
                     <Body><Text>채팅</Text></Body>
                     <Right><Icon name='ios-more' style={{ paddingRight:10 }}/></Right>
@@ -22,10 +22,13 @@ export default class ChattingScreen extends Component {
     }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
         paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight,
+    }, 
+    header: {
+        backgroundColor: "#1E90FF",
     }
 });

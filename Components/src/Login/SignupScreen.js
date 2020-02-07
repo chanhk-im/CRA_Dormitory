@@ -50,14 +50,19 @@ export default class SignupScreen extends Component {
         const rc = this.state.data.filter(function(l) {
             return l.label === selected;
         });
-        if (!this.state.newId || this.state.newId.includes(" ")) {
-            Alert.alert("Error", "유효하지 않은 ID입니다.", [{ text: "확인" }])
+
+        if (!this.state.newName) {
+            Alert.alert("Error", "이름을 작성해 주세요.", [{ text: "확인" }]);
+        } else if (!this.state.newId || this.state.newId.includes(" ")) {
+            Alert.alert("Error", "유효하지 않은 ID입니다.", [{ text: "확인" }]);
         } else if (!this.state.newPassword || this.state.newPassword.length < 8 || this.state.newPassword.length > 12) {
             Alert.alert("Error", "유효하지 않은 비밀번호입니다.", [{ text: "확인" }]);
         } else if (this.state.newPassword !== this.state.newPasswordCheck) {
             Alert.alert("Error", "비밀번호가 일치하지 않습니다.", [{ text: "확인" }]);
+        } else if (!this.state.newEmail) {
+            Alert.alert("Error", "이메일을 작성해 주세요.", [{ text: "확인" }]);
         } else if (/handong.edu$/.exec(this.state.newEmail) == null) {
-            Alert.alert("Error", "한동대 이메일이 아닙니다.", [{ text: "확인" }])
+            Alert.alert("Error", "한동대 이메일이 아닙니다.", [{ text: "확인" }]);
         } else if (!this.state.newRoom || this.state.newRoom.length < 3 || this.state.newId.includes(".")) {
             Alert.alert("Error", "유효하지 않은 방 호수입니다.", [{ text: "확인" }]);
         }
@@ -82,7 +87,16 @@ export default class SignupScreen extends Component {
                     console.log("id is exist");
                     return;
                 }
-                
+
+                console.log("success");
+            })
+            .then(res => res.json())
+            .then(resJson => {
+                if (resJson.result === "id is exist") {
+                    console.log("id is exist");
+                    return;
+                }
+
                 console.log("success");
             })
             .then(Alert.alert("완료", "회원가입이 완료되었습니다", [{ text: "확인", onPress: () => this.props.navigation.goBack() }]));
@@ -90,7 +104,6 @@ export default class SignupScreen extends Component {
 
     render() {
         return (
-            
             <View style={styles.container}>
                 <View style={styles.titleArea}>
                     <Image style={{ width: 100, height: 100 }} source={require("./../../../img/hguhouse.jpeg")} />
@@ -158,7 +171,7 @@ export default class SignupScreen extends Component {
                             <TextInput
                                 style={styles.textForm}
                                 placeholder={"방 호수(외부거주:000)"}
-                                keyboardType={'numeric'}
+                                keyboardType={"numeric"}
                                 value={this.state.newRoom}
                                 autoCorrect={false}
                                 onChangeText={t => this.setState({ newRoom: t })}

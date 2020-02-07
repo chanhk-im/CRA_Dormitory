@@ -40,8 +40,8 @@ export default class SettingScreen extends Component {
         console.log(this.state.user);
         if (this.state.isLoaded) {
             return (
-                <Container style={style.container}>
-                    <Header>
+                <Container style={styles.container}>
+                    <Header style={styles.header}>
                         <Left>
                             <Icon name="md-person-add" style={{ paddingRight: 10, fontSize: 32 }} />
                         </Left>
@@ -67,17 +67,13 @@ export default class SettingScreen extends Component {
                                         <Text>
                                             {this.state.user.name} | {this.state.user.id}{" "}
                                         </Text>
-                                        <Text>{this.state.user.Email} | {this.state.user.rc.label}, 510호</Text>
+                                        <Text>{this.state.user.email} | {this.state.user.rc.label}, 510호</Text>
                                     </View>
                                 </View>
                             </View>
                         </View>
                         <Card>
-                            <CardItem style={{ height: 50 }}>
-                                <Text style={{ fontWeight: "800", fontSize: 18 }}></Text> 
-                            </CardItem>
-
-                            <CardItem style={{ height: 50 }}>
+                            <CardItem style={{ height: 50, marginTop: 5 }}>
                                 <TouchableOpacity onPress={this._checkLogout.bind(this)}>
                                     <Text style={{ fontWeight: "800", fontSize: 18 }}>📌 로그아웃</Text>
                                 </TouchableOpacity>
@@ -107,10 +103,13 @@ export default class SettingScreen extends Component {
     }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
         paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight
+    },
+    header: {
+        backgroundColor: "#1E90FF"
     }
 });

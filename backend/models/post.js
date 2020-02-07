@@ -6,8 +6,11 @@ var postSchema = new Schema({
     title: { type: String, required: true },
     author: { type: String, required: true },
     post: { type: String, required: true },
-    comments: Array,
-    published_date: { type: Date, default: Date.now },
+
+    stars: [new mongoose.Schema({ user_id: String }, { _id: false })],
+    comments: [new mongoose.Schema({ author: String, comment: String }, { _id: false })],
+
+    published_date: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model("post", postSchema);

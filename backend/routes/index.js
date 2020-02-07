@@ -7,12 +7,12 @@ module.exports = function(app) {
     // Get all posts
     app.get("/api/posts", function(req, res) {
         Post.find()
-        .sort({published_date: -1})
-        .exec(function(err, posts) {
-            if (err) return res.status(500).send({ error: "database failure" });
-            res.json(posts);
-        })
-    })
+            .sort({ published_date: -1 })
+            .exec(function(err, posts) {
+                if (err) return res.status(500).send({ error: "database failure" });
+                res.json(posts);
+            });
+    });
 
     // Get single post
     app.get("/api/posts/:post_id", function(req, res) {
@@ -21,18 +21,18 @@ module.exports = function(app) {
             if (!post) return res.status(404).json({ error: "post not found" });
 
             res.json(post);
-        })
-    })
+        });
+    });
 
     // Get post by post type
-    app.get("/api/posts/type/:type", function (req, res) {
+    app.get("/api/posts/type/:type", function(req, res) {
         Post.find({ type: req.params.type })
             .sort({ published_date: -1 })
-            .exec(function (err, posts) {
+            .exec(function(err, posts) {
                 if (err) return res.status(500).send({ error: "database failure" });
                 res.json(posts);
-            })
-    })
+            });
+    });
 
     // Get post by author
     app.get("/api/posts/author/:author", function(req, res) {
@@ -41,8 +41,8 @@ module.exports = function(app) {
             if (posts.length === 0) return res.status(404).send({ error: "post not found" });
 
             res.json(posts);
-        })
-    })
+        });
+    });
 
     // Create post
     app.post("/api/posts", function(req, res) {
@@ -73,7 +73,7 @@ module.exports = function(app) {
             if (!output.n) return res.status(404).json({ error: "post not found" });
 
             res.json({ message: "post updated" });
-        })
+        });
     });
 
     // Delets a post
@@ -82,46 +82,94 @@ module.exports = function(app) {
             if (err) return res.status(500).json({ error: "database failure" });
 
             res.status(204).end;
-        })
+        });
+    });
+
+    // Add a star
+    app.put("/api/posts/star/:id", function(req, res) {
+        Post.updateOne({ _id: req.params.id }, { $push: { stars: req.body } }, function (err, output) {
+            if (err) return res.status(500).json({ error: "database failure" });
+            console.log(output);
+
+            if (!output.n) return res.status(404).json({ error: "post not found" });
+
+            res.json({ result: "deleted a star" });
+        });
     })
 
-	app.post("/api/users/signup", function(req, res) {
-		User.find({ id: req.body.id })
-			.exec()
-			.then(user => {
-				if (user.length >= 1) {
-					res.json({ result: "id is exist" });
-				} else {
-					const user = new User({
-						id: req.body.id,
-						password: crypto.createHash('sha512').update(req.body.password).digest('base64'),
-						email: req.body.email,
+    // Delete a star
+    app.put("/api/posts/destar/:id", function (req, res) {
+        Post.updateOne({ _id: req.params.id }, { $pull: { stars: req.body } }, function (err, output) {
+            if (err) return res.status(500).json({ error: "database failure" });
+            console.log(output);
+
+            if (!output.n) return res.status(404).json({ error: "post not found" });
+
+            res.json({ result: "deleted a star" });
+        });
+    })
+
+    //Add a comment
+    app.put("/api/posts/comment/:post_id/", function(req, res) {
+        Post.update({ _id: req.params.post_id }, { $push: { comments: {
+            author: req.body.author,
+            comment: req.body.comment,
+        } } }, function(err, output) {
+            if (err) return res.status(500).json({ error: "database failure" });
+            console.log(output);
+
+            if (!output.n) return res.status(404).json({ error: "post not found" });
+
+            res.json({ result: "add a comment" });
+        })
+    });
+
+    // Sign up
+    app.post("/api/users/signup", function(req, res) {
+        User.find({ id: req.body.id })
+            .exec()
+            .then(user => {
+                if (user.length >= 1) {
+                    res.json({ result: "id is exist" });
+                } else {
+                    const user = new User({
+                        id: req.body.id,
+                        password: crypto
+                            .createHash("sha512")
+                            .update(req.body.password)
+                            .digest("base64"),
+                        email: req.body.email,
                         name: req.body.name,
-                        rc: req.body.rc,
-					});
-					user.save(function(err) {
-						if (err) {
-							console.error(err);
-							res.json({ result: 0 });
-							return;
-						}
+                        rc: req.body.rc
+                    });
+                    user.save(function(err) {
+                        if (err) {
+                            console.error(err);
+                            res.json({ result: 0 });
+                            return;
+                        }
 
-						res.json({ result: 1 });
-					});
-				}
-			});
-	});
+                        res.json({ result: 1 });
+                    });
+                }
+            });
+    });
 
-	app.post("/api/users/login", function(req, res) {
-		User.findOne({ id: req.body.id }, function(err, user) {
-			if (err) return res.status(500).json({ error: "database failure" });
-			if (!user) return res.status(404).json({ error: "this id is not exist" });
+    // Login
+    app.post("/api/users/login", function(req, res) {
+        User.findOne({ id: req.body.id }, function(err, user) {
+            if (err) return res.status(500).json({ error: "database failure" });
+            if (!user) return res.status(404).json({ error: "this id is not exist" });
 
-			if (user.password === crypto.createHash('sha512').update(req.body.password).digest('base64'))
-				res.json(user);
-			else
-				return res.json({ error: "password is wrong" });
-		});
-	});
-
-}
+            if (
+                user.password ===
+                crypto
+                    .createHash("sha512")
+                    .update(req.body.password)
+                    .digest("base64")
+            )
+                res.json(user);
+            else return res.json({ error: "password is wrong" });
+        });
+    });
+};
