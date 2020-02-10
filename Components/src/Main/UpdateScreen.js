@@ -62,13 +62,6 @@ export default class UpdateScreen extends Component {
                         autoCorrect={false}
                         onChangeText={title => this.setState({ newTitle: title })}
                     />
-                    <TextInput
-                        style={styles.authorBox}
-                        value={this.state.newAuthor}
-                        placeholder="  author"
-                        autoCorrect={false}
-                        onChangeText={author => this.setState({ newAuthor: author })}
-                    />
                 </View>
                 <View style={styles.body}>
                     <View style={styles.postBox}>
@@ -123,38 +116,15 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         marginTop: 70,
         height: 50,
-        width: 250,
+        width: 360,
         alignItems: "center",
         justifyContent: "center",
-        borderWidth: 0.5,
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderTopRightRadius: 10,
+        borderBottomWidth: 0.5,
         marginHorizontal: 5
-    },
-    authorBox: {
-        backgroundColor: "white",
-        marginTop: 70,
-        height: 50,
-        width: 120,
-        alignItems: "center",
-        justifyContent: "center",
-        borderWidth: 0.5,
-        marginHorizontal: 5,
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderTopRightRadius: 10
     },
     postBox: {
         marginTop: 60,
-        width: 380,
+        width: 360,
         height: 500,
-        borderWidth: 0.5,
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderTopRightRadius: 10
     }
 });
