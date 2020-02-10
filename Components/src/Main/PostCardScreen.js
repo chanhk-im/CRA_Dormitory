@@ -25,6 +25,7 @@ export default class PostCardScreen extends Component {
         const sec = new Date().getSeconds();
 
         const postTime = new Date(data.published_date);
+        console.log(Date.now() - data.published_date);
 
         const post =
             postTime.getMonth() +
@@ -40,10 +41,12 @@ export default class PostCardScreen extends Component {
     }
 
     _checkEdit(data) {
-        Alert.alert("Edit", "수정하시겠습니까?", [
-            { text: "cancel", onPress: () => null },
-            { text: "ok", onPress: () => this._Edit(data) }
-        ]);
+        if (this.props.user.id === data.author) {
+            Alert.alert("Edit", "수정하시겠습니까?", [
+                { text: "cancel", onPress: () => null },
+                { text: "ok", onPress: () => this._Edit(data) }
+            ]);
+        } 
     }
 
     _Edit(data) {
