@@ -8,7 +8,7 @@ var postSchema = new Schema({
     post: { type: String, required: true },
 
     stars: [new mongoose.Schema({ user_id: String }, { _id: false })],
-    comments: [new mongoose.Schema({ author: String, comment: String }, { _id: false })],
+    comments: [new mongoose.Schema({ author: String, comment: String, published_date: { type: Date, default: Date.now } }, { _id: false })],
 
     published_date: { type: Date, default: Date.now }
 });

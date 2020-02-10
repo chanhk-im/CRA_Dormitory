@@ -71,7 +71,8 @@ export default class PostCardScreen extends Component {
 
     _doComment(data) {
         this.props.navigation.navigate("CommentScreen", {
-            data: data
+            data: data,
+            user: this.props.user
         });
     }
 

@@ -114,6 +114,7 @@ module.exports = function(app) {
         Post.update({ _id: req.params.post_id }, { $push: { comments: {
             author: req.body.author,
             comment: req.body.comment,
+            published_date: new Date(req.body.published_date)
         } } }, function(err, output) {
             if (err) return res.status(500).json({ error: "database failure" });
             console.log(output);
