@@ -18,7 +18,7 @@ export default class PostCard extends Component {
             isAddedStar: !this.state.isAddedStar
         });
 
-        if (ata.stars.filter(star => star.user_id === this.props.user.id).length >= 1) {
+        if (this._checkStar(data)) {
             fetch(`http://${ip}:${port}/api/posts/destar/${data._id}`, {
                 method: "PUT",
                 headers: {
@@ -45,15 +45,6 @@ export default class PostCard extends Component {
         
     }
 
-    componentDidMount() {
-        if (this.props.data.stars.filter(star => star.user_id === this.props.user.id).length >= 1) {
-            console.log(1);
-            this.setState({
-                isAddedStar: true,
-            })
-        }
-    }
-
     render() {
         return (
             <Card>
@@ -65,16 +56,25 @@ export default class PostCard extends Component {
                             <Text note>{this.props.date}</Text>
                         </Body>
                     </Left>
-                    <Button transparent>
-                        <TouchableOpacity onPress={() => this.props._checkEdit(this.props.data)}>
-                            <Icon name="ios-create" style={{ color: "grey" }} />
-                        </TouchableOpacity>
-                    </Button>
-                    <Button transparent>
-                        <TouchableOpacity onPress={() => this.props._checkDelete(this.props.data)}>
-                            <Icon name="ios-close-circle-outline" style={{ color: "grey" }} />
-                        </TouchableOpacity>
-                    </Button>
+                    {
+                        this.props.user.id === this.props.data.author ? 
+                        <Button transparent>
+                            <TouchableOpacity onPress={() => this.props._checkEdit(this.props.data)}>
+                                <Icon name="ios-create" style={{ color: "gray" }} />
+                            </TouchableOpacity>
+                        </Button>:
+                        <View></View>
+                    }
+                    {
+                        (this.props.user.id === this.props.data.author || this.props.user.isAdmin) ?
+                            <Button transparent>
+                                <TouchableOpacity onPress={() => this.props._checkDelete(this.props.data)}>
+                                    <Icon name="ios-close-circle-outline" style={{ color: "gray" }} />
+                                </TouchableOpacity>
+                            </Button> :
+                            <View></View>
+                    }
+                    
                 </CardItem>
                 <CardItem style={{ height: 40 }}>
                     <Text style={{ fontWeight: "800", fontSize: 18 }}>{this.props.data.title}</Text>

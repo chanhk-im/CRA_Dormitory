@@ -36,34 +36,34 @@ export default class RcScreen extends Component {
                         <TouchableOpacity
                             style={styles.leftTop}
                             onPress={this._navigate1.bind(this)}>
-                            <Image source={require('./../../../img/Torrey.jpg')} style={{width:220, height:230}}/>
+                            <Image source={require('./../../../img/Torrey.jpg')} style={{width:180, height:230}}/>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.leftCenter}
                             onPress={this._navigate2.bind(this)}>
-                            <Image source={require('./../../../img/Kuyper.jpg')} style={{width:220, height:200}}/>
+                            <Image source={require('./../../../img/Kuyper.jpg')} style={{width:200, height:200}}/>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.leftBottom}
                             onPress={this._navigate3.bind(this)}>
-                            <Image source={require('./../../../img/Sonyangwon.jpg')} style={{width:220, height:220}}/>
+                            <Image source={require('./../../../img/Sonyangwon.jpg')} style={{width:200, height:220}}/>
                         </TouchableOpacity>
                     </View>  
                     <View style={styles.right}>  
                         <TouchableOpacity
                             style={styles.rightTop}
                             onPress={this._navigate4.bind(this)}>
-                            <Image source={require('./../../../img/Philadelphos.jpg')} style={{width:220, height:200}}/>
+                            <Image source={require('./../../../img/Philadelphos.jpg')} style={{width:190, height:200}}/>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.rightCenter}
                             onPress={this._navigate5.bind(this)}>
-                            <Image source={require('./../../../img/Carmichael.jpg')} style={{width:220, height:200}}/>
+                            <Image source={require('./../../../img/Carmichael.jpg')} style={{width:200, height:200}}/>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.rightBottom}
                             onPress={this._navigate6.bind(this)}>
-                            <Image source={require('./../../../img/Jangkiryeo.jpg')} style={{width:220, height:200}}/>
+                            <Image source={require('./../../../img/Jangkiryeo.jpg')} style={{width:200, height:200}}/>
                         </TouchableOpacity>
                     </View>
                 </View>
