@@ -8,8 +8,12 @@ import Loading from "../Loading/Loading";
 import { ip, port } from "../../../Secret";
 
 export default class PostScreen extends Component {
-    _navigate() {
+    _goWrite() {
         this.props.navigation.navigate("WriteScreen", { addData: this.addData, type: this.props.type, user: this.state.user });
+    }
+
+    _goSearch() {
+        this.props.navigation.navigate("SearchScreen");
     }
 
     static navigationOptions = {
@@ -113,7 +117,7 @@ export default class PostScreen extends Component {
                 <Container style={styles.container}>
                     <Header style={styles.header}>
                         <Left>
-                            <TouchableOpacity onPress={this._navigate.bind(this)}>
+                            <TouchableOpacity onPress={this._goWrite.bind(this)}>
                                 <Icon name="ios-add" style={{ paddingLeft: 10 }} />
                             </TouchableOpacity>
                         </Left>
@@ -121,7 +125,9 @@ export default class PostScreen extends Component {
                             <Text>{this.props.headerText}</Text>
                         </Body>
                         <Right>
-                            <Icon name="ios-search" style={{ paddingRight: 10 }} />
+                            <TouchableOpacity onPress={this._goSearch.bind(this)}>
+                                <Icon name="ios-search" style={{ paddingRight: 10 }} />
+                            </TouchableOpacity>    
                         </Right>
                     </Header>
                     <Content>
@@ -140,7 +146,7 @@ export default class PostScreen extends Component {
                 <Container style={styles.container}>
                     <Header style={styles.header}>
                         <Left>
-                            <TouchableOpacity onPress={this._navigate.bind(this)}>
+                            <TouchableOpacity onPress={this._goWrite.bind(this)}>
                                 <Icon name="ios-add" style={{ paddingLeft: 10 }} />
                             </TouchableOpacity>
                         </Left>
@@ -148,7 +154,9 @@ export default class PostScreen extends Component {
                             <Text>공지게시판</Text>
                         </Body>
                         <Right>
-                            <Icon name="ios-search" style={{ paddingRight: 10 }} />
+                            <TouchableOpacity onPress={this._goSearch.bind(this)}>
+                                <Icon name="ios-search" style={{ paddingRight: 10 }} />
+                            </TouchableOpacity>    
                         </Right>
                     </Header>
                     <Loading />
@@ -165,6 +173,6 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight
     },
     header: {
-        backgroundColor: "#1E90FF"
+        backgroundColor: "#719FE5"
     }
 });
