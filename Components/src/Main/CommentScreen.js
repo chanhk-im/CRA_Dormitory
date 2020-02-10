@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { StyleSheet, View, TextInput, ScrollView, TouchableOpacity, Text, Image, InputAccessoryView, Keyboard } from "react-native";
 import { Icon, Header, Left, Right, Body, Card, CardItem, Button } from "native-base";
 import { KeyboardAccessoryView } from "react-native-keyboard-accessory";
-
+//import {KeyboardAccessory} from 'react-native-sticky-keyboard-accessory';
 export default class CommentScreen extends Component {
     constructor(props) {
         super(props);

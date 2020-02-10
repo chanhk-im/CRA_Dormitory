@@ -5,54 +5,26 @@ import { Icon, Header, Left, Right, Body, Card, CardItem } from 'native-base';
 import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
 
 export default class SearchScreen extends Component {
-    constructor(props) {
-        super(props);
-    }
   render() {
-
     return (
         <View style={styles.container}>
-            {/* <Header> */}
-                {/* <Left> */}
-                    {/* <Button
-                        style={styles.textInputButton}
-                        title="취소"
-                        onPress={() => {}}/> */}
-                {/* </Left> */}
-                {/* <Body>  */}
-                    <View style={styles.textInputView}>
-                        <Button
-                        style={styles.textInputButton}
-                        title="취소"
-                        onPress={()=>this.props.navigation.goBack()}
-                        >
-                        </Button>
-                        <TextInput
-                        underlineColorAndroid="transparent"
-                        style={styles.textInput}
-                        multiline={true} />
-                        <Button
-                        style={styles.textInputButton}
-                        title="확인"
-                        onPress={() => {}}/>
-                    </View>
-                {/* </Body> */}
-                {/* <Right> */}
-                    {/* <Button
-                        style={styles.textInputButton}
-                        title="확인"
-                        onPress={() => {}}/> */}
-                 {/* </Right> */}
-            {/* </Header> */}
-            {/* <KeyboardAccessoryView alwaysVisible={true}>
-                <View style={styles.textInputView}>
-                    <TextInput
-                    underlineColorAndroid="transparent"
-                    style={styles.textInput}
-                    multiline={true} />
-                    <Icon name='ios-send' style={styles.textInputButton}/>
-                </View>
-                </KeyboardAccessoryView> */}
+            <View style={styles.textInputView}>
+                <Button
+                style={styles.textInputButton}
+                title="취소"
+                onPress={()=>this.props.navigation.goBack()}
+                >
+                </Button>
+                <TextInput
+                underlineColorAndroid="transparent"
+                placeholder="검색 🔍" 
+                style={styles.textInput}
+                multiline={true} />
+                <Button
+                style={styles.textInputButton}
+                title="확인"
+                onPress={() => {}}/>
+            </View>
         </View>
     );
   }
@@ -63,8 +35,7 @@ const styles = StyleSheet.create({
       flex: 1
     },
     textInputView: {
-        paddingTop:45,
-    //   padding: 40,
+      paddingTop:45,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -80,7 +51,6 @@ const styles = StyleSheet.create({
       textAlignVertical: 'top'
     },
     textInputButton: {
-    //   flexShrink: 1,
-      color:"gray"
+     color:"gray"
     }
   });
