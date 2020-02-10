@@ -106,7 +106,7 @@ export default class SignupScreen extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.titleArea}>
-                    <Image style={{ width: 100, height: 100 }} source={require("./../../../img/hguhouse.jpeg")} />
+                    <Image style={{ width: 220, height: 120 }} source={require("./../../../img/home.png")} />
                 </View>
                 <KeyboardAvoidingView
                     style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
@@ -203,7 +203,8 @@ const styles = StyleSheet.create({
         width: "100%",
         marginTop: 20,
         alignItems: "center",
-        margin: 40
+        margin: 40,
+        marginTop: 50
     },
     textForm: {
         borderWidth: 0.5,
@@ -236,7 +237,7 @@ const styles = StyleSheet.create({
     },
     button: {
         width: 300,
-        backgroundColor: "rgb(6,44,101)",
+        backgroundColor: "#4278BA",
         borderRadius: 15,
         marginVertical: 15,
         paddingVertical: 12,

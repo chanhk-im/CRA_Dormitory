@@ -46,7 +46,7 @@ export default class LoginScreen extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.titleArea}>
-                    <Image style={{ width: 150, height: 150 }} source={require("./../../../img/hguhouse.jpeg")} />
+                    <Image style={{ width: 220, height: 120 }} source={require("./../../../img/home.png")} />
                 </View>
                 <View style={styles.formArea}>
                     <TextInput
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     },
     titleArea: {
         width: "100%",
-        marginTop: 20,
+        marginTop: 30,
         alignItems: "center",
         margin: 40
     },
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10
     },
     button: {
-        backgroundColor: "#1E3269",
+        backgroundColor: "#4278BA",
         width: "45%",
         height: 40,
         justifyContent: "center",
