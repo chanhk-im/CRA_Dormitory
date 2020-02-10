@@ -113,6 +113,7 @@ module.exports = function(app) {
     });
 
     app.put("/api/posts/star/:id", function(req, res) {
+		console.log(1);
         Post.updateOne({ _id: req.params.id }, { $push: { stars: req.body } }, function (err, output) {
             if (err) return res.status(500).json({ error: "database failure" });
             console.log(output);
@@ -124,7 +125,8 @@ module.exports = function(app) {
     })
 
     app.put("/api/posts/destar/:id", function (req, res) {
-        Post.updateOne({ _id: req.params.id }, { $push: { stars: req.body } }, function (err, output) {
+        console.log(2);
+		Post.updateOne({ _id: req.params.id }, { $pull: { stars: req.body } }, function (err, output) {
             if (err) return res.status(500).json({ error: "database failure" });
             console.log(output);
 
