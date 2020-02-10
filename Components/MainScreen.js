@@ -15,6 +15,7 @@ import WriteScreen from "./src/Main/WriteScreen";
 import PostCardScreen from "./src/Main/PostCardScreen";
 import UpdateScreen from "./src/Main/UpdateScreen";
 import CommentScreen from "./src/Main/CommentScreen";
+import SearchScreen from "./src/Main/SearchScreen";
 import RcTorScreen from "./src/Main/RcTorScreen";
 import RcKuyScreen from "./src/Main/RcKuyScreen";
 import RcSonScreen from "./src/Main/RcSonScreen";
@@ -54,7 +55,8 @@ const NoticeStack = createStackNavigator(
         WriteScreen,
         PostCardScreen,
         UpdateScreen,
-        CommentScreen
+        CommentScreen,
+        SearchScreen
     },
     {
         headerMode: "none",
@@ -71,7 +73,8 @@ const FreeStack = createStackNavigator(
         WriteScreen,
         PostCardScreen,
         UpdateScreen,
-        CommentScreen
+        CommentScreen,
+        SearchScreen
     },
     {
         headerMode: 'none',
@@ -94,7 +97,8 @@ const RcStack = createStackNavigator(
         WriteScreen,
         PostCardScreen,
         UpdateScreen,
-        CommentScreen
+        CommentScreen,
+        SearchScreen
     },
     {
         headerMode: "none",

@@ -46,7 +46,7 @@ export default class WriteScreen extends Component {
                     <TextInput
                         style={styles.titleBox}
                         value={this.state.newTitle}
-                        placeholder="title"
+                        placeholder="   title"
                         autoCorrect={false}
                         onChangeText={title => this.setState({ newTitle: title })}
                     />
@@ -58,7 +58,7 @@ export default class WriteScreen extends Component {
                     <View style={styles.postBox}>
                         <TextInput
                             value={this.state.newPost}
-                            placeholder="post"
+                            placeholder="   post"
                             autoCorrect={false}
                             multiline={true}
                             onChangeText={post => this.setState({ newPost: post })}
