@@ -3,11 +3,9 @@ import React, { Component } from "react";
 import { StyleSheet, View, TextInput, ScrollView, TouchableOpacity, Text, Image, Keyboard, KeyboardAvoidingView } from "react-native";
 import { Icon, Header, Left, Right, Body, Card, CardItem, Button } from "native-base";
 import { KeyboardAccessoryView } from "react-native-keyboard-accessory";
-
 import Loading from "../Loading/Loading";
 
 import { ip, port } from "../../../Secret";
-
 export default class CommentScreen extends Component {
     state = {
         comment: "",
