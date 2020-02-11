@@ -6,8 +6,7 @@ import PostCardScreen from "./PostCardScreen";
 import Loading from "../Loading/Loading";
 
 import { ip, port } from "../../../Secret";
-import PTRView from 'react-native-pull-to-refresh'
-
+import PTRView from "react-native-pull-to-refresh";
 
 export default class PostScreen extends Component {
     _goWrite() {
@@ -25,7 +24,8 @@ export default class PostScreen extends Component {
     state = {
         post: [],
         isLoaded: false,
-        user: {}
+        user: {},
+        cards: []
     };
 
     constructor(props) {
@@ -35,20 +35,12 @@ export default class PostScreen extends Component {
         this.editData = this.editData.bind(this);
         this.loadDataFromDB = this.loadDataFromDB.bind(this);
 
-        this.state = {
-            cards: []
-          }
         this._refresh = this._refresh.bind(this);
     }
 
-    _refresh () {
-        return new Promise((resolve) => {
-          setTimeout(()=>{
-            this.setState({ })
-            resolve(); 
-          }, 1000)
-        })
-      }
+    _refresh() {
+        return this.loadDataFromDB();
+    }
 
     async loadDataFromDB() {
         this.setState({
@@ -69,7 +61,7 @@ export default class PostScreen extends Component {
             const user = JSON.parse(data || "[]");
             this.setState({ user });
         });
-
+        console.log(this.state.user);
         this.setState({
             isLoaded: true
         });
@@ -138,31 +130,25 @@ export default class PostScreen extends Component {
                             </TouchableOpacity>
                         </Left>
                         <Body>
-                            <Text style={{color: this. props. textColor}}>{this.props.headerText}</Text>
+                            <Text style={{ color: this.props.textColor }}>{this.props.headerText}</Text>
                         </Body>
                         <Right>
                             <TouchableOpacity onPress={this._goSearch.bind(this)}>
                                 <Icon name="ios-search" style={{ paddingRight: 10 }} />
-                            </TouchableOpacity>    
+                            </TouchableOpacity>
                         </Right>
                     </Header>
-                    <PTRView
-                        onRefresh={this._refresh}
-                    >
-                        {this.state.cards.map((el, i) => (
-                        <View>
-                        </View>
-                        ))}
+                    <PTRView onRefresh={this._refresh}>
+                        <Content>
+                            <PostCardScreen
+                                post={this.state.post}
+                                navigation={this.props.navigation}
+                                removeData={this.removeData}
+                                editData={this.editData}
+                                user={this.state.user}
+                            />
+                        </Content>
                     </PTRView>
-                    <Content>
-                        <PostCardScreen
-                            post={this.state.post}
-                            navigation={this.props.navigation}
-                            removeData={this.removeData}
-                            editData={this.editData}
-                            user={this.state.user}
-                        />
-                    </Content>
                 </Container>
             );
         } else {
@@ -180,7 +166,7 @@ export default class PostScreen extends Component {
                         <Right>
                             <TouchableOpacity onPress={this._goSearch.bind(this)}>
                                 <Icon name="ios-search" style={{ paddingRight: 10 }} />
-                            </TouchableOpacity>    
+                            </TouchableOpacity>
                         </Right>
                     </Header>
                     <Loading />
@@ -195,6 +181,5 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "white",
         paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight
-    },
-    
+    }
 });
