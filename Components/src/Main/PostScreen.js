@@ -122,7 +122,7 @@ export default class PostScreen extends Component {
                             </TouchableOpacity>
                         </Left>
                         <Body>
-                            <Text>{this.props.headerText}</Text>
+                            <Text style={{color: this. props. textColor}}>{this.props.headerText}</Text>
                         </Body>
                         <Right>
                             <TouchableOpacity onPress={this._goSearch.bind(this)}>
@@ -172,7 +172,5 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight
     },
-    header: {
-        backgroundColor: "#719FE5"
-    }
+    
 });

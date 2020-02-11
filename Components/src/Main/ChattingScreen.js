@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight,
     },
     header: { 
-        backgroundColor: "#719FE5",
+        backgroundColor: "#A7DEFE",
     },
     item: {
         padding: 16,
