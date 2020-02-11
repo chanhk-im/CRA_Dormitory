@@ -1,56 +1,46 @@
 import React, { Component } from 'react';
 
-import {StyleSheet, View, TextInput, ScrollView, TouchableOpacity, Text, Image, Button } from 'react-native';
-import { Icon, Header, Left, Right, Body, Card, CardItem } from 'native-base';
-import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
+import {StyleSheet, } from 'react-native';
+import { Container, Icon, Header,Item,Input, Button, Text,} from 'native-base';
+
 
 export default class SearchScreen extends Component {
+  // _handleKeyPress = (e) => {
+  //   if(e.charCode === 13){
+  //   this._buttonClick();
+  //   }
+  // }
   render() {
     return (
-        <View style={styles.container}>
-            <View style={styles.textInputView}>
-                <Button
-                style={styles.textInputButton}
-                title="취소"
-                onPress={()=>this.props.navigation.goBack()}
-                >
-                </Button>
-                <TextInput
-                underlineColorAndroid="transparent"
-                placeholder="검색 🔍" 
-                style={styles.textInput}
-                multiline={true} />
-                <Button
-                style={styles.textInputButton}
-                title="확인"
-                onPress={() => {}}/>
-            </View>
-        </View>
-    );
-  }
-}
+        <Container>
+          <Header searchBar rounded>
+            <Button transparent  onPress={()=>this.props.navigation.goBack()} >
+              <Text style={styles.textInputButton_c}>Cancel</Text>
+            </Button>
+            
+            <Item>
+              <Icon name="ios-search" />
+              <Input placeholder="글 제목, 내용"/>
+               {/* //onKeyPress={this._handleKeyPress}/> */}
+            </Item>
+            
+            <Button transparent style={styles.textInputButton_s}>
+              <Text>Search</Text>
+            </Button>      
+          </Header>
+          </Container>
+           );
+             }
+           }
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1
-    },
-    textInputView: {
-      paddingTop:45,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    textInput: {
-      flexGrow: 1,
-      borderWidth: 1,
-      borderRadius: 10,
-      borderColor: '#CCC',
-      padding: 10,
-      fontSize: 16,
-      marginRight: 10,
-      textAlignVertical: 'top'
-    },
-    textInputButton: {
-     color:"gray"
-    }
-  });
+  const styles = StyleSheet.create({
+        
+        textInputButton_c: {
+          paddingLeft: 0.0001, 
+          width:61,
+        },
+        textInputButton_s: {
+          paddingLeft: 0.01, 
+          width:71.6,
+        }
+      });
