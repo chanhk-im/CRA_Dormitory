@@ -147,9 +147,9 @@ export default class CommentScreen extends Component {
                                                     </Body>
                                                 </Left>
                                                     <Button transparent>
-                                                        <TouchableOpacity onPress={() => this.props._checkDelete(this.props.data)}>
+                                                        {/* <TouchableOpacity onPress={() =i> this.props._checkDelete(this.props.data)}> */}
                                                             <Icon name="ios-close-circle-outline" style={{ color: "gray" }} />
-                                                        </TouchableOpacity>
+                                                        {/* </TouchableOpacity> */}
                                                     </Button> 
                                             </CardItem>
                                             <CardItem>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert, Image } from "react-native";
-import { Card, CardItem, Body, Left, Button, Icon } from "native-base";
+import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
 
 import PostCard from "./PostCard";
 
