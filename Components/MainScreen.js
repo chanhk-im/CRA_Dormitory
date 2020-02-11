@@ -57,7 +57,7 @@ const NoticeStack = createStackNavigator(
         PostCardScreen,
         UpdateScreen,
         CommentScreen,
-        SearchScreen
+        SearchScreen,
     },
     {
         headerMode: "none",
