@@ -4,7 +4,7 @@ import PostScreen from "./PostScreen";
 
 export default class NoticeScreen extends Component {
     render() {
-        return <PostScreen navigation={this.props.navigation} type="Free" headerText="자유게시판" headerColor="#3ED0C8" />;
+        return <PostScreen navigation={this.props.navigation} type="Free" headerText="자유게시판" headerColor="#A7DEFE" />;
     }
 }
 

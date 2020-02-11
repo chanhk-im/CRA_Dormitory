@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, FlatList, Picker } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, FlatList, Picker, Button } from 'react-native';
 import { Icon, Header, Left, Right, Body } from 'native-base';
-
+import { Entypo } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default class ChattingScreen extends Component {
 
@@ -16,7 +16,11 @@ export default class ChattingScreen extends Component {
       ]
     };
   }
-  state = {message: ''}
+   state = {message: ''}
+
+   _goSend = () => {
+        // this.props.navigation.navigate("ChattingScreen", { Room: this.state.RoomNumber});
+    }
    
    updateMessage = message => {
       this.setState({ message: message })
@@ -34,9 +38,11 @@ render() {
     return (
         <View style={styles.container}>
             <Header style={ styles.header }>
-                    <Left><Icon name='ios-add' style={{ paddingLeft:10 }}/></Left>
+                    <Left><Icon name='ios-arrow-back' style={{ paddingLeft:10 }}/></Left>
                     <Body><Text>채팅</Text></Body>
-                    <Right><Icon name='ios-more' style={{ paddingRight:10 }}/></Right>               
+                    <Right>
+                        <Text style={styles.title}>Room {this.props.navigation.state.params.Room}</Text>
+                    </Right>               
             </Header>
 
             <ScrollView >
@@ -70,14 +76,14 @@ render() {
                 <Picker.Item label = "새벽에 샤워는 자제해주세요" value = "새벽에 샤워는 자제해주세요" />
                 <Picker.Item label = "넵, 죄송합니다" value = "넵, 죄송합니다" />
                 <Picker.Item label = "감사합니다" value = "감사합니다" />
-                </Picker>         
-                <Text style = {styles.text}>{this.state.message}</Text>
-                <View style={styles.header2}>
+                </Picker> 
+                <View style={styles.header2}>  
+                    <Text style = {styles.text}>{this.state.message}</Text>
                     <View style={styles.item2}>
-                        <TouchableOpacity style={styles.btnSend}>
-                            <FontAwesome name= 'send-o' size={30} color='#fff' onPress={() => SendHandler(message)}/>
+                        <TouchableOpacity onPress={this._goSend.bind(message)}>
+                            <Icon name="ios-send" />
                         </TouchableOpacity>
-                    </View>
+                    </View>      
                 </View>
             </View>
         </View>
@@ -92,11 +98,17 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight,
     },
     header: { 
-        backgroundColor: "#719FE5",
+        backgroundColor: "#A7DEFE",
     },
+    item: {
+        padding: 16,
+        marginTop: 16,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      },
     send: {
         backgroundColor: '#abc',
-        height:270,
+        height:290,
     },
     head: {
         height: 80,
@@ -165,12 +177,15 @@ const styles = StyleSheet.create({
     },
     header2: {
         height: 80,
+        flexDirection: 'row',
+        alignSelf: 'center',
     },
     item2: {
         padding: 10,
-        margin: 10,
+        margin: 12,
         flexDirection: 'row-reverse',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        borderColor: "white",
     },
     btnSend:{
         backgroundColor:"#00BFFF",
@@ -180,5 +195,8 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
     },
+    textInputButton: {
+        color:"gray"
+    }
 });
 

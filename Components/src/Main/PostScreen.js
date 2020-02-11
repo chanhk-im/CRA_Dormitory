@@ -6,6 +6,8 @@ import PostCardScreen from "./PostCardScreen";
 import Loading from "../Loading/Loading";
 
 import { ip, port } from "../../../Secret";
+import PTRView from 'react-native-pull-to-refresh'
+
 
 export default class PostScreen extends Component {
     _goWrite() {
@@ -32,7 +34,21 @@ export default class PostScreen extends Component {
         this.removeData = this.removeData.bind(this);
         this.editData = this.editData.bind(this);
         this.loadDataFromDB = this.loadDataFromDB.bind(this);
+
+        this.state = {
+            cards: []
+          }
+        this._refresh = this._refresh.bind(this);
     }
+
+    _refresh () {
+        return new Promise((resolve) => {
+          setTimeout(()=>{
+            this.setState({ })
+            resolve(); 
+          }, 1000)
+        })
+      }
 
     async loadDataFromDB() {
         this.setState({
@@ -122,7 +138,7 @@ export default class PostScreen extends Component {
                             </TouchableOpacity>
                         </Left>
                         <Body>
-                            <Text>{this.props.headerText}</Text>
+                            <Text style={{color: this. props. textColor}}>{this.props.headerText}</Text>
                         </Body>
                         <Right>
                             <TouchableOpacity onPress={this._goSearch.bind(this)}>
@@ -130,6 +146,14 @@ export default class PostScreen extends Component {
                             </TouchableOpacity>    
                         </Right>
                     </Header>
+                    <PTRView
+                        onRefresh={this._refresh}
+                    >
+                        {this.state.cards.map((el, i) => (
+                        <View>
+                        </View>
+                        ))}
+                    </PTRView>
                     <Content>
                         <PostCardScreen
                             post={this.state.post}
@@ -172,7 +196,5 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight
     },
-    header: {
-        backgroundColor: "#719FE5"
-    }
+    
 });
