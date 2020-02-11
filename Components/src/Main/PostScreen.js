@@ -115,7 +115,7 @@ export default class PostScreen extends Component {
         if (this.state.isLoaded) {
             return (
                 <Container style={styles.container}>
-                    <Header style={styles.header}>
+                    <Header style={{ backgroundColor: this.props.headerColor }}>
                         <Left>
                             <TouchableOpacity onPress={this._goWrite.bind(this)}>
                                 <Icon name="ios-add" style={{ paddingLeft: 10 }} />

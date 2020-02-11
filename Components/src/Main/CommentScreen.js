@@ -96,51 +96,47 @@ export default class CommentScreen extends Component {
                     </Header>
                     <ScrollView>
                         <View style={styles.content}>
-                            <ScrollView>
-                                <Card>
-                                    <CardItem>
-                                        <Left>
-                                            <Image
-                                                source={require("./../../../img/cute.png")}
-                                                style={{ width: 40, height: 40, borderRadius: 37.5 }}
-                                            />
-                                            <Body>
-                                                <Text style={{ fontWeight: "800" }}>{data.author}</Text>
-                                                <Text note>Date</Text>
-                                            </Body>
-                                        </Left>
-                                    </CardItem>
-                                    <CardItem style={{ height: 40 }}>
-                                        <Text style={{ fontWeight: "800", fontSize: 18 }}>{data.title}</Text>
-                                    </CardItem>
-                                    <CardItem>
-                                        <Text>{data.post}</Text>
-                                    </CardItem>
-                                    <CardItem style={{ height: 50 }}>
-                                        <Left>
-                                            <Button transparent>
-                                                <Icon name="ios-star-outline" style={{ color: "gray" }} />
-                                            </Button>
-                                            <Button transparent>
-                                                <Icon name="ios-chatbubbles" style={{ color: "gray" }} />
-                                            </Button>
-                                        </Left>
-                                    </CardItem>
-                                </Card>
-                            </ScrollView>
+                            <Card>
+                                <CardItem>
+                                    <Left>
+                                        <Image
+                                            source={require("./../../../img/cute.png")}
+                                            style={{ width: 40, height: 40, borderRadius: 37.5 }}
+                                        />
+                                        <Body>
+                                            <Text style={{ fontWeight: "800" }}>{data.author}</Text>
+                                            <Text note>Date</Text>
+                                        </Body>
+                                    </Left>
+                                </CardItem>
+                                <CardItem style={{ height: 40 }}>
+                                    <Text style={{ fontWeight: "800", fontSize: 18 }}>{data.title}</Text>
+                                </CardItem>
+                                <CardItem>
+                                    <Text>{data.post}</Text>
+                                </CardItem>
+                                <CardItem style={{ height: 50 }}>
+                                    <Left>
+                                        <Button transparent>
+                                            <Icon name="ios-star-outline" style={{ color: "gray" }} />
+                                        </Button>
+                                        <Button transparent>
+                                            <Icon name="ios-chatbubbles" style={{ color: "gray" }} />
+                                        </Button>
+                                    </Left>
+                                </CardItem>
+                            </Card>
                         </View>
                         <View style={{ flex: 1 }}>
-                            {
-                                this.state.comments.map(data => {
-                                    return (
-                                        <View key={data.published_date}>
-                                            <Text>{this._setPostTime(data)}</Text>
-                                            <Text>{data.author}</Text>
-                                            <Text>{data.comment}</Text>
-                                        </View>
-                                    )
-                                })
-                            }
+                            {this.state.comments.map(data => {
+                                return (
+                                    <View key={data.published_date}>
+                                        <Text>{this._setPostTime(data)}</Text>
+                                        <Text>{data.author}</Text>
+                                        <Text>{data.comment}</Text>
+                                    </View>
+                                );
+                            })}
                         </View>
                     </ScrollView>
                     <KeyboardAccessoryView alwaysVisible={true}>
@@ -188,8 +184,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#719FE5"
     },
     content: {
-        flex: 1,
-        backgroundColor: "red"
+        flex: 1
     },
     textInputView: {
         padding: 8,
