@@ -9,6 +9,7 @@ import SignupScreen from "./src/Login/SignupScreen";
 import NoticeScreen from "./src/Main/NoticeScreen";
 import FreeScreen from "./src/Main/FreeScreen";
 import RcScreen from "./src/Main/RcScreen";
+import ChatRoomScreen from "./src/Main/ChatRoomScreen";
 import ChattingScreen from "./src/Main/ChattingScreen";
 import SettingScreen from "./src/Main/SettingScreen";
 import WriteScreen from "./src/Main/WriteScreen";
@@ -126,8 +127,9 @@ const RcStack = createStackNavigator(
     }
 );
 
-const ChattingStack = createStackNavigator(
+const ChatStack = createStackNavigator(
     {
+        ChatRoomScreen,
         ChattingScreen
     },
     {
@@ -135,7 +137,7 @@ const ChattingStack = createStackNavigator(
         defaultNavigationOptions: ({ navigation }) => ({
             title: "Chatting"
         }),
-        initialRouteName: "ChattingScreen"
+        initialRouteName: "ChatRoomScreen"
     }
 );
 
@@ -157,7 +159,7 @@ const TabNavigator = createBottomTabNavigator(
         Notice: NoticeStack,
         Free: FreeStack,
         Rc: RcStack,
-        Chatting: ChattingStack,
+        Chatting: ChatStack,
         Setting: SettingStack
     },
     {
@@ -172,7 +174,7 @@ const TabNavigator = createBottomTabNavigator(
                     icon = "📌";
                 } else if (routeName === "Rc") {
                     icon = "🏠";
-                } else if (routeName === "Chatting") {
+                } else if (routeName === "Chat") {
                     icon = "🗣";
                 } else if (routeName === "Setting") {
                     icon = "⚙️";
