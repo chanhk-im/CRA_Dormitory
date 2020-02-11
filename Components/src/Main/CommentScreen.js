@@ -13,9 +13,9 @@ export default class CommentScreen extends Component {
         isLoaded: false
     };
 
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     _onPressComment(data) {
         let user = this.props.navigation.getParam("user", null);
@@ -128,15 +128,35 @@ export default class CommentScreen extends Component {
                             </Card>
                         </View>
                         <View style={{ flex: 1 }}>
-                            {this.state.comments.map(data => {
-                                return (
-                                    <View key={data.published_date}>
-                                        <Text>{this._setPostTime(data)}</Text>
-                                        <Text>{data.author}</Text>
-                                        <Text>{data.comment}</Text>
-                                    </View>
-                                );
-                            })}
+                            {
+                                this.state.comments.map(data => {
+                                    return (
+                                        // <Card>
+                                        <View style={styles.container}>
+                                            <CardItem>
+                                                <Left>
+                                                    <Image
+                                                        source={require("./../../../img/cute.png")}
+                                                        style={{ width: 28, height: 28, borderRadius: 37.5 }}
+                                                    />
+                                                    <Body>
+                                                        <Text style={{fontWeight:"bold"}}>{data.author}</Text>
+                                                        <Text style={{fontSize:12}}>{this._setPostTime(data)}</Text>
+                                                    </Body>
+                                                </Left>
+                                                    <Button transparent>
+                                                        <TouchableOpacity onPress={() => this.props._checkDelete(this.props.data)}>
+                                                            <Icon name="ios-close-circle-outline" style={{ color: "gray" }} />
+                                                        </TouchableOpacity>
+                                                    </Button> 
+                                            </CardItem>
+                                            <CardItem>
+                                                <Text>{data.comment}</Text>
+                                            </CardItem>
+                                        </View>
+                                    )
+                                })
+                            }
                         </View>
                     </ScrollView>
                     <KeyboardAccessoryView alwaysVisible={true}>
