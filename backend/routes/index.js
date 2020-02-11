@@ -125,6 +125,25 @@ module.exports = function(app) {
         })
     });
 
+    app.put("/api/posts/decomment/:post_id/", function (req, res) {
+        Post.update({ _id: req.params.post_id }, {
+            $push: {
+                comments: {
+                    author: req.body.author,
+                    comment: req.body.comment,
+                    published_date: new Date(req.body.published_date)
+                }
+            }
+        }, function (err, output) {
+            if (err) return res.status(500).json({ error: "database failure" });
+            console.log(output);
+
+            if (!output.n) return res.status(404).json({ error: "post not found" });
+
+            res.json({ result: "add a comment" });
+        })
+    });
+
     // Sign up
     app.post("/api/users/signup", function(req, res) {
         User.find({ id: req.body.id })

@@ -132,7 +132,7 @@ export default class CommentScreen extends Component {
                                 this.state.comments.map(data => {
                                     return (
                                         // <Card>
-                                        <View style={styles.container}>
+                                        <View style={styles.container} key={data.published_date}>
                                             <CardItem>
                                                 <Left>
                                                     <Image
