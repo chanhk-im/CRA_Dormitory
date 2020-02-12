@@ -94,7 +94,7 @@ export default class CommentScreen extends Component {
                         <Body />
                         <Right />
                     </Header>
-                    <ScrollView>
+                    <ScrollView  keyboardDismissMode='on-drag'> 
                         <View style={styles.content}>
                             <Card>
                                 <CardItem>
