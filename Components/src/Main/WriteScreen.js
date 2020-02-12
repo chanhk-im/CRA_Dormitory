@@ -1,19 +1,25 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Dimensions,ScrollView } from "react-native";
 import { Icon, Header, Left, Right, Body } from 'native-base';
 
 export default class WriteScreen extends Component {
     state = {
         newTitle: "",
         newAuthor: "",
-        newPost: ""
+        newPost: "",
+
     };
+    //const screenHeight = Math.round(Dimensions.get('window').height);
 
     render() {
         let addData = this.props.navigation.getParam("addData", null);
         let type = this.props.navigation.getParam("type", null);
         let user = this.props.navigation.getParam("user", null);
-
+        let placeHolder = `  여기를 눌러 글을 작성할 수 있습니다. 
+  아래 내용을 모두 지켜 깨끗한 i - DORM을 만듭시다 ღ ̈ღ
+       
+ _타인 또는 특정 단체에 대한 욕설, 악담, 비방, 비하, 비아냥 X
+ _도배성 글 금지`
         return (
             <View style={styles.container}>
                 <Header style={styles.headerBar}>
@@ -42,6 +48,7 @@ export default class WriteScreen extends Component {
                     </Right>
                 </Header>
                 <View style={styles.contain}>
+                
                 <View style={styles.header}>
                     <TextInput
                         style={styles.titleBox}
@@ -55,16 +62,21 @@ export default class WriteScreen extends Component {
                     </View>
                 </View>
                 <View style={styles.body}>
-                    <View style={styles.postBox}>
-                        <TextInput
-                            value={this.state.newPost}
-                            placeholder="   post"
-                            autoCorrect={false}
-                            multiline={true}
-                            onChangeText={post => this.setState({ newPost: post })}
-                        />
-                    </View>
-                    </View>
+                    
+                        <View style={styles.postBox}>
+                        <ScrollView  keyboardDismissMode='on-drag'> 
+                            <TextInput
+                                value={this.state.newPost}
+                                placeholder={ placeHolder}
+                                autoCorrect={false}
+                                multiline={true}
+                                onChangeText={post => this.setState({ newPost: post })}
+                            />
+                            </ScrollView>
+                        </View>
+                    
+                </View>
+
                 </View>
             </View>
         );
@@ -106,26 +118,26 @@ const styles = StyleSheet.create({
     titleBox: {
         backgroundColor: "white",
         marginTop: 70,
-        height: 50,
-        width: 250,
-        alignItems: "center",
-        justifyContent: "center",
+        height: "80%",
+        width: "65%",
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
         borderWidth: 0.5,
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
         borderTopRightRadius: 10,
-        marginHorizontal: 5
+        marginLeft: "2%",
     },
     authorBox: {
         backgroundColor: "white",
         marginTop: 70,
         height: 50,
-        width: 120,
+        width: "27%",
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 0.5,
-        marginHorizontal: 5,
+        marginHorizontal: "3%",
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
@@ -134,12 +146,14 @@ const styles = StyleSheet.create({
     postBox: {
         //flex: 1,
         marginTop: 60,
-        width: 380,
         height: 500,
+        width: 360,
         borderWidth: 0.5,
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
-        borderTopRightRadius: 10
+        borderTopRightRadius: 10,
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
     }
 });
