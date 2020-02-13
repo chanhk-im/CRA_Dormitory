@@ -60,7 +60,7 @@ export default class WriteScreen extends Component {
                     <TextInput
                         style={styles.titleBox}
                         value={this.state.newTitle}
-                        placeholder="  title"
+                        placeholder="제목"
                         autoCorrect={false}
                         onChangeText={title => this.setState({ newTitle: title })}
                     />
@@ -69,9 +69,8 @@ export default class WriteScreen extends Component {
                     <View style={styles.postBox}>
                         <TextInput
                             value={this.state.newPost}
-                            placeholder="  post"
+                            placeholder="_이곳을 누르면 글을 작성할 수 있습니다"
                             autoCorrect={false}
-                            multiline={true}
                             onChangeText={post => this.setState({ newPost: post })}
                         />
                     </View>
@@ -116,18 +115,19 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     titleBox: {
-        backgroundColor: "white",
-        marginTop: 70,
+        marginTop: 50,
         height: 50,
-        width: 360,
-        justifyContent: "center",
-        alignItems: "center",
-        borderBottomWidth: 0.5,
-        paddingLeft: 20,
-        fontSize:20,
+        width: 340,
+        paddingLeft: 5,
+        fontSize:25,
+        fontWeight:"500",
+        borderBottomColor: '#E2E5E8',
+        borderBottomWidth:3,
+        borderBottomLeftRadius:5,
+        borderBottomRightRadius:5
     },
     postBox: {
-        marginTop: 60,
+        marginTop: 40,
         width: 360,
         height: 500,
         paddingLeft: 20,
