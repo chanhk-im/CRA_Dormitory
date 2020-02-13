@@ -109,7 +109,7 @@ module.exports = function(app) {
         });
     })
 
-    //Add a comment
+    // Add a comment
     app.put("/api/posts/comment/:post_id/", function(req, res) {
         Post.update({ _id: req.params.post_id }, { $push: { comments: {
             author: req.body.author,
@@ -125,6 +125,7 @@ module.exports = function(app) {
         })
     });
 
+    // Delete a comment
     app.put("/api/posts/decomment/:post_id/", function (req, res) {
         Post.update({ _id: req.params.post_id }, {
             $pull: {
@@ -141,6 +142,17 @@ module.exports = function(app) {
             res.json({ result: "add a comment" });
         })
     });
+
+    // Serach posts
+    app.get("/api/posts/search/:type/:str", function (req, res) {
+        const query = new RegExp(req.params.str)
+        Post.find({ $and: [{ $or: [{ title: query }, { author: query }, { post: query } ] }, { type: req.params.type } ] })
+            .sort({ published_date: -1 })
+            .exec(function(err, posts) {
+                if (err) return res.status(500).send({ error: "database failure" });
+                res.json(posts);
+            });
+    })
 
     // Sign up
     app.post("/api/users/signup", function(req, res) {

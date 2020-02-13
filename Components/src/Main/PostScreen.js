@@ -14,7 +14,12 @@ export default class PostScreen extends Component {
     }
 
     _goSearch() {
-        this.props.navigation.navigate("SearchScreen");
+        this.props.navigation.navigate("SearchScreen", {
+            type: this.props.type,
+            removeData: this.removeData,
+            editData: this.editData,
+            user: this.state.user
+        });
     }
 
     static navigationOptions = {
@@ -154,7 +159,7 @@ export default class PostScreen extends Component {
         } else {
             return (
                 <Container style={styles.container}>
-                    <Header style={styles.header}>
+                    <Header style={{ backgroundColor: this.props.headerColor }}>
                         <Left>
                             <TouchableOpacity onPress={this._goWrite.bind(this)}>
                                 <Icon name="ios-add" style={{ paddingLeft: 10 }} />
