@@ -24,7 +24,6 @@ export default class PostCardScreen extends Component {
         const sec = new Date().getSeconds();
 
         const postTime = new Date(data.published_date);
-        console.log(Date.now() - data.published_date);
 
         const post =
             postTime.getMonth() +

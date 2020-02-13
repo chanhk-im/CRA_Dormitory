@@ -40,6 +40,27 @@ export default class CommentScreen extends Component {
         });
     }
 
+    _onPressDelete(data) {
+        const comments = this.state.comments
+        const index = comments.findIndex(e => e._id === data._id);
+
+        comments.splice(index, 1);
+        this.setState({
+            comments
+        });
+
+        fetch(`http://${ip}:${port}/api/posts/decomment/${data._id}/`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                comment_id: data._id,
+            })
+        })
+    }
+
     _loadData() {
         this.setState({
             isLoaded: false
@@ -61,7 +82,6 @@ export default class CommentScreen extends Component {
         const sec = new Date().getSeconds();
 
         const postTime = new Date(data.published_date);
-        console.log(Date.now() - data.published_date);
 
         const post =
             postTime.getMonth() +
@@ -128,35 +148,33 @@ export default class CommentScreen extends Component {
                             </Card>
                         </View>
                         <View style={{ flex: 1 }}>
-                            {
-                                this.state.comments.map(data => {
-                                    return (
-                                        // <Card>
-                                        <View style={styles.container} key={data.published_date}>
-                                            <CardItem>
-                                                <Left>
-                                                    <Image
-                                                        source={require("./../../../img/cute.png")}
-                                                        style={{ width: 28, height: 28, borderRadius: 37.5 }}
-                                                    />
-                                                    <Body>
-                                                        <Text style={{fontWeight:"bold"}}>{data.author}</Text>
-                                                        <Text style={{fontSize:12}}>{this._setPostTime(data)}</Text>
-                                                    </Body>
-                                                </Left>
-                                                    <Button transparent>
-                                                        {/* <TouchableOpacity onPress={() =i> this.props._checkDelete(this.props.data)}> */}
-                                                            <Icon name="ios-close-circle-outline" style={{ color: "gray" }} />
-                                                        {/* </TouchableOpacity> */}
-                                                    </Button> 
-                                            </CardItem>
-                                            <CardItem>
-                                                <Text>{data.comment}</Text>
-                                            </CardItem>
-                                        </View>
-                                    )
-                                })
-                            }
+                            {this.state.comments.map(data => {
+                                return (
+                                    // <Card>
+                                    <View style={styles.container} key={data.published_date}>
+                                        <CardItem>
+                                            <Left>
+                                                <Image
+                                                    source={require("./../../../img/cute.png")}
+                                                    style={{ width: 28, height: 28, borderRadius: 37.5 }}
+                                                />
+                                                <Body>
+                                                    <Text style={{ fontWeight: "bold" }}>{data.author}</Text>
+                                                    <Text style={{ fontSize: 12 }}>{this._setPostTime(data)}</Text>
+                                                </Body>
+                                            </Left>
+                                            <Button transparent onPress={() => this._onPressDelete(data)}>
+                                                {/* <TouchableOpacity onPress={() =i> this.props._checkDelete(this.props.data)}> */}
+                                                <Icon name="ios-close-circle-outline" style={{ color: "gray" }} />
+                                                {/* </TouchableOpacity> */}
+                                            </Button>
+                                        </CardItem>
+                                        <CardItem>
+                                            <Text>{data.comment}</Text>
+                                        </CardItem>
+                                    </View>
+                                );
+                            })}
                         </View>
                     </ScrollView>
                     <KeyboardAccessoryView alwaysVisible={true}>
@@ -168,7 +186,13 @@ export default class CommentScreen extends Component {
                                 value={this.state.comment}
                                 onChangeText={text => this.setState({ comment: text })}
                             />
-                            <TouchableOpacity onPress={() => this._onPressComment(data)}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (this.state.comment) {
+                                        this._onPressComment(data);
+                                    }
+                                }}
+                            >
                                 <Icon name="ios-send" style={styles.textInputButton} />
                             </TouchableOpacity>
                         </View>
