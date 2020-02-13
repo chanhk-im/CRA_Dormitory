@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard  } from "react-native";
 import { Icon, Header, Left, Right, Body } from 'native-base';
 
 export default class UpdateScreen extends Component {
@@ -9,6 +9,10 @@ export default class UpdateScreen extends Component {
         newAuthor: "",
         newPost: ""
     };
+
+    _onPressEmptySpace() {
+        Keyboard.dismiss();
+    }
 
     componentDidMount() {
         let data = this.props.navigation.getParam("data", null);
@@ -26,6 +30,7 @@ export default class UpdateScreen extends Component {
         let editData = this.props.navigation.getParam("editData", null);
 
         return (
+            <TouchableWithoutFeedback onPress={this._onPressEmptySpace}>
             <View style={styles.container}>
                 <Header style={styles.headerBar}>
                     <Left>
@@ -76,6 +81,7 @@ export default class UpdateScreen extends Component {
                 </View>
                 </View>
             </View>
+            </TouchableWithoutFeedback>
         );
     }
 }
@@ -120,11 +126,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         borderBottomWidth: 0.5,
-        marginHorizontal: 5
+        marginHorizontal: 5,
+        paddingLeft: 20,
     },
     postBox: {
         marginTop: 60,
         width: 360,
         height: 500,
+        paddingLeft: 20,
     }
 });

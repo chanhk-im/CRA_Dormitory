@@ -61,7 +61,7 @@ export default class LoadingScreen extends Component {
                     {SecondLayer}
                     <Animated.View style={[opacity, styles.centered]}>
                         <ImageBackground
-                            source={require("./../../../img/loading.png")}
+                            source={require("./../../../assets/splash.png")}
                             style={styles.bgImage}
                             resizeMode="cover"
                         ></ImageBackground>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Dimensions,ScrollView } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Dimensions,ScrollView, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Icon, Header, Left, Right, Body } from 'native-base';
 
 export default class WriteScreen extends Component {
@@ -7,9 +7,16 @@ export default class WriteScreen extends Component {
         newTitle: "",
         newAuthor: "",
         newPost: "",
-
+        keyboard: false
     };
     //const screenHeight = Math.round(Dimensions.get('window').height);
+
+    _onPressEmptySpace = () => {
+        Keyboard.dismiss();
+        this.setState({
+          keyboard: false
+        });
+      }
 
     render() {
         let addData = this.props.navigation.getParam("addData", null);
@@ -21,6 +28,7 @@ export default class WriteScreen extends Component {
  _타인 또는 특정 단체에 대한 욕설, 악담, 비방, 비하, 비아냥 X
  _도배성 글 금지`
         return (
+            <TouchableWithoutFeedback onPress={this._onPressEmptySpace}>
             <View style={styles.container}>
                 <Header style={styles.headerBar}>
                     <Left>
@@ -48,37 +56,29 @@ export default class WriteScreen extends Component {
                     </Right>
                 </Header>
                 <View style={styles.contain}>
-                
                 <View style={styles.header}>
                     <TextInput
                         style={styles.titleBox}
                         value={this.state.newTitle}
-                        placeholder="   title"
+                        placeholder="  title"
                         autoCorrect={false}
                         onChangeText={title => this.setState({ newTitle: title })}
                     />
-                    <View style={ styles.authorBox }>
-                        <Text>{user.id}</Text>
-                    </View>
                 </View>
                 <View style={styles.body}>
-                    
-                        <View style={styles.postBox}>
-                        <ScrollView  keyboardDismissMode='on-drag'> 
-                            <TextInput
-                                value={this.state.newPost}
-                                placeholder={ placeHolder}
-                                autoCorrect={false}
-                                multiline={true}
-                                onChangeText={post => this.setState({ newPost: post })}
-                            />
-                            </ScrollView>
-                        </View>
-                    
+                    <View style={styles.postBox}>
+                        <TextInput
+                            value={this.state.newPost}
+                            placeholder="  post"
+                            autoCorrect={false}
+                            multiline={true}
+                            onChangeText={post => this.setState({ newPost: post })}
+                        />
+                    </View>
                 </View>
-
                 </View>
             </View>
+            </TouchableWithoutFeedback>
         );
     }
 }
@@ -118,42 +118,20 @@ const styles = StyleSheet.create({
     titleBox: {
         backgroundColor: "white",
         marginTop: 70,
-        height: "80%",
-        width: "65%",
-        alignItems: "flex-start",
-        justifyContent: "flex-start",
-        borderWidth: 0.5,
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderTopRightRadius: 10,
-        marginLeft: "2%",
-    },
-    authorBox: {
-        backgroundColor: "white",
-        marginTop: 70,
         height: 50,
-        width: "27%",
-        alignItems: "center",
+        width: 360,
         justifyContent: "center",
-        borderWidth: 0.5,
-        marginHorizontal: "3%",
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderTopRightRadius: 10
+        alignItems: "center",
+        borderBottomWidth: 0.5,
+        paddingLeft: 20,
+        fontSize:20,
     },
     postBox: {
-        //flex: 1,
         marginTop: 60,
-        height: 500,
         width: 360,
-        borderWidth: 0.5,
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderTopRightRadius: 10,
-        alignItems: "flex-start",
-        justifyContent: "flex-start",
+        height: 500,
+        paddingLeft: 20,
+        fontSize:20,
+
     }
 });

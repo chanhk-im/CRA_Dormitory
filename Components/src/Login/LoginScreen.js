@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, AsyncStorage } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, AsyncStorage, TouchableWithoutFeedback, Keyboard } from "react-native";
 
 import { ip, port } from "../../../Secret";
 
@@ -8,6 +8,26 @@ export default class LoginScreen extends Component {
         newId: "",
         newPassword: ""
     };
+
+    constructor(props) {
+        super(props);
+        this._onPressLogin = this._onPressLogin.bind(this);
+        this._onPressSignup = this._onPressSignup.bind(this);
+    }
+
+    _onPressEmptySpace() {
+        Keyboard.dismiss();
+    }
+    
+    _onPressLogin() {
+        Keyboard.dismiss();
+        this._doLogin();
+    }
+
+    _onPressSignup() {
+        Keyboard.dismiss();
+        this._doSignup();
+    }
 
     _doLogin() {
         fetch(`http://${ip}:${port}/api/users/login`, {
@@ -44,6 +64,7 @@ export default class LoginScreen extends Component {
 
     render() {
         return (
+            <TouchableWithoutFeedback onPress={this._onPressEmptySpace}>
             <View style={styles.container}>
                 <View style={styles.titleArea}>
                     <Image style={{ width: 220, height: 120 }} source={require("./../../../img/home.png")} />
@@ -63,14 +84,16 @@ export default class LoginScreen extends Component {
                         onChangeText={t => this.setState({ newPassword: t })}
                     />
                 </View>
-                <TouchableOpacity style={styles.button} onPress={this._doLogin.bind(this)}>
+                <TouchableOpacity style={styles.button} onPress={this._onPressLogin}>
                     <Text style={styles.buttonTitle}>Login</Text>
                 </TouchableOpacity>
                 <Text style={styles.signupText}>아직 계정이 없습니까? </Text>
-                <TouchableOpacity onPress={this._doSignup.bind(this)}>
+                <TouchableOpacity onPress={this._onPressSignup}>
                     <Text style={styles.signupButton}> 회원가입</Text>
                 </TouchableOpacity>
             </View>
+            </TouchableWithoutFeedback>
+
         );
     }
 }
