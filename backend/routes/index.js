@@ -127,11 +127,9 @@ module.exports = function(app) {
 
     app.put("/api/posts/decomment/:post_id/", function (req, res) {
         Post.update({ _id: req.params.post_id }, {
-            $push: {
+            $pull: {
                 comments: {
-                    author: req.body.author,
-                    comment: req.body.comment,
-                    published_date: new Date(req.body.published_date)
+                    _id: req.body.comment_id
                 }
             }
         }, function (err, output) {
