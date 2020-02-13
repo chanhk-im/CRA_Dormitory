@@ -4,6 +4,8 @@ import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
+import LoadingScreen from "./src/Loading/LoadingScreen";
+import AuthLoadingScreen from "./src/Loading/AuthLoadingScreen";
 import LoginScreen from "./src/Login/LoginScreen";
 import SignupScreen from "./src/Login/SignupScreen";
 import NoticeScreen from "./src/Main/NoticeScreen";
@@ -23,8 +25,7 @@ import RcSonScreen from "./src/Main/RcSonScreen";
 import RcPhiScreen from "./src/Main/RcPhiScreen";
 import RcCarScreen from "./src/Main/RcCarScreen";
 import RcJanScreen from "./src/Main/RcJanScreen";
-import LoadingScreen from "./src/Loading/LoadingScreen";
-import AuthLoadingScreen from "./src/Loading/AuthLoadingScreen";
+
 
 const LoadingStack = createStackNavigator (
     {

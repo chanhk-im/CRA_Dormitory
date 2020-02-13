@@ -1,20 +1,34 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Dimensions,ScrollView, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Icon, Header, Left, Right, Body } from 'native-base';
 
 export default class WriteScreen extends Component {
     state = {
         newTitle: "",
         newAuthor: "",
-        newPost: ""
+        newPost: "",
+        keyboard: false
     };
+    //const screenHeight = Math.round(Dimensions.get('window').height);
+
+    _onPressEmptySpace = () => {
+        Keyboard.dismiss();
+        this.setState({
+          keyboard: false
+        });
+      }
 
     render() {
         let addData = this.props.navigation.getParam("addData", null);
         let type = this.props.navigation.getParam("type", null);
         let user = this.props.navigation.getParam("user", null);
-
+        let placeHolder = `  여기를 눌러 글을 작성할 수 있습니다. 
+  아래 내용을 모두 지켜 깨끗한 i - DORM을 만듭시다 ღ ̈ღ
+       
+ _타인 또는 특정 단체에 대한 욕설, 악담, 비방, 비하, 비아냥 X
+ _도배성 글 금지`
         return (
+            <TouchableWithoutFeedback onPress={this._onPressEmptySpace}>
             <View style={styles.container}>
                 <Header style={styles.headerBar}>
                     <Left>
@@ -46,27 +60,25 @@ export default class WriteScreen extends Component {
                     <TextInput
                         style={styles.titleBox}
                         value={this.state.newTitle}
-                        placeholder="   title"
+                        placeholder="  title"
                         autoCorrect={false}
                         onChangeText={title => this.setState({ newTitle: title })}
                     />
-                    <View style={ styles.authorBox }>
-                        <Text>{user.id}</Text>
-                    </View>
                 </View>
                 <View style={styles.body}>
                     <View style={styles.postBox}>
                         <TextInput
                             value={this.state.newPost}
-                            placeholder="   post"
+                            placeholder="  post"
                             autoCorrect={false}
                             multiline={true}
                             onChangeText={post => this.setState({ newPost: post })}
                         />
                     </View>
-                    </View>
+                </View>
                 </View>
             </View>
+            </TouchableWithoutFeedback>
         );
     }
 }
@@ -107,39 +119,19 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         marginTop: 70,
         height: 50,
-        width: 250,
-        alignItems: "center",
+        width: 360,
         justifyContent: "center",
-        borderWidth: 0.5,
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderTopRightRadius: 10,
-        marginHorizontal: 5
-    },
-    authorBox: {
-        backgroundColor: "white",
-        marginTop: 70,
-        height: 50,
-        width: 120,
         alignItems: "center",
-        justifyContent: "center",
-        borderWidth: 0.5,
-        marginHorizontal: 5,
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderTopRightRadius: 10
+        borderBottomWidth: 0.5,
+        paddingLeft: 20,
+        fontSize:20,
     },
     postBox: {
-        //flex: 1,
         marginTop: 60,
-        width: 380,
+        width: 360,
         height: 500,
-        borderWidth: 0.5,
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderTopRightRadius: 10
+        paddingLeft: 20,
+        fontSize:20,
+
     }
 });

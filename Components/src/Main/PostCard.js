@@ -47,7 +47,7 @@ export default class PostCard extends Component {
 
     render() {
         return (
-            <Card>
+            <Card style={{flex:1}}>
                 <CardItem>
                     <Left>
                         <Image source={require("./../../../img/cute.png")} style={{ width: 40, height: 40, borderRadius: 37.5 }} />

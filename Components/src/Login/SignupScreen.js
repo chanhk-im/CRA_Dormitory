@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity, Alert, ScrollView, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity, Alert, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from "react-native";
 import PickerBox from "react-native-picker-box";
 
 import { ip, port } from "../../../Secret";
@@ -25,12 +25,28 @@ export default class SignupScreen extends Component {
         newRoom: ""
     };
 
-    _doLogin() {
-        this.props.navigation.replace("LoginScreen");
+    constructor(props) {
+        super(props);
+        this._onPressLogin = this._onPressLogin.bind(this);
+        this._onPressSignup = this._onPressSignup.bind(this);
     }
 
-    _doSignup() {
-        this.props.navigation.navigate("SignupScreen");
+    _onPressEmptySpace() {
+        Keyboard.dismiss();
+    }
+    
+    _onPressLogin() {
+        Keyboard.dismiss();
+        this._doLogin();
+    }
+
+    _onPressSignup() {
+        Keyboard.dismiss();
+        this._completeSignup();
+    }
+
+    _doLogin() {
+        this.props.navigation.replace("LoginScreen");
     }
 
     _settingRc() {
@@ -104,6 +120,7 @@ export default class SignupScreen extends Component {
 
     render() {
         return (
+            <TouchableWithoutFeedback onPress={this._onPressEmptySpace}>
             <View style={styles.container}>
                 <View style={styles.titleArea}>
                     <Image style={{ width: 220, height: 120 }} source={require("./../../../img/home.png")} />
@@ -179,14 +196,15 @@ export default class SignupScreen extends Component {
                         </View>
                     </ScrollView>
                 </KeyboardAvoidingView>
-                <TouchableOpacity style={styles.button} onPress={this._completeSignup.bind(this)}>
+                <TouchableOpacity style={styles.button} onPress={this._onPressSignup}>
                     <Text style={styles.buttonTitle}>회원가입</Text>
                 </TouchableOpacity>
                 <Text style={styles.signupText}>이미 계정이 있습니까? </Text>
-                <TouchableOpacity onPress={this._doLogin.bind(this)}>
+                <TouchableOpacity onPress={this._onPressLogin}>
                     <Text style={styles.signupButton}> 로그인하기</Text>
                 </TouchableOpacity>
             </View>
+        </TouchableWithoutFeedback>
         );
     }
 }
