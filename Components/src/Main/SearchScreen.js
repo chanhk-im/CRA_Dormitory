@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight
     },
     headerBar: {
-        backgroundColor: "#1E90FF",
+        backgroundColor: "white",
         alignItems: "center",
         justifyContent: "center"
     },
@@ -111,7 +111,8 @@ const styles = StyleSheet.create({
         width: 61
     },
     searchText: {
-        color: "white"
+        color: "skyblue",
+        fontWeight: "bold"
     },
     textInputButton_s: {
         paddingLeft: 15,
