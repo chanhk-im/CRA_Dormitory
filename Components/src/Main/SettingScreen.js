@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert, Image, AsyncStorage } from "react-native";
 import { Card, CardItem, Icon, Container, Content, Header, Left, Right, Body } from "native-base";
-import { StackActions, NavigationActions } from "react-navigation";
+import * as Font from 'expo-font'
 
-export default class SettingScreen extends Component {
+export default class SettingScreen extends Component { 
     static navigationOptions = {
         title: "설정",
         tabBarIcon: ({ tintColor }) => <Icon name="ios-settings" style={{ color: tintColor }} />
@@ -11,7 +11,8 @@ export default class SettingScreen extends Component {
 
     state = {
         user: {},
-        isLoaded: false
+        isLoaded: false,
+        fontLoaded: false,
     };
 
     async componentDidMount() {
@@ -19,9 +20,14 @@ export default class SettingScreen extends Component {
             const user = JSON.parse(data || "[]");
             this.setState({
                 user,
-                isLoaded: true
+                isLoaded: true,
+                fontLoaded: true
             });
         });
+        await Font.loadAsync({
+            'Oegyein': require('./../../../assets/fonts/Oegyein.ttf'),
+        });
+
     }
 
     _checkLogout() {
@@ -38,7 +44,7 @@ export default class SettingScreen extends Component {
 
     render() {
         console.log(this.state.user);
-        if (this.state.isLoaded) {
+        if (this.state.isLoaded && this.state.fontLoaded) {
             return (
                 <Container style={styles.container}>
                     <Header style={styles.header}>
@@ -63,11 +69,11 @@ export default class SettingScreen extends Component {
                             <View style={{ flex: 3 }}>
                                 <View style={{ flexDirection: "row" }}>
                                     <View style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
-                                        <Text style={{ fontWeight: "bold" }}>Nickname</Text>
-                                        <Text>
+                                        <Text style={{ fontFamily: 'Hoon', fontWeight: "bold" }}>Nickname</Text>
+                                        <Text style={{fontFamily: 'Oegyein'}}>
                                             {this.state.user.name} | {this.state.user.id}{" "}
                                         </Text>
-                                        <Text>{this.state.user.email} | {this.state.user.rc.label}, 510호</Text>
+                                        <Text style={{fontFamily: 'Oegyein'}}>{this.state.user.email} | {this.state.user.rc.label}, 510호</Text>
                                     </View>
                                 </View>
                             </View>
@@ -75,17 +81,17 @@ export default class SettingScreen extends Component {
                         <Card>
                             <CardItem style={{ height: 50, marginTop: 5 }}>
                                 <TouchableOpacity onPress={this._checkLogout.bind(this)}>
-                                    <Text style={{ fontWeight: "800", fontSize: 18 }}>📌 로그아웃</Text>
+                                            <Text style={{ fontFamily: 'Oegyein', fontWeight: "800", fontSize: 18}}>📌     로그아웃</Text>
                                 </TouchableOpacity>
                             </CardItem>
                             <CardItem style={{ height: 50 }}>
                                 <TouchableOpacity>
-                                <Text style={{ fontWeight: "800", fontSize: 18 }}>📌 RC 변경</Text>
+                                <Text style={{ fontFamily: 'Oegyein', fontWeight: "800", fontSize: 18 }}>📌     RC 변경</Text>
                                 </TouchableOpacity>
                             </CardItem>
                             <CardItem style={{ height: 50 }}>
                                 <TouchableOpacity>
-                                <Text style={{ fontWeight: "800", fontSize: 18 }}>📌 도움말</Text>
+                                <Text style={{ fontFamily: 'Oegyein', fontWeight: "800", fontSize: 18 }}>📌     도움말</Text>
                                 </TouchableOpacity>
                             </CardItem>
 

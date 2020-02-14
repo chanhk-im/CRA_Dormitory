@@ -1,18 +1,28 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, AsyncStorage, TouchableWithoutFeedback, Keyboard } from "react-native";
+import * as Font from 'expo-font'
 
 import { ip, port } from "../../../Secret";
 
 export default class LoginScreen extends Component {
     state = {
         newId: "",
-        newPassword: ""
+        newPassword: "",
+        fontLoaded: false,
     };
 
     constructor(props) {
         super(props);
         this._onPressLogin = this._onPressLogin.bind(this);
         this._onPressSignup = this._onPressSignup.bind(this);
+    }
+
+    async componentDidMount() {    
+        await Font.loadAsync({
+            'Oegyein': require('./../../../assets/fonts/Oegyein.ttf'),
+            'Hoon' : require('./../../../assets/fonts/Hoon.ttf')
+        });
+        this.setState({ fontLoaded: true });
     }
 
     _onPressEmptySpace() {
@@ -63,38 +73,49 @@ export default class LoginScreen extends Component {
     }
 
     render() {
-        return (
-            <TouchableWithoutFeedback onPress={this._onPressEmptySpace}>
-            <View style={styles.container}>
-                <View style={styles.titleArea}>
-                    <Image style={{ width: 220, height: 120 }} source={require("./../../../img/home.png")} />
+        if (this.state.fontLoaded) {
+            return (
+                <TouchableWithoutFeedback onPress={this._onPressEmptySpace}>
+                <View style={styles.container}>
+                    <View style={styles.titleArea}>
+                        <Image style={{ width: 220, height: 120 }} source={require("./../../../img/home.png")} />
+                    </View>
+                    <View style={styles.formArea}>
+                        <TextInput
+                            // fontFamily='Oegyein' 
+                            style={styles.textForm}
+                            placeholder={"ID"}                        
+                            placeholderStyle={{fontFamily: 'Hoon'}}
+                            autoCorrect={false}
+                            onChangeText={t => this.setState({ newId: t })}
+                        />
+                        <TextInput
+                            style={styles.textForm}
+                            placeholder={"Password"}
+                            autoCorrect={false}
+                            placeholderStyle={{fontFamily: 'Hoon'}}
+                            secureTextEntry={true}
+                            onChangeText={t => this.setState({ newPassword: t })}
+                        />
+                    </View>
+                    <TouchableOpacity style={styles.button} onPress={this._onPressLogin}>
+                        <Text style={styles.buttonTitle}>Login</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.signupText}>아직 계정이 없습니까? </Text>
+                    <TouchableOpacity onPress={this._onPressSignup}>
+                        <Text style={styles.signupButton}> 회원가입</Text>
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.formArea}>
-                    <TextInput
-                        style={styles.textForm}
-                        placeholder={"ID"}
-                        autoCorrect={false}
-                        onChangeText={t => this.setState({ newId: t })}
-                    />
-                    <TextInput
-                        style={styles.textForm}
-                        placeholder={"Password"}
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        onChangeText={t => this.setState({ newPassword: t })}
-                    />
-                </View>
-                <TouchableOpacity style={styles.button} onPress={this._onPressLogin}>
-                    <Text style={styles.buttonTitle}>Login</Text>
-                </TouchableOpacity>
-                <Text style={styles.signupText}>아직 계정이 없습니까? </Text>
-                <TouchableOpacity onPress={this._onPressSignup}>
-                    <Text style={styles.signupButton}> 회원가입</Text>
-                </TouchableOpacity>
-            </View>
-            </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback>
 
-        );
+            );
+        } else{
+            return (
+                <View>
+                    <Text>Loading...</Text>
+                </View>
+            )
+        }
     }
 }
 
@@ -112,7 +133,7 @@ const styles = StyleSheet.create({
         margin: 40
     },
     formArea: {
-        width: "100%"
+        width: "100%",
     },
     textForm: {
         borderWidth: 0.5,
@@ -129,6 +150,9 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 10,
         borderTopRightRadius: 10
     },
+    textboxfield:{
+        fontFamily: 'Oegyein',
+    },
     button: {
         backgroundColor: "#4278BA",
         width: "45%",
@@ -142,7 +166,9 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10
     },
     buttonTitle: {
-        color: "white"
+        color: "white",
+        fontFamily: 'Hoon',
+        fontSize:18,
     },
     signupTextCont: {
         flexGrow: 1,
@@ -154,12 +180,14 @@ const styles = StyleSheet.create({
     signupText: {
         color: "gray",
         fontSize: 20,
-        marginTop: 100
+        marginTop: 100,
+        fontFamily: 'Oegyein'
     },
     signupButton: {
         margin: 20,
         color: "rgba(255,0,0,0.4)",
         fontSize: 20,
-        fontWeight: "500"
+        fontWeight: "500",
+        fontFamily: 'Oegyein'
     }
 });

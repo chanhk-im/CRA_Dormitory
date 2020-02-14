@@ -132,16 +132,16 @@ export default class CommentScreen extends Component {
                                             style={{ width: 40, height: 40, borderRadius: 37.5 }}
                                         />
                                         <Body>
-                                            <Text style={{ fontWeight: "800" }}>{ post.author }</Text>
-                                            <Text note>{ date }</Text>
+                                            <Text style={{ fontSize :16, fontWeight: "bold",  fontFamily: "Hoon" }}>{data.author}</Text>
+                                            <Text note  style={{fontSize :13,fontWeight: "normal",fontFamily: "Oegyein"}}>Date</Text>
                                         </Body>
                                     </Left>
                                 </CardItem>
                                 <CardItem style={{ height: 40 }}>
-                                    <Text style={{ fontWeight: "800", fontSize: 18 }}>{ post.title }</Text>
+                                    <Text style={{ fontWeight: "800", fontSize: 18, fontFamily:"Oegyein" }}>{data.title}</Text>
                                 </CardItem>
                                 <CardItem>
-                                    <Text>{ post.post }</Text>
+                                    <Text style={{fontFamily:"Oegyein"}}>{data.post}</Text>
                                 </CardItem>
                                 <CardItem style={{ height: 50 }}>
                                     <Left>
@@ -167,8 +167,8 @@ export default class CommentScreen extends Component {
                                                     style={{ width: 28, height: 28, borderRadius: 37.5 }}
                                                 />
                                                 <Body>
-                                                    <Text style={{ fontWeight: "bold" }}>{data.author}</Text>
-                                                    <Text style={{ fontSize: 12 }}>{this._setPostTime(data)}</Text>
+                                                    <Text style={{ fontSize : 15, fontWeight: "bold", fontFamily: "Hoon" }}>{data.author}</Text>
+                                                    <Text style={{ fontSize: 12, fontFamily: "Oegyein" }}>{this._setPostTime(data)}</Text>
                                                 </Body>
                                             </Left>
                                             {
@@ -180,7 +180,7 @@ export default class CommentScreen extends Component {
                                             }
                                         </CardItem>
                                         <CardItem>
-                                            <Text>{ data.comment }</Text>
+                                            <Text style={{fontFamily: "Oegyein"}}>{data.comment}</Text>
                                         </CardItem>
                                     </View>
                                 );
