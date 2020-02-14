@@ -80,7 +80,7 @@ export default class PostCard extends Component {
                     <Text style={{ fontWeight: "800", fontSize: 18, fontFamily:"Oegyein" }}>{this.props.data.title}</Text>
                 </CardItem>
                 <CardItem>
-                    <Text ellipsizeMode={ "tail" } numberOfLines={ 3 }>{this.props.data.post}</Text>
+                    <Text ellipsizeMode={ "tail" } numberOfLines={ 3 } >{this.props.data.post}</Text>
                 </CardItem>
                 <CardItem style={{ height: 50 }}>
                     <Left>

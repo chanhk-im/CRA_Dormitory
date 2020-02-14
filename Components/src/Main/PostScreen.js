@@ -21,7 +21,7 @@ export default class PostScreen extends Component {
             user: this.state.user
         });
     }
-
+    
     static navigationOptions = {
         tabBarIcon: ({ tintColor }) => <Icon name="ios-paper" style={{ color: tintColor }} />
     };
@@ -128,7 +128,7 @@ export default class PostScreen extends Component {
         if (this.state.isLoaded) {
             return (
                 <Container style={styles.container}>
-                    <Header style={{ backgroundColor: this.props.headerColor }}>
+                    <Header style={{ backgroundColor: this.props.headerColor}}>
                         <Left>
                             <TouchableOpacity onPress={this._goWrite.bind(this)}>
                                 <Icon name="ios-add" style={{ paddingLeft: 10 }} />
@@ -160,14 +160,14 @@ export default class PostScreen extends Component {
         } else {
             return (
                 <Container style={styles.container}>
-                    <Header style={{ backgroundColor: this.props.headerColor }}>
+                    <Header style={{ backgroundColor: this.props.headerColor, textColor:this.props.textColor }}>
                         <Left>
                             <TouchableOpacity onPress={this._goWrite.bind(this)}>
                                 <Icon name="ios-add" style={{ paddingLeft: 10 }} />
                             </TouchableOpacity>
                         </Left>
                         <Body>
-                            <Text>공지게시판</Text>
+                            <Text style={{ color: this.props.textColor }}>Loading...</Text>
                         </Body>
                         <Right>
                             <TouchableOpacity onPress={this._goSearch.bind(this)}>
