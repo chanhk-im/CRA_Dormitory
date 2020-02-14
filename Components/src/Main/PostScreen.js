@@ -151,6 +151,7 @@ export default class PostScreen extends Component {
                                 removeData={this.removeData}
                                 editData={this.editData}
                                 user={this.state.user}
+                                headerColor={this.props.headerColor}
                             />
                         </Content>
                     </PTRView>
