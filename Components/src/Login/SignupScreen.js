@@ -90,7 +90,7 @@ export default class SignupScreen extends Component {
             Alert.alert("Error", "이메일을 작성해 주세요.", [{ text: "확인" }]);
         } else if (/handong.edu$/.exec(this.state.newEmail) == null) {
             Alert.alert("Error", "한동대 이메일이 아닙니다.", [{ text: "확인" }]);
-        } else if (!this.state.newRoom || this.state.newRoom.length < 3 || this.state.newId.includes(".")) {
+        } else if (!this.state.newRoom || this.state.newRoom.length < 3 || this.state.newRoom.includes(".")) {
             Alert.alert("Error", "유효하지 않은 방 호수입니다.", [{ text: "확인" }]);
         }
         await fetch(`http://${ip}:${port}/api/users/signup`, {
@@ -105,7 +105,8 @@ export default class SignupScreen extends Component {
                 passwordchcek: this.state.newPasswordCheck,
                 email: this.state.newEmail,
                 name: this.state.newName,
-                rc: rc[0]
+                rc: rc[0],
+                room: this.state.newRoom
             })
         })
             .then(res => res.json())
@@ -154,7 +155,7 @@ export default class SignupScreen extends Component {
                                 />
                                 <TextInput
                                     style={styles.textForm}
-                                    placeholder={"ID"}
+                                    placeholder={"ID(nickname)"}
                                     value={this.state.newId}
                                     autoCorrect={false}
                                     onChangeText={t => this.setState({ newId: t })}

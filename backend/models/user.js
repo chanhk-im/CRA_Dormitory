@@ -8,6 +8,7 @@ var userSchema = new Schema({
     email: { type: String, required: true },
     name: { type: String, required: true },
     rc: { type: Object, required: true },
+    room: { type: Number, default: 0 },
     isAdmin: { type: Boolean, default: false }
 });
 

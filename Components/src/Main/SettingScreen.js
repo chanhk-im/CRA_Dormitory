@@ -73,7 +73,7 @@ export default class SettingScreen extends Component {
                                         <Text style={{fontFamily: 'Oegyein'}}>
                                             {this.state.user.name} | {this.state.user.id}{" "}
                                         </Text>
-                                        <Text style={{fontFamily: 'Oegyein'}}>{this.state.user.email} | {this.state.user.rc.label}, 510호</Text>
+                                        <Text style={{fontFamily: 'Oegyein'}}>{this.state.user.email} | {this.state.user.rc.label}, {this.state.user.room}</Text>
                                     </View>
                                 </View>
                             </View>

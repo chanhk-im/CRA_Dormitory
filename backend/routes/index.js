@@ -170,7 +170,8 @@ module.exports = function(app) {
                             .digest("base64"),
                         email: req.body.email,
                         name: req.body.name,
-                        rc: req.body.rc
+                        rc: req.body.rc,
+                        room: req.bdoy.room
                     });
                     user.save(function(err) {
                         if (err) {
