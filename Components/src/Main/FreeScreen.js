@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { StyleSheet, Platform } from "react-native";
 import PostScreen from "./PostScreen";
 
-export default class NoticeScreen extends Component {
+export default class FreeScreen extends Component {
     render() {
-        return <PostScreen navigation={this.props.navigation} type="Free" headerText="자유게시판" headerColor="#A7DEFE" fontFamily="Oegyein" fontSize="18"/>;
+        return <PostScreen navigation={this.props.navigation} type="Free" headerText="자유게시판" headerColor="#A7DEFE" fontSize="18"/>;
     }
 }
 

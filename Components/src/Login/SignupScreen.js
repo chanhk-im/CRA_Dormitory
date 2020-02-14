@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity, Alert, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from "react-native";
 import PickerBox from "react-native-picker-box";
-import * as Font from 'expo-font'
 
 import { ip, port } from "../../../Secret";
 
@@ -24,7 +23,6 @@ export default class SignupScreen extends Component {
         newName: "",
         newRc: "",
         newRoom: "",
-        fontLoaded: false
     };
 
     constructor(props) {
@@ -32,15 +30,6 @@ export default class SignupScreen extends Component {
         this._onPressLogin = this._onPressLogin.bind(this);
         this._onPressSignup = this._onPressSignup.bind(this);
     }
-
-    async componentDidMount() {    
-        await Font.loadAsync({
-            'Oegyein': require('./../../../assets/fonts/Oegyein.ttf'),
-            'Hoon' : require('./../../../assets/fonts/Hoon.ttf')
-        });
-	this.setState({ fontLoaded: true });
-    }
-
 
     _onPressEmptySpace() {
         Keyboard.dismiss();
@@ -131,7 +120,6 @@ export default class SignupScreen extends Component {
     }
 
     render() {
-        if (this.state.fontLoaded) {
             return (
                 <TouchableWithoutFeedback onPress={this._onPressEmptySpace}>
                 <View style={styles.container}>
@@ -219,13 +207,6 @@ export default class SignupScreen extends Component {
                 </View>
             </TouchableWithoutFeedback>
             );
-        } else {
-            return (
-                <View>
-                    <Text>Loading...</Text>
-                </View>
-            )
-        }
     }
 }
 
@@ -284,7 +265,6 @@ const styles = StyleSheet.create({
     },
     buttonTitle: {
         color: "white",
-        fontFamily: 'Oegyein',
         fontSize:18,
     },
     buttonText: {
@@ -327,7 +307,6 @@ const styles = StyleSheet.create({
         color: "gray",
         fontSize: 16,
         marginTop: 40,
-        fontFamily: 'Oegyein'
     },
     signupButton: {
         color: "rgba(255,0,0,0.4)",
@@ -335,6 +314,5 @@ const styles = StyleSheet.create({
         fontWeight: "500",
         marginTop: 5,
         marginBottom: 40,
-        fontFamily: 'Oegyein'
     }
 });
