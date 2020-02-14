@@ -69,7 +69,7 @@ export default class WriteScreen extends Component {
                     <View style={styles.postBox}>
                         <TextInput
                             value={this.state.newPost}
-                            placeholder="_이곳을 누르면 글을 작성할 수 있습니다"
+                            placeholder="_이곳을 누르면 글을 작성할 수 있습니다 ღ ̈ღ"
                             autoCorrect={false}
                             onChangeText={post => this.setState({ newPost: post })}
                         />
