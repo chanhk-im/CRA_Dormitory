@@ -52,8 +52,8 @@ export default class PostCard extends Component {
                     <Left>
                         <Image source={require("./../../../img/cute.png")} style={{ width: 40, height: 40, borderRadius: 37.5 }} />
                         <Body>
-                            <Text style={{ fontSize :16, fontWeight: "bold", fontFamily: "Hoon" }}>{this.props.data.author}</Text>
-                            <Text note style={{fontSize :13,fontWeight: "normal",fontFamily: "Oegyein"}}>{this.props.date}</Text>
+                            <Text style={{ fontSize :16, fontWeight: "bold" }}>{this.props.data.author}</Text>
+                            <Text note style={{fontSize :13,fontWeight: "normal"}}>{this.props.date}</Text>
                         </Body>
                     </Left>
                     {
@@ -77,7 +77,7 @@ export default class PostCard extends Component {
                     
                 </CardItem>
                 <CardItem style={{ height: 40 }}>
-                    <Text style={{ fontWeight: "800", fontSize: 18, fontFamily:"Oegyein" }}>{this.props.data.title}</Text>
+                    <Text style={{ fontWeight: "800", fontSize: 18}}>{this.props.data.title}</Text>
                 </CardItem>
                 <CardItem>
                     <Text ellipsizeMode={"head"} numberOfLines={ 3 } >{this.props.data.post}</Text>

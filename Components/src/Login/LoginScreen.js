@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, AsyncStorage, TouchableWithoutFeedback, Keyboard } from "react-native";
-import * as Font from 'expo-font'
 
 import { ip, port } from "../../../Secret";
 
@@ -8,7 +7,6 @@ export default class LoginScreen extends Component {
     state = {
         newId: "",
         newPassword: "",
-        fontLoaded: false,
     };
 
     constructor(props) {
@@ -16,15 +14,6 @@ export default class LoginScreen extends Component {
         this._onPressLogin = this._onPressLogin.bind(this);
         this._onPressSignup = this._onPressSignup.bind(this);
     }
-
-    async componentDidMount() {    
-        await Font.loadAsync({
-            'Oegyein': require('./../../../assets/fonts/Oegyein.ttf'),
-            'Hoon' : require('./../../../assets/fonts/Hoon.ttf')
-        });
-        this.setState({ fontLoaded: true });
-    }
-
     _onPressEmptySpace() {
         Keyboard.dismiss();
     }
@@ -73,7 +62,6 @@ export default class LoginScreen extends Component {
     }
 
     render() {
-        if (this.state.fontLoaded) {
             return (
                 <TouchableWithoutFeedback onPress={this._onPressEmptySpace}>
                 <View style={styles.container}>
@@ -82,10 +70,8 @@ export default class LoginScreen extends Component {
                     </View>
                     <View style={styles.formArea}>
                         <TextInput
-                            // fontFamily='Oegyein' 
                             style={styles.textForm}
                             placeholder={"ID"}                        
-                            placeholderStyle={{fontFamily: 'Hoon'}}
                             autoCorrect={false}
                             onChangeText={t => this.setState({ newId: t })}
                         />
@@ -93,7 +79,6 @@ export default class LoginScreen extends Component {
                             style={styles.textForm}
                             placeholder={"Password"}
                             autoCorrect={false}
-                            placeholderStyle={{fontFamily: 'Hoon'}}
                             secureTextEntry={true}
                             onChangeText={t => this.setState({ newPassword: t })}
                         />
@@ -109,13 +94,6 @@ export default class LoginScreen extends Component {
                 </TouchableWithoutFeedback>
 
             );
-        } else{
-            return (
-                <View>
-                    <Text>Loading...</Text>
-                </View>
-            )
-        }
     }
 }
 
@@ -151,7 +129,6 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10
     },
     textboxfield:{
-        fontFamily: 'Oegyein',
     },
     button: {
         backgroundColor: "#4278BA",
@@ -167,7 +144,6 @@ const styles = StyleSheet.create({
     },
     buttonTitle: {
         color: "white",
-        fontFamily: 'Hoon',
         fontSize:18,
     },
     signupTextCont: {
@@ -181,13 +157,11 @@ const styles = StyleSheet.create({
         color: "gray",
         fontSize: 20,
         marginTop: 100,
-        fontFamily: 'Oegyein'
     },
     signupButton: {
         margin: 20,
         color: "rgba(255,0,0,0.4)",
         fontSize: 20,
         fontWeight: "500",
-        fontFamily: 'Oegyein'
     }
 });
