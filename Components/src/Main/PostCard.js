@@ -62,7 +62,7 @@ export default class PostCard extends Component {
                             <TouchableOpacity onPress={() => this.props._checkEdit(this.props.data)}>
                                 <Icon name="ios-create" style={{ color: "gray" }} />
                             </TouchableOpacity>
-                        </Button>:
+                        </Button> :
                         <View></View>
                     }
                     {
@@ -80,7 +80,7 @@ export default class PostCard extends Component {
                     <Text style={{ fontWeight: "800", fontSize: 18 }}>{this.props.data.title}</Text>
                 </CardItem>
                 <CardItem>
-                    <Text>{this.props.data.post}</Text>
+                    <Text ellipsizeMode={ "tail" } numberOfLines={ 3 }>{this.props.data.post}</Text>
                 </CardItem>
                 <CardItem style={{ height: 50 }}>
                     <Left>

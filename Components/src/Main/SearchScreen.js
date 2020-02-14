@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { Container, Icon, Header, Item, Input, Button } from "native-base";
+import { Container, Content, Icon, Header, Item, Input, Button } from "native-base";
 
 import { ip, port } from "../../../Secret";
 
@@ -42,8 +42,8 @@ export default class SearchScreen extends Component {
         const editData = this.props.navigation.getParam("editData", null);
         const user = this.props.navigation.getParam("user", null);
         const type = this.props.navigation.getParam("type", null);
-        
-        if (isLoaded) {
+
+        if (this.state.isLoaded) {
             return (
                 <Container style={styles.container}>
                     <Header searchBar rounded style={styles.headerBar}>

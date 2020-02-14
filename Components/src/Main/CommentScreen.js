@@ -10,7 +10,8 @@ export default class CommentScreen extends Component {
     state = {
         comment: "",
         comments: [],
-        isLoaded: false
+        isLoaded: false,
+        headerColor: ""
     };
 
     // constructor(props) {
@@ -40,7 +41,7 @@ export default class CommentScreen extends Component {
         });
     }
 
-    _onPressDelete(data) {
+    _onPressDelete(post, data) {
         const comments = this.state.comments
         const index = comments.findIndex(e => e._id === data._id);
 
@@ -49,7 +50,7 @@ export default class CommentScreen extends Component {
             comments
         });
 
-        fetch(`http://${ip}:${port}/api/posts/decomment/${data._id}/`, {
+        fetch(`http://${ip}:${port}/api/posts/decomment/${post._id}/`, {
             method: "PUT",
             headers: {
                 Accept: "application/json",
@@ -98,16 +99,23 @@ export default class CommentScreen extends Component {
 
     componentDidMount() {
         this._loadData();
+        const headerColor = this.props.navigation.getParam("headerColor", "");
+        this.setState({
+            headerColor
+        });
     }
 
     render() {
-        let data = this.props.navigation.getParam("data", null);
+        const post = this.props.navigation.getParam("data", null);
+        const date = this._setPostTime(post);
+        const user = this.props.navigation.getParam("user", null);
+
         if (this.state.isLoaded) {
             return (
-                <View style={styles.container}>
-                    <Header style={styles.header}>
+                <View style={ styles.container }>
+                    <Header style={{ backgroundColor: this.state.headerColor }}>
                         <Left>
-                            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>              
                                 <Icon name="ios-arrow-back" style={{ paddingLeft: 10 }} />
                             </TouchableOpacity>
                         </Left>
@@ -115,7 +123,7 @@ export default class CommentScreen extends Component {
                         <Right />
                     </Header>
                     <ScrollView  keyboardDismissMode='on-drag'> 
-                        <View style={styles.content}>
+                        <View style={ styles.content }>
                             <Card>
                                 <CardItem>
                                     <Left>
@@ -124,16 +132,16 @@ export default class CommentScreen extends Component {
                                             style={{ width: 40, height: 40, borderRadius: 37.5 }}
                                         />
                                         <Body>
-                                            <Text style={{ fontWeight: "800" }}>{data.author}</Text>
-                                            <Text note>Date</Text>
+                                            <Text style={{ fontWeight: "800" }}>{ post.author }</Text>
+                                            <Text note>{ date }</Text>
                                         </Body>
                                     </Left>
                                 </CardItem>
                                 <CardItem style={{ height: 40 }}>
-                                    <Text style={{ fontWeight: "800", fontSize: 18 }}>{data.title}</Text>
+                                    <Text style={{ fontWeight: "800", fontSize: 18 }}>{ post.title }</Text>
                                 </CardItem>
                                 <CardItem>
-                                    <Text>{data.post}</Text>
+                                    <Text>{ post.post }</Text>
                                 </CardItem>
                                 <CardItem style={{ height: 50 }}>
                                     <Left>
@@ -151,7 +159,7 @@ export default class CommentScreen extends Component {
                             {this.state.comments.map(data => {
                                 return (
                                     // <Card>
-                                    <View style={styles.container} key={data.published_date}>
+                                    <View style={ styles.container } key={ data.published_date }>
                                         <CardItem>
                                             <Left>
                                                 <Image
@@ -163,14 +171,16 @@ export default class CommentScreen extends Component {
                                                     <Text style={{ fontSize: 12 }}>{this._setPostTime(data)}</Text>
                                                 </Body>
                                             </Left>
-                                            <Button transparent onPress={() => this._onPressDelete(data)}>
-                                                {/* <TouchableOpacity onPress={() =i> this.props._checkDelete(this.props.data)}> */}
-                                                <Icon name="ios-close-circle-outline" style={{ color: "gray" }} />
-                                                {/* </TouchableOpacity> */}
-                                            </Button>
+                                            {
+                                                data.author === user.id ? 
+                                                <Button transparent onPress={() => this._onPressDelete(post, data)}>
+                                                    <Icon name="ios-close-circle-outline" style={{ color: "gray" }} />
+                                                </Button> :
+                                                <View></View>
+                                            }
                                         </CardItem>
                                         <CardItem>
-                                            <Text>{data.comment}</Text>
+                                            <Text>{ data.comment }</Text>
                                         </CardItem>
                                     </View>
                                 );
@@ -189,7 +199,7 @@ export default class CommentScreen extends Component {
                             <TouchableOpacity
                                 onPress={() => {
                                     if (this.state.comment) {
-                                        this._onPressComment(data);
+                                        this._onPressComment(post);
                                     }
                                 }}
                             >
@@ -223,9 +233,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fff",
         paddingTop: Platform.OS === `ios` ? 0 : Expo.Constants.statusBarHeight
-    },
-    header: {
-        backgroundColor: "#719FE5"
     },
     content: {
         flex: 1
