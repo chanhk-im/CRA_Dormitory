@@ -143,7 +143,7 @@ export default class SignupScreen extends Component {
                                 />
                                 <TextInput
                                     style={styles.textForm}
-                                    placeholder={"ID(nickname)"}
+                                    placeholder={"ID(Nickname)"}
                                     value={this.state.newId}
                                     autoCorrect={false}
                                     onChangeText={t => this.setState({ newId: t })}

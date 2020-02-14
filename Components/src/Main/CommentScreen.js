@@ -133,7 +133,7 @@ export default class CommentScreen extends Component {
                                         />
                                         <Body>
                                             <Text style={{ fontSize :16, fontWeight: "bold",  fontFamily: "Hoon" }}>{data.author}</Text>
-                                            <Text note  style={{fontSize :13,fontWeight: "normal",fontFamily: "Oegyein"}}>Date</Text>
+                                            <Text note  style={{fontSize :13,fontWeight: "normal",fontFamily: "Oegyein"}}>{date}</Text>
                                         </Body>
                                     </Left>
                                 </CardItem>
