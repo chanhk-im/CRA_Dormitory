@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity, Alert, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from "react-native";
 import PickerBox from "react-native-picker-box";
+import * as Font from 'expo-font'
 
 import { ip, port } from "../../../Secret";
 
@@ -22,7 +23,8 @@ export default class SignupScreen extends Component {
         newEmail: "",
         newName: "",
         newRc: "",
-        newRoom: ""
+        newRoom: "",
+        fontLoaded: false
     };
 
     constructor(props) {
@@ -30,6 +32,15 @@ export default class SignupScreen extends Component {
         this._onPressLogin = this._onPressLogin.bind(this);
         this._onPressSignup = this._onPressSignup.bind(this);
     }
+
+    async componentDidMount() {    
+        await Font.loadAsync({
+            'Oegyein': require('./../../../assets/fonts/Oegyein.ttf'),
+            'Hoon' : require('./../../../assets/fonts/Hoon.ttf')
+        });
+	this.setState({ fontLoaded: true });
+    }
+
 
     _onPressEmptySpace() {
         Keyboard.dismiss();
@@ -119,93 +130,101 @@ export default class SignupScreen extends Component {
     }
 
     render() {
-        return (
-            <TouchableWithoutFeedback onPress={this._onPressEmptySpace}>
-            <View style={styles.container}>
-                <View style={styles.titleArea}>
-                    <Image style={{ width: 220, height: 120 }} source={require("./../../../img/home.png")} />
-                </View>
-                <KeyboardAvoidingView
-                    style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
-                    behavior="padding"
-                    enabled
-                    keyboardVerticalOffset={20}
-                >
-                    <ScrollView>
-                        <View style={{ flex: 1, flexDirection: "column" }}>
-                            <TextInput
-                                style={styles.textForm}
-                                placeholder={"이름"}
-                                value={this.state.newName}
-                                autoCorrect={false}
-                                onChangeText={t => this.setState({ newName: t })}
-                            />
-                            <TextInput
-                                style={styles.textForm}
-                                placeholder={"ID"}
-                                value={this.state.newId}
-                                autoCorrect={false}
-                                onChangeText={t => this.setState({ newId: t })}
-                            />
-                            <TextInput
-                                style={styles.textForm}
-                                placeholder={"Password (8 ~ 12글자)"}
-                                secureTextEntry={true}
-                                value={this.state.newPassword}
-                                autoCorrect={false}
-                                secureTextEntry={true}
-                                onChangeText={t => this.setState({ newPassword: t })}
-                            />
-                            <TextInput
-                                style={styles.textForm}
-                                placeholder={"Password Check"}
-                                secureTextEntry={true}
-                                value={this.state.newPasswordCheck}
-                                autoCorrect={false}
-                                secureTextEntry={true}
-                                onChangeText={t => this.setState({ newPasswordCheck: t })}
-                            />
-                            <TextInput
-                                style={styles.textForm}
-                                placeholder={"한동 이메일 주소"}
-                                value={this.state.newEmail}
-                                autoCorrect={false}
-                                onChangeText={t => this.setState({ newEmail: t })}
-                            />
-                            <View style={styles.pickBox}>
-                                <Text style={styles.selectv} onPress={() => this.myref.openPicker()}>
-                                    {this.state.selectedValue}
-                                </Text>
+        if (this.state.fontLoaded) {
+            return (
+                <TouchableWithoutFeedback onPress={this._onPressEmptySpace}>
+                <View style={styles.container}>
+                    <View style={styles.titleArea}>
+                        <Image style={{ width: 220, height: 120 }} source={require("./../../../img/home.png")} />
+                    </View>
+                    <KeyboardAvoidingView
+                        style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
+                        behavior="padding"
+                        enabled
+                        keyboardVerticalOffset={20}
+                    >
+                        <ScrollView>
+                            <View style={{ flex: 1, flexDirection: "column" }}>
+                                <TextInput
+                                    style={styles.textForm}
+                                    placeholder={"이름"}
+                                    value={this.state.newName}
+                                    autoCorrect={false}
+                                    onChangeText={t => this.setState({ newName: t })}
+                                />
+                                <TextInput
+                                    style={styles.textForm}
+                                    placeholder={"ID"}
+                                    value={this.state.newId}
+                                    autoCorrect={false}
+                                    onChangeText={t => this.setState({ newId: t })}
+                                />
+                                <TextInput
+                                    style={styles.textForm}
+                                    placeholder={"Password (8 ~ 12글자)"}
+                                    secureTextEntry={true}
+                                    value={this.state.newPassword}
+                                    autoCorrect={false}
+                                    secureTextEntry={true}
+                                    onChangeText={t => this.setState({ newPassword: t })}
+                                />
+                                <TextInput
+                                    style={styles.textForm}
+                                    placeholder={"Password Check"}
+                                    secureTextEntry={true}
+                                    value={this.state.newPasswordCheck}
+                                    autoCorrect={false}
+                                    secureTextEntry={true}
+                                    onChangeText={t => this.setState({ newPasswordCheck: t })}
+                                />
+                                <TextInput
+                                    style={styles.textForm}
+                                    placeholder={"한동 이메일 주소"}
+                                    value={this.state.newEmail}
+                                    autoCorrect={false}
+                                    onChangeText={t => this.setState({ newEmail: t })}
+                                />
+                                <View style={styles.pickBox}>
+                                    <Text style={styles.selectv} onPress={() => this.myref.openPicker()}>
+                                        {this.state.selectedValue}
+                                    </Text>
+                                </View>
+                                <PickerBox
+                                    ref={ref => (this.myref = ref)}
+                                    data={this.state.data}
+                                    onValueChange={value => {
+                                        this.setState({ selectedValue: value });
+                                    }}
+                                    selectedValue={this.state.selectedValue}
+                                />
+                                <TextInput
+                                    style={styles.textForm}
+                                    placeholder={"방 호수(외부거주:000)"}
+                                    keyboardType={"numeric"}
+                                    value={this.state.newRoom}
+                                    autoCorrect={false}
+                                    onChangeText={t => this.setState({ newRoom: t })}
+                                />
                             </View>
-                            <PickerBox
-                                ref={ref => (this.myref = ref)}
-                                data={this.state.data}
-                                onValueChange={value => {
-                                    this.setState({ selectedValue: value });
-                                }}
-                                selectedValue={this.state.selectedValue}
-                            />
-                            <TextInput
-                                style={styles.textForm}
-                                placeholder={"방 호수(외부거주:000)"}
-                                keyboardType={"numeric"}
-                                value={this.state.newRoom}
-                                autoCorrect={false}
-                                onChangeText={t => this.setState({ newRoom: t })}
-                            />
-                        </View>
-                    </ScrollView>
-                </KeyboardAvoidingView>
-                <TouchableOpacity style={styles.button} onPress={this._onPressSignup}>
-                    <Text style={styles.buttonTitle}>회원가입</Text>
-                </TouchableOpacity>
-                <Text style={styles.signupText}>이미 계정이 있습니까? </Text>
-                <TouchableOpacity onPress={this._onPressLogin}>
-                    <Text style={styles.signupButton}> 로그인하기</Text>
-                </TouchableOpacity>
-            </View>
-        </TouchableWithoutFeedback>
-        );
+                        </ScrollView>
+                    </KeyboardAvoidingView>
+                    <TouchableOpacity style={styles.button} onPress={this._onPressSignup}>
+                        <Text style={styles.buttonTitle}>회원가입</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.signupText}>이미 계정이 있습니까? </Text>
+                    <TouchableOpacity onPress={this._onPressLogin}>
+                        <Text style={styles.signupButton}> 로그인하기</Text>
+                    </TouchableOpacity>
+                </View>
+            </TouchableWithoutFeedback>
+            );
+        } else {
+            return (
+                <View>
+                    <Text>Loading...</Text>
+                </View>
+            )
+        }
     }
 }
 
@@ -234,7 +253,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingLeft: 30,
         margin: 10,
-        borderRadius: 10
+        borderRadius: 10,
     },
     logoText: {
         marginVertical: 15,
@@ -263,7 +282,9 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     buttonTitle: {
-        color: "white"
+        color: "white",
+        fontFamily: 'Oegyein',
+        fontSize:18,
     },
     buttonText: {
         fontSize: 16,
@@ -304,13 +325,15 @@ const styles = StyleSheet.create({
     signupText: {
         color: "gray",
         fontSize: 16,
-        marginTop: 60
+        marginTop: 40,
+        fontFamily: 'Oegyein'
     },
     signupButton: {
         color: "rgba(255,0,0,0.4)",
         fontSize: 17,
         fontWeight: "500",
         marginTop: 5,
-        marginBottom: 40
+        marginBottom: 40,
+        fontFamily: 'Oegyein'
     }
 });

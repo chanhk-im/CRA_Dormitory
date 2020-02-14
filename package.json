@@ -12,7 +12,7 @@
     "@freakycoder/react-native-helpers": "^0.1.2",
     "@paraboly/react-native-card": "^0.2.13",
     "@react-native-community/masked-view": "^0.1.6",
-    "expo": "~36.0.0",
+    "expo": "^36.0.2",
     "link": "^0.1.5",
     "native-base": "^2.13.8",
     "react": "~16.9.0",
@@ -41,7 +41,8 @@
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^2.0.16",
-    "react-navigation-tabs": "^2.7.0"
+    "react-navigation-tabs": "^2.7.0",
+    "save": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
