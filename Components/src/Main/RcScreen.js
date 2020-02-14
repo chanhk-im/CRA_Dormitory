@@ -7,19 +7,19 @@ export default class RcScreen extends Component {
         this.props.navigation.navigate('RcTorScreen');
     }
     _navigate2(){
-        this.props.navigation.navigate('RcKuyScreen');
+        this.props.navigation.navigate('RcJanScreen');
     }
     _navigate3(){
         this.props.navigation.navigate('RcSonScreen');
     }
     _navigate4(){
-        this.props.navigation.navigate('RcPhiScreen');
-    }
-    _navigate5(){
         this.props.navigation.navigate('RcCarScreen');
     }
+    _navigate5(){
+        this.props.navigation.navigate('RcKuyScreen');
+    }
     _navigate6(){
-        this.props.navigation.navigate('RcJanScreen');
+        this.props.navigation.navigate('RcPhiScreen');
     }
 
     static navigationOptions = {
